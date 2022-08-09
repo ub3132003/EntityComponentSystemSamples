@@ -5,7 +5,11 @@ using Unity.Mathematics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
-
+public enum RandomType
+{
+    RandomInRange,
+    CellAtGrid,
+}
 class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSettings>
 {
 }
@@ -20,6 +24,7 @@ abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameO
     public int count;
     #pragma warning restore 649
 
+    public RandomType randomType;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         var spawnSettings = new T
@@ -28,8 +33,10 @@ abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameO
             Position = transform.position,
             Rotation = transform.rotation,
             Range = range,
-            Count = count
+            Count = count,
+            randomType = randomType,
         };
+
         Configure(ref spawnSettings, entity, dstManager, conversionSystem);
         Configure(ref spawnSettings);
         dstManager.AddComponentData(entity, spawnSettings);
@@ -49,6 +56,7 @@ interface ISpawnSettings
     quaternion Rotation { get; set; }
     float3 Range { get; set; }
     int Count { get; set; }
+    RandomType randomType { get; set; }
 }
 
 struct SpawnSettings : IComponentData, ISpawnSettings
@@ -58,6 +66,7 @@ struct SpawnSettings : IComponentData, ISpawnSettings
     public quaternion Rotation { get; set; }
     public float3 Range { get; set; }
     public int Count { get; set; }
+    public RandomType randomType { get; set; }
 }
 
 class SpawnRandomObjectsSystem : SpawnRandomObjectsSystemBase<SpawnSettings>
@@ -105,13 +114,24 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
 
                 var positions = new NativeArray<float3>(count, Allocator.Temp);
                 var rotations = new NativeArray<quaternion>(count, Allocator.Temp);
-                RandomPointsInRange(spawnSettings.Position, spawnSettings.Rotation, spawnSettings.Range, ref positions, ref rotations, GetRandomSeed(spawnSettings));
+                switch (spawnSettings.randomType)
+                {
+                    case RandomType.RandomInRange:
+                        RandomPointsInRange(spawnSettings.Position, spawnSettings.Rotation, spawnSettings.Range, ref positions, ref rotations, GetRandomSeed(spawnSettings));
+                        break;
+                    case RandomType.CellAtGrid:
+                        RandomGrid(spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
+                        break;
+                    default:
+                        break;
+                }
 
                 for (int i = 0; i < count; i++)
                 {
                     var instance = instances[i];
                     EntityManager.SetComponentData(instance, new Translation { Value = positions[i] });
-                    EntityManager.SetComponentData(instance, new Rotation { Value = rotations[i] });
+                    if (spawnSettings.randomType == RandomType.RandomInRange)
+                        EntityManager.SetComponentData(instance, new Rotation { Value = rotations[i] });
 
                     ConfigureInstance(instance, ref spawnSettings);
                 }
@@ -132,6 +152,48 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
         {
             positions[i] = center + math.mul(orientation, random.NextFloat3(-range, range));
             rotations[i] = math.mul(random.NextQuaternionRotation(), orientation);
+        }
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="range"> y 高度 向下去整 例 2 ，0；1 </param>
+    /// <param name="numTilesPerLine"></param>
+    /// <param name="positions"></param>
+    /// <param name="rotations"></param>
+    /// <param name="seed"></param>
+    protected static void RandomGrid(float3 range,
+        ref NativeArray<float3> positions,  int seed = 0)
+    {
+        TerrainGeneration.NoiseSettings terrainNoise = new TerrainGeneration.NoiseSettings();
+        terrainNoise.seed = seed;
+        terrainNoise.numLayers = (int)range.y;
+
+        var numTilesPerLine = (int)math.max(range.x, range.z);
+        float[,] map = TerrainGeneration.HeightmapGenerator.GenerateHeightmap(terrainNoise, numTilesPerLine);
+
+        var count = positions.Length;
+        var center = float3.zero;
+        // 可能数量不足 count个
+        int i = 0;
+
+        for (int z = 0; z < range.z; z++)
+        {
+            for (int x = 0; x < range.x; x++)
+            {
+                if (i >= count) return;
+                int y = 0;
+                y = (int)(map[x, z] * range.y);
+                if (y == 0)
+                {
+                    continue;
+                }
+                for (int j = 0; j < y; j++)
+                {
+                    positions[i++] = center + new float3(x, y, z);
+                }
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ struct ClientServerObjectSpawnSettings : IComponentData, ISpawnSettings
     public float3 Range { get; set; }
     public int Count { get; set; }
     public Entity ClientPrefab { get; set; }
+    public RandomType randomType { get ; set ; }
 }
 
 class SpawnClientServerObjectSystem : SpawnRandomObjectsSystemBase<ClientServerObjectSpawnSettings>

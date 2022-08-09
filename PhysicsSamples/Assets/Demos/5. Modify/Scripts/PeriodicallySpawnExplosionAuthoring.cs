@@ -16,6 +16,8 @@ public struct PeriodicallySpawnExplosionComponent : IComponentData, ISpawnSettin
 
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
+    public RandomType randomType { get ; set ; }
+
     public int Id;
 }
 

@@ -15,6 +15,8 @@ public struct PeriodicallySpawnDroneComponent : IComponentData, ISpawnSettings, 
 
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
+    public RandomType randomType { get ; set; }
+
     public int Id;
 }
 /// <summary>
@@ -50,9 +52,12 @@ class PeriodicallySpawnDroneSystem : PeriodicalySpawnRandomObjectsSystem<Periodi
     internal override void ConfigureInstance(Entity instance, ref PeriodicallySpawnDroneComponent spawnSettings)
     {
         var pos = EntityManager.GetComponentData<Translation>(instance);
-        EntityManager.AddComponentData<DroneComponent>(instance , new DroneComponent
+        EntityManager.AddComponentData<DroneComponent>(instance, new DroneComponent
         {
-            Position = pos.Value
+            Magnitude = 10.0f,
+            Direction = -Vector3.forward,
+            Offset = Vector3.zero,
+            index = instance.Index
         });
     }
 }

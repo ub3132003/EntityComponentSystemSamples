@@ -32,6 +32,7 @@ struct PeriodicSpawnSettings : IComponentData, ISpawnSettings, IPeriodicSpawnSet
     public int Count { get; set; }
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
+    public RandomType randomType { get ; set ; }
 }
 
 abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObjectsSystemBase<T> where T : struct, ISpawnSettings, IPeriodicSpawnSettings, IComponentData

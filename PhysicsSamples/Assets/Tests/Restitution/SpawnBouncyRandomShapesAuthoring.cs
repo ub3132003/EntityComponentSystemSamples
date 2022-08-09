@@ -22,6 +22,8 @@ struct BouncySpawnSettings : IComponentData, ISpawnSettings
     public float3 Range { get; set; }
     public int Count { get; set; }
     public float Restitution;
+
+    public RandomType randomType { get; set; }
 }
 
 class SpawnBouncyRandomShapesSystem : SpawnRandomObjectsSystemBase<BouncySpawnSettings>

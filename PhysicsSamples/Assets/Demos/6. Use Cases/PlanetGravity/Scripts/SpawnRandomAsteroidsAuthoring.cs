@@ -19,6 +19,8 @@ struct AsteroidSpawnSettings : IComponentData, ISpawnSettings
     public quaternion Rotation { get; set; }
     public float3 Range { get; set; }
     public int Count { get; set; }
+    public RandomType randomType { get ; set ; }
+
     public float MassFactor;
 }
 

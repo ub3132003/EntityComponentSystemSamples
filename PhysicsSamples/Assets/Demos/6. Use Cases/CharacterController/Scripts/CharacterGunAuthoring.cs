@@ -14,6 +14,8 @@ public struct CharacterGun : IComponentData
 
     public int WasFiring;
     public int IsFiring;
+
+    public float SensitivityYAxis;
 }
 
 public struct CharacterGunInput : IComponentData
@@ -28,6 +30,7 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
 
     public float Strength;
     public float Rate;
+    public float SensitivityYAxis;
 
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
     public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
@@ -45,8 +48,9 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
                 Strength = Strength,
                 Rate = Rate,
                 WasFiring = 0,
-                IsFiring = 0
-            });
+                IsFiring = 0,
+                SensitivityYAxis = SensitivityYAxis,
+            }) ;
     }
 }
 
@@ -75,7 +79,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
             {
                 // Handle input
                 {
-                    float a = -input.Looking.y;
+                    float a = -input.Looking.y* gun.SensitivityYAxis;
                     gunRotation.Value = math.mul(gunRotation.Value, quaternion.Euler(math.radians(a), 0, 0));
                     gun.IsFiring = input.Firing > 0f ? 1 : 0;
                 }
