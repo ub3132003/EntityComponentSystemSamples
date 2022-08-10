@@ -404,7 +404,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7700460492135577155}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &952914521609432557
+--- !u!114 &-5048834705247497812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,14 +413,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7699382154791289547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f2ff14263fb43a41b667c84492f8f16, type: 3}
+  m_Script: {fileID: 11500000, guid: c7d849f6ed953e947a0ea6954432e1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value:
-    x: 0
-    y: 0
-    z: 0
-    w: 0
+  overrideAsset: {fileID: 11400000, guid: fb1d23c9ef3a04d40ae70c75afc50d47, type: 2}
+  overrideList:
+  - name: _EmissionColor
+    displayName: _EmissionColor
+    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    materialName: Mat_Grid_Orange
+    type: 0
+    value: {x: 0, y: 0, z: 0, w: 1}
+    instanceOverride: 0
 --- !u!114 &7009711955207176835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,4 +437,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2823015469f53374ab8a9bbe379ceece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitCountDown: 1
+  HitCountDown: 10
