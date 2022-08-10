@@ -34,10 +34,11 @@ public partial class TriggerBulletSystem : SystemBase
     {
         Entities
             .WithName("ApplyRocketThrust")
-            .WithBurst()
+            .WithoutBurst()
             .ForEach((ref BulletComponent bullet, ref Translation t, ref Rotation r, ref PhysicsVelocity pv, ref PhysicsMass pm) =>
             {
-                pv.Linear = math.normalize(pv.Linear) * 35;
-            }).Schedule();
+                pv.Linear = math.normalizesafe(pv.Linear) * 35;
+                //pv.Linear = math.normalize(pv.Linear) * 35;
+            }).Run();
     }
 }

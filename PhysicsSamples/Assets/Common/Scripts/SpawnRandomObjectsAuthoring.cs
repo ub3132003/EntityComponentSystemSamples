@@ -14,6 +14,7 @@ class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSetting
 {
 }
 
+
 abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
     where T : struct, IComponentData, ISpawnSettings
 {
@@ -189,9 +190,9 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
                 {
                     continue;
                 }
-                for (int j = 0; j < y; j++)
+                for (int j = 1; j <= y; j++)
                 {
-                    positions[i++] = center + new float3(x, y, z);
+                    positions[i++] = center + new float3(x, j, z);
                 }
             }
         }
