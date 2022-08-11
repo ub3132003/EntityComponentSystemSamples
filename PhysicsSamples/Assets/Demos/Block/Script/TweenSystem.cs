@@ -8,30 +8,30 @@ using Unity.Transforms;
 
 using DG.Tweening.Core.Easing;
 using DG.Tweening;
-public struct TweenComponent : IComponentData
+public interface ITweenComponent
 {
-    public enum Type
-    {
-        Position,
-        Rotation,
-        Scale,
-        Color,
-        HdrColor,
-    }
+    //public enum Type
+    //{
+    //    Position,
+    //    Rotation,
+    //    Scale,
+    //    Color,
+    //    HdrColor,
+    //}
     /// <summary>
     /// 已经过去的时间
     /// </summary>
-    public float PassTime;
-    public Entity TweenEntity;
-    public Type type;
+    public float PassTime { get; set; }
+    public Entity TweenEntity { get; set; }
 
-    public float4 Start;
-    public float4 End;
-    public float Lifetime;
 
-    public Ease ease;
-    public bool isReset;//完成时重置到form
-    public bool isRelative;
+    public float4 Start { get; set; }
+    public float4 End { get; set; }
+    public float Lifetime { get; set; }
+
+    public Ease ease { get; set; }
+    public bool isReset { get; set; }//完成时重置到form
+    public bool isRelative { get; set; }
     //TODO 重复触发问题, 在动画进行时再次触发了该动作该如何处理
     /// <summary>
     ///
@@ -47,7 +47,7 @@ public struct TweenComponent : IComponentData
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        entityManager.AddComponentData(tweenTarget, new TweenComponent
+        entityManager.AddComponentData(tweenTarget, new TweenHDRColorComponent
         {
             Lifetime = lifetime,
             PassTime = 0,
@@ -55,9 +55,7 @@ public struct TweenComponent : IComponentData
             isReset = isReset,
             Start = start,
             isRelative = isRelative,
-        });
-        entityManager.AddComponentData(tweenTarget, new TweenHDRColorComponent
-        {
+
             To = to,
         });
     }
@@ -75,7 +73,7 @@ public struct TweenComponent : IComponentData
         //}) ;
         if (entityManager.HasComponent<TweenHDRColorComponent>(tweenTarget))
         {
-            entityManager.SetComponentData(tweenTarget, new TweenComponent
+            entityManager.SetComponentData(tweenTarget, new TweenHDRColorComponent
             {
                 Lifetime = lifetime,
                 PassTime = 0,
@@ -83,16 +81,14 @@ public struct TweenComponent : IComponentData
                 isReset = isReset,
                 Start = start,
                 isRelative = isRelative,
-            });
-            entityManager.SetComponentData(tweenTarget, new TweenHDRColorComponent
-            {
+
                 From = from,
                 To = to,
             });
         }
         else
         {
-            entityManager.AddComponentData(tweenTarget, new TweenComponent
+            entityManager.AddComponentData(tweenTarget, new TweenHDRColorComponent
             {
                 Lifetime = lifetime,
                 PassTime = 0,
@@ -100,9 +96,7 @@ public struct TweenComponent : IComponentData
                 isReset = isReset,
                 Start = start,
                 isRelative = isRelative,
-            });
-            entityManager.AddComponentData(tweenTarget, new TweenHDRColorComponent
-            {
+
                 From = from,
                 To = to,
             });
@@ -113,31 +107,58 @@ public struct TweenComponent : IComponentData
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        entityManager.AddComponentData(tweenTarget, new TweenComponent
+
+        entityManager.AddComponentData(tweenTarget, new TweenPositionComponent
         {
             Lifetime = lifetime,
             PassTime = 0,
             ease = ease,
             isReset = isReset,
-            Start = new float4(start, 0) ,
+            Start = new float4(start, 0),
             isRelative = isRelative,
-        });;
-        entityManager.AddComponentData(tweenTarget, new TweenPositionComponent
-        {
+
             To = to,
         });
     }
 }
 #region 动画组件对象
-public struct TweenPositionComponent : IComponentData
+public struct TweenPositionComponent : IComponentData, ITweenComponent
 {
-    public float3 From;
-    public float3 To;
+    /// <summary>
+    /// 已经过去的时间
+    /// </summary>
+    public float PassTime { get; set; }
+    public Entity TweenEntity { get; set; }
+
+    public float4 Start { get; set; }
+    public float4 End { get; set; }
+    public float Lifetime { get; set; }
+    public Ease ease { get; set; }
+    public bool isReset { get; set; }//完成时重置到for
+    public bool isRelative { get; set; }
+
+
+    public float3 From { get; set; }
+    public float3 To { get; set; }
 }
-public struct TweenHDRColorComponent : IComponentData
+public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 {
-    public float4 From;
-    public float4 To;
+    /// <summary>
+    /// 已经过去的时间
+    /// </summary>
+    public float PassTime { get; set; }
+    public Entity TweenEntity { get; set; }
+
+    public float4 Start { get; set; }
+    public float4 End { get; set; }
+    public float Lifetime { get; set; }
+    public Ease ease { get; set; }
+    public bool isReset { get; set; }//完成时重置到for
+    public bool isRelative { get; set; }
+
+
+    public float4 From { get; set; }
+    public float4 To { get; set; }
 }
 #endregion
 
@@ -151,29 +172,29 @@ public partial class TweenSystem : SystemBase
         //hdr 颜色
         Entities
             .WithoutBurst()
-            .ForEach((ref TweenComponent tween, ref URPMaterialPropertyEmissionColor HDRColor, in TweenHDRColorComponent tweenHdr) =>
+            .ForEach((ref URPMaterialPropertyEmissionColor HDRColor, ref TweenHDRColorComponent tweenHdr) =>
             {
-                if (tween.PassTime == 0)
+                if (tweenHdr.PassTime == 0)
                 {
-                    tween.Start = HDRColor.Value;
+                    tweenHdr.Start = HDRColor.Value;
                 }
-                if (tween.Lifetime > 0)
+                if (tweenHdr.Lifetime > 0)
                 {
-                    tween.PassTime += datleTime;
+                    tweenHdr.PassTime += datleTime;
 
-                    var v = EaseManager.Evaluate(tween.ease, null, tween.PassTime, tween.Lifetime, 0, 0); //类变量导致无法bust编译
+                    var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
                     //默认从当前值开始
                     var from = tweenHdr.From.IsZero() ?
-                        tween.Start : tweenHdr.From;
+                        tweenHdr.Start : tweenHdr.From;
 
                     HDRColor.Value = math.lerp(from, tweenHdr.To, v);
 
-                    if (tween.PassTime >= tween.Lifetime)
+                    if (tweenHdr.PassTime >= tweenHdr.Lifetime)
                     {
-                        tween.Lifetime = 0;
-                        if (tween.isReset)
+                        tweenHdr.Lifetime = 0;
+                        if (tweenHdr.isReset)
                         {
-                            HDRColor.Value = tween.Start; //TOdo 短时连续触发会保持值,在闪烁时无法达到效果
+                            HDRColor.Value = tweenHdr.Start; //TOdo 短时连续触发会保持值,在闪烁时无法达到效果
                         }
                     }
                 }
@@ -182,23 +203,23 @@ public partial class TweenSystem : SystemBase
         //位置
         Entities
             .WithoutBurst()
-            .ForEach((ref TweenComponent tween, ref Translation translation, in TweenPositionComponent tweenPosition) =>
+            .ForEach((ref Translation translation, ref TweenPositionComponent tweenPosition) =>
             {
-                if (tween.PassTime == 0)
+                if (tweenPosition.PassTime == 0)
                 {
-                    tween.Start = new float4(translation.Value, 0);
+                    tweenPosition.Start = new float4(translation.Value, 0);
                 }
-                if (tween.Lifetime > 0)
+                if (tweenPosition.Lifetime > 0)
                 {
-                    tween.PassTime += datleTime;
+                    tweenPosition.PassTime += datleTime;
 
-                    var v = EaseManager.Evaluate(tween.ease, null, tween.PassTime, tween.Lifetime, 0, 0);
-                    var from = tweenPosition.From.IsZero() ? tween.Start.xyz : tweenPosition.From;
-                    var to = tween.isRelative ? tween.Start.xyz + tweenPosition.To : tweenPosition.To;
+                    var v = EaseManager.Evaluate(tweenPosition.ease, null, tweenPosition.PassTime, tweenPosition.Lifetime, 0, 0);
+                    var from = tweenPosition.From.IsZero() ? tweenPosition.Start.xyz : tweenPosition.From;
+                    var to = tweenPosition.isRelative ? tweenPosition.Start.xyz + tweenPosition.To : tweenPosition.To;
                     translation.Value = math.lerp(from, to, v);
-                    if (tween.PassTime >= tween.Lifetime)
+                    if (tweenPosition.PassTime >= tweenPosition.Lifetime)
                     {
-                        tween.Lifetime = 0;
+                        tweenPosition.Lifetime = 0;
                     }
                 }
             }).Schedule();
@@ -212,7 +233,7 @@ public partial class TweenSystem : SystemBase
     {
         public float detleTime;
 
-        public void Execute(Entity entity , ref TweenComponent tween , T tweenComponent)
+        public void Execute(Entity entity , ref ITweenComponent tween , T tweenComponent)
         {
             //tween.PassTime += detleTime;
 

@@ -68,7 +68,7 @@ public partial class BlockHitSystem : SystemBase
         {
             var hdrColor = EntityManager.GetComponentData<URPMaterialPropertyEmissionColor>(tweenTarget[i]).Value;
             //从全白渐变到无hdr
-            TweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
+            ITweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
         }
         tweenTarget.Dispose();
 
@@ -114,7 +114,7 @@ public partial class BlockHitSystem : SystemBase
         length = toFallBlocks.Length;
         for (int i = 0; i < length; i++)
         {
-            TweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.OutElastic , isRelative: true);
+            ITweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.OutElastic , isRelative: true);
         }
         toFallBlocks.Dispose();
     }
