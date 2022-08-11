@@ -5,9 +5,9 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Rendering;
 using UnityEngine;
-using DG.Tweening.Core.Easing;
-using DG.Tweening;
+
 using System.Collections.Generic;
+using Unity.Collections;
 
 public partial class BlockHitSystem : SystemBase
 {
@@ -37,11 +37,15 @@ public partial class BlockHitSystem : SystemBase
         {
             return;
         }
+        var cap = blockGroup.CalculateEntityCount() / 2;
+        NativeList<Entity> tweenTarget = new NativeList<Entity>(cap, Allocator.TempJob);
+
         Dependency = new BlockCollisionEventsJob
         {
             hdrColorGroup = GetComponentDataFromEntity<URPMaterialPropertyEmissionColor>(),
             blockGroup = GetComponentDataFromEntity<BlockComponent>() ,
             bulletGroup = GetComponentDataFromEntity<BulletComponent>() ,
+            tweenTarget = tweenTarget,
         }.Schedule(m_StepPhysicsWorldSystem.Simulation, Dependency);
 
         //var dt = Time.DeltaTime;
@@ -54,15 +58,14 @@ public partial class BlockHitSystem : SystemBase
         //            hdr.Value.y = 0;
         //        }
         //    }).Run();
-        var detleTime = Time.DeltaTime;
-        var length = TweenList.Count;
+        Dependency.Complete();
+        var length = tweenTarget.Length;
         for (int i = 0; i < length; i++)
         {
-            var tween = TweenList[i];
-            tween.PassTime += detleTime;
-            var v = EaseManager.Evaluate(Ease.Linear, null, tween.PassTime, 0.5f, 0, 0);
-            //item.DropItemTransform.position = Vector3.Lerp(item.DropItemTransform.position, playPosition, v);
+            var hdrColor = EntityManager.GetComponentData<URPMaterialPropertyEmissionColor>(tweenTarget[i]).Value;
+            TweenSystem.CreateTween(tweenTarget[i], hdrColor, new float4(1, 1, 1, 1), 0.1f, DG.Tweening.Ease.Linear, true);
         }
+        tweenTarget.Dispose();
     }
 
     protected override void OnStartRunning()
@@ -76,6 +79,7 @@ public partial class BlockHitSystem : SystemBase
         public ComponentDataFromEntity<URPMaterialPropertyEmissionColor> hdrColorGroup;
         public ComponentDataFromEntity<BlockComponent> blockGroup;
         public ComponentDataFromEntity<BulletComponent> bulletGroup;
+        public NativeList<Entity> tweenTarget;
         public void Execute(CollisionEvent collisionEvent)
         {
             var entityA = collisionEvent.EntityA;
@@ -93,10 +97,10 @@ public partial class BlockHitSystem : SystemBase
 
                 if (block.HitCountDown <= 0)
                 {
-                    hdrColorGroup[entityB] = new URPMaterialPropertyEmissionColor
-                    {
-                        Value = new float4(1, 1, 1, 1)
-                    };
+                }
+                else
+                {
+                    tweenTarget.Add(entityB);
                 }
             }
             if (isBBullet)
@@ -107,10 +111,10 @@ public partial class BlockHitSystem : SystemBase
 
                 if (block.HitCountDown <= 0)
                 {
-                    hdrColorGroup[entityA] = new URPMaterialPropertyEmissionColor
-                    {
-                        Value = new float4(1, 1, 1, 1)
-                    };
+                }
+                else
+                {
+                    tweenTarget.Add(entityA);
                 }
             }
         }
