@@ -8,6 +8,7 @@ namespace Assets.Demos.Block
         // Use this for initialization
         void Start()
         {
+            //transform.DOMove().SetRelative();
         }
 
         // Update is called once per frame
