@@ -121,7 +121,7 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
                         RandomPointsInRange(spawnSettings.Position, spawnSettings.Rotation, spawnSettings.Range, ref positions, ref rotations, GetRandomSeed(spawnSettings));
                         break;
                     case RandomType.CellAtGrid:
-                        RandomGrid(spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
+                        RandomGrid(spawnSettings.Position, spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
                         break;
                     default:
                         break;
@@ -164,7 +164,7 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
     /// <param name="positions"></param>
     /// <param name="rotations"></param>
     /// <param name="seed"></param>
-    protected static void RandomGrid(float3 range,
+    protected static void RandomGrid(float3 center, float3 range,
         ref NativeArray<float3> positions,  int seed = 0)
     {
         TerrainGeneration.NoiseSettings terrainNoise = new TerrainGeneration.NoiseSettings();
@@ -175,8 +175,8 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
         float[,] map = TerrainGeneration.HeightmapGenerator.GenerateHeightmap(terrainNoise, numTilesPerLine);
 
         var count = positions.Length;
-        var center = float3.zero;
-        // 可能数量不足 count个
+
+        // 可能数量不足 count个 //bug l
         int i = 0;
 
         for (int z = 0; z < range.z; z++)
@@ -192,7 +192,7 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
                 }
                 for (int j = 1; j <= y; j++)
                 {
-                    positions[i++] = center + new float3(x, j, z);
+                    positions[i++] = center + new float3(x, j, z); //IndexOutOfRangeException: Index 100 is out of range of '100' Length.
                 }
             }
         }

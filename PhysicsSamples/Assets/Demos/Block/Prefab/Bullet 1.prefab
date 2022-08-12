@@ -14397,9 +14397,10 @@ GameObject:
   - component: {fileID: 5505157973118836276}
   - component: {fileID: 5505157973118836277}
   - component: {fileID: 5505157973118836274}
-  - component: {fileID: -2297798713975299608}
+  - component: {fileID: -3685949313751581713}
+  - component: {fileID: 6363414251488596987}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14475,11 +14476,11 @@ MonoBehaviour:
       m_Override: 0
       m_Value:
         Value: 0
-        CombineMode: 0
+        CombineMode: 1
     m_Restitution:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 1
         CombineMode: 2
     m_BelongsToCategories:
       m_Override: 0
@@ -14628,7 +14629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
---- !u!114 &-2297798713975299608
+--- !u!114 &-3685949313751581713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14641,6 +14642,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
+--- !u!114 &6363414251488596987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505157973118836275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c940bdc4f196c8a458c380fab62fc375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 3000
 --- !u!1 &5505157973448375820
 GameObject:
   m_ObjectHideFlags: 0

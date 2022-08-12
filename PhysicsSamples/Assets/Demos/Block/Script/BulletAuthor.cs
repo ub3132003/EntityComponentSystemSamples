@@ -26,19 +26,19 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
     }
 }
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateBefore(typeof(BuildPhysicsWorld))]
-public partial class TriggerBulletSystem : SystemBase
-{
-    protected override void OnUpdate()
-    {
-        Entities
-            .WithName("ApplyRocketThrust")
-            .WithoutBurst()
-            .ForEach((ref BulletComponent bullet, ref Translation t, ref Rotation r, ref PhysicsVelocity pv, ref PhysicsMass pm) =>
-            {
-                pv.Linear = math.normalizesafe(pv.Linear) * 35;
-                //pv.Linear = math.normalize(pv.Linear) * 35;
-            }).Run();
-    }
-}
+//[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+//public partial class TriggerBulletSystem : SystemBase
+//{
+//    protected override void OnUpdate()
+//    {
+//        Entities //BUG 改变速度后反弹角度不正确
+//            .WithName("KeepBullet")
+//            .WithoutBurst()
+//            .ForEach((ref BulletComponent bullet, ref Translation t, ref Rotation r, ref PhysicsVelocity pv, ref PhysicsMass pm) =>
+//            {
+//                pv.Linear = math.normalizesafe(pv.Linear) * 30;
+//                pv.Angular = 0;
+//                //pv.Linear = math.normalize(pv.Linear) * 35;
+//            }).Schedule();
+//    }
+//}

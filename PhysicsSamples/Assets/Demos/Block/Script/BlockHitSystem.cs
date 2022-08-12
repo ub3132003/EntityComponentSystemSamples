@@ -85,6 +85,16 @@ public partial class BlockHitSystem : SystemBase
         }
         deadBlocks.Dispose();
 
+        //播放死亡时粒子
+        Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps) =>
+        {
+            for (int i = 0; i < length; i++)
+            {
+                ps.transform.position = deadBlockPositions[i];
+                ps.Emit(10);
+                ps.Play();
+            }
+        }).Run();
 
         //查找需要下降的砖 比死亡砖块高的
         NativeList<Entity> toFallBlocks = new NativeList<Entity>(cap, Allocator.TempJob);
@@ -104,7 +114,7 @@ public partial class BlockHitSystem : SystemBase
                         toFallBlocks.Add(entity);
                     }
                 }
-            }).Run();
+            }).Schedule();
 
 
         Dependency.Complete();
@@ -113,7 +123,7 @@ public partial class BlockHitSystem : SystemBase
         length = toFallBlocks.Length;
         for (int i = 0; i < length; i++)
         {
-            ITweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.OutElastic , isRelative: true);
+            ITweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
         }
         toFallBlocks.Dispose();
     }
@@ -162,9 +172,13 @@ public partial class BlockHitSystem : SystemBase
             block.HitCountDown -= bulletGroup[bulletEntity].Damage;
             blockGroup[blockEntity] = block;
 
-            if (block.HitCountDown <= 0)
+            if (block.HitCountDown == 0)
             {
                 deadBlocks.Add(blockEntity);
+            }
+            else if (block.HitCountDown < 0)
+            {
+                //一帧中同时命中,导致hcountdown 小于0 避免重复添加
             }
             else
             {

@@ -16,6 +16,7 @@ public struct CharacterGun : IComponentData
     public int IsFiring;
 
     public float SensitivityYAxis;
+    public int Capacity;
 }
 
 public struct CharacterGunInput : IComponentData
@@ -31,7 +32,10 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
     public float Strength;
     public float Rate;
     public float SensitivityYAxis;
-
+    /// <summary>
+    /// 子弹容量
+    /// </summary>
+    public int Capacity;
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
     public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
     {
@@ -50,7 +54,8 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
                 WasFiring = 0,
                 IsFiring = 0,
                 SensitivityYAxis = SensitivityYAxis,
-            }) ;
+                Capacity = Capacity,
+            });
     }
 }
 
@@ -79,7 +84,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
             {
                 // Handle input
                 {
-                    float a = -input.Looking.y* gun.SensitivityYAxis;
+                    float a = -input.Looking.y * gun.SensitivityYAxis;
                     gunRotation.Value = math.mul(gunRotation.Value, quaternion.Euler(math.radians(a), 0, 0));
                     gun.IsFiring = input.Firing > 0f ? 1 : 0;
                 }
@@ -90,14 +95,14 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                     gun.WasFiring = 0;
                     return;
                 }
-
+                if (gun.Capacity <= 0) return;
                 gun.Duration += dt;
                 if ((gun.Duration > gun.Rate) || (gun.WasFiring == 0))
                 {
                     if (gun.Bullet != null)
                     {
                         var e = commandBuffer.Instantiate(entityInQueryIndex, gun.Bullet);
-
+                        gun.Capacity--;
                         Translation position = new Translation { Value = gunTransform.Position + gunTransform.Forward };
                         Rotation rotation = new Rotation { Value = gunRotation.Value };
                         PhysicsVelocity velocity = new PhysicsVelocity
