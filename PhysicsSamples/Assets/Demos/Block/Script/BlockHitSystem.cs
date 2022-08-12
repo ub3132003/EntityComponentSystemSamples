@@ -66,7 +66,6 @@ public partial class BlockHitSystem : SystemBase
         var length = tweenTarget.Length;
         for (int i = 0; i < length; i++)
         {
-            var hdrColor = EntityManager.GetComponentData<URPMaterialPropertyEmissionColor>(tweenTarget[i]).Value;
             //从全白渐变到无hdr
             ITweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
         }

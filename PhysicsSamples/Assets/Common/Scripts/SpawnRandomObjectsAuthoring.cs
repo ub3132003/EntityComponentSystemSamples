@@ -144,11 +144,11 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
 
     protected static void RandomPointsInRange(
         float3 center, quaternion orientation, float3 range,
-        ref NativeArray<float3> positions, ref NativeArray<quaternion> rotations, int seed = 0)
+        ref NativeArray<float3> positions, ref NativeArray<quaternion> rotations, int seed = 1)
     {
         var count = positions.Length;
         // initialize the seed of the random number generator
-        var random = new Unity.Mathematics.Random((uint)seed);
+        var random = new Unity.Mathematics.Random((uint)seed + 1);
         for (int i = 0; i < count; i++)
         {
             positions[i] = center + math.mul(orientation, random.NextFloat3(-range, range));

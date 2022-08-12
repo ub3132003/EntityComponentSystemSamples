@@ -1,5 +1,6 @@
 {
     "name": "Unity.Physics.Samples",
+    "rootNamespace": "",
     "references": [
         "Unity.Burst",
         "Unity.Entities",
@@ -17,13 +18,16 @@
         "Unity.Physics.Hybrid",
         "Havok.Physics",
         "Havok.Physics.Editor",
-        "Havok.Physics.Hybrid"
+        "Havok.Physics.Hybrid",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        ""
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [
