@@ -91,7 +91,7 @@ public partial class BlockHitSystem : SystemBase
             for (int i = 0; i < length; i++)
             {
                 ps.transform.position = deadBlockPositions[i];
-                ps.Emit(10);
+                ps.Emit(5);
                 ps.Play();
             }
         }).Run();
