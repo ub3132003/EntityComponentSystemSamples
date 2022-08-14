@@ -31,6 +31,11 @@ public partial class BlockHitSystem : SystemBase
         });
     }
 
+    struct DeadBrickData
+    {
+        public float3 position;
+        public int dropCount;
+    }
     protected override void OnUpdate()
     {
         if (blockGroup.CalculateEntityCount() == 0)
@@ -76,39 +81,50 @@ public partial class BlockHitSystem : SystemBase
         length = deadBlocks.Length;
         if (length == 0) { deadBlocks.Dispose(); return; }
 
-        NativeList<float3> deadBlockPositions = new NativeList<float3>(cap, Allocator.TempJob);
+        NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(cap, Allocator.TempJob);
         for (int i = 0; i < length; i++)
         {
-            var position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value;
-            deadBlockPositions.Add(position);
+            var deadData = new DeadBrickData
+            {
+                position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
+                dropCount = EntityManager.GetComponentData<BlockComponent>(deadBlocks[i]).DieDropCount,
+            };
+
+            deadBrickDatas.Add(deadData);
             EntityManager.DestroyEntity(deadBlocks[i]);
         }
         deadBlocks.Dispose();
 
         //播放死亡时粒子
-        Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps) =>
+
+        for (int i = 0; i < length; i++)
         {
-            for (int i = 0; i < length; i++)
+            Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps , in BrickDeadPsTag psTag) =>
             {
-                ps.transform.position = deadBlockPositions[i];
-                ps.Emit(5);
+                ps.transform.position = deadBrickDatas[i].position;
+                int n = deadBrickDatas[i].dropCount;
+                if (!psTag.IsEmit)
+                {
+                    ps.Emit(n);
+                }
+
                 ps.Play();
-            }
-        }).Run();
+            }).Run();
+        }
+
 
         //查找需要下降的砖 比死亡砖块高的
         NativeList<Entity> toFallBlocks = new NativeList<Entity>(cap, Allocator.TempJob);
         Entities
             .WithAll<BlockComponent>()
-            .WithDisposeOnCompletion(deadBlockPositions)
             .ForEach((Entity entity, in Translation t) => {
                 var x = t.Value.x;
                 var z = t.Value.z;
                 var y = t.Value.y;
-                var length = deadBlockPositions.Length;
+                var length = deadBrickDatas.Length;
                 for (int i = 0; i < length; i++)
                 {
-                    var deadPos = deadBlockPositions[i];
+                    var deadPos = deadBrickDatas[i].position;
                     if (x == deadPos.x && z == deadPos.z && deadPos.y < y)
                     {
                         toFallBlocks.Add(entity);
@@ -118,6 +134,7 @@ public partial class BlockHitSystem : SystemBase
 
 
         Dependency.Complete();
+        deadBrickDatas.Dispose();
 
         //加入下降动画
         length = toFallBlocks.Length;

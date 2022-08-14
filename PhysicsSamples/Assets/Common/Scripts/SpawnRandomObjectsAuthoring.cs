@@ -8,6 +8,7 @@ using UnityEngine;
 public enum RandomType
 {
     RandomInRange,
+    RandomInRangeInt,
     CellAtGrid,
 }
 class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSettings>
@@ -123,6 +124,9 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
                     case RandomType.CellAtGrid:
                         RandomGrid(spawnSettings.Position, spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
                         break;
+                    case RandomType.RandomInRangeInt:
+                        RandomPointsInRange((int3)spawnSettings.Position, (int3)spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
+                        break;
                     default:
                         break;
                 }
@@ -139,6 +143,19 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
 
                 EntityManager.RemoveComponent<T>(entity);
             }
+        }
+    }
+
+    protected static void RandomPointsInRange(
+        int3 center, int3 range,
+        ref NativeArray<float3> positions, int seed = 1)
+    {
+        var count = positions.Length;
+        // initialize the seed of the random number generator
+        var random = new Unity.Mathematics.Random((uint)seed + 1);
+        for (int i = 0; i < count; i++)
+        {
+            positions[i] = center +  random.NextInt3(-range, range);
         }
     }
 

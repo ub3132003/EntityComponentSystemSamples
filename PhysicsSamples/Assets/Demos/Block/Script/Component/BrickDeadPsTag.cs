@@ -6,4 +6,5 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct BrickDeadPsTag : IComponentData
 {
+    public bool IsEmit;
 }

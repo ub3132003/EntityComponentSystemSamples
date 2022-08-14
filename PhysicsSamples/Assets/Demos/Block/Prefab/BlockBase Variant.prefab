@@ -59,7 +59,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9cd171e38b9de0b4c99e4b1cdc3f4e5f, type: 2}
+      objectReference: {fileID: 2100000, guid: 0bb6c016790392c42a521dd3c77e34c4, type: 2}
+    - target: {fileID: 3902839512095237529, guid: 72ed9871ccf992c4fbcb7250c50b8805,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 4e202a43983787e4ebe01e96d828f0cf, type: 3}
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Material.m_Friction.m_Value.Value
@@ -448,3 +453,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitCountDown: 3
+  DieDropCount: 1

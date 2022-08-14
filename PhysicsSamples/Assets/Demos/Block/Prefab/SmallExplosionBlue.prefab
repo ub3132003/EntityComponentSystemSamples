@@ -9632,6 +9632,7 @@ GameObject:
   - component: {fileID: 19802098}
   - component: {fileID: 19987596}
   - component: {fileID: 6717554309698549548}
+  - component: {fileID: -7223465013595487717}
   m_Layer: 0
   m_Name: SmallExplosionBlue
   m_TagString: Untagged
@@ -14445,7 +14446,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c149a5b5299974c4183ac0b2ea58a9a0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 56bc410ec545d6947a827ba7c8f6677b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -14531,6 +14532,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &-7223465013595487717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c940bdc4f196c8a458c380fab62fc375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 60
 --- !u!1 &176548
 GameObject:
   m_ObjectHideFlags: 0
