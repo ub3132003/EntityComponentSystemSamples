@@ -10,23 +10,33 @@ using UnityEngine;
 
 using System.Collections.Generic;
 using Unity.Collections;
-
+using Unity.Physics.Stateful;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+[UpdateAfter(typeof(Unity.Physics.Extensions.MousePickSystem))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
 public partial class BlockHitSystem : SystemBase
 {
     EntityQuery blockGroup;
+    EntityQuery bulletGroup;
     StepPhysicsWorld m_StepPhysicsWorldSystem;
-
+    BuildPhysicsWorld buildPhysicsWorld;
     protected override void OnCreate()
     {
+        buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
         blockGroup = GetEntityQuery(new EntityQueryDesc
         {
             All = new ComponentType[]
             {
                 typeof(BlockComponent)
+            }
+        });
+        bulletGroup = GetEntityQuery(new EntityQueryDesc
+        {
+            All = new ComponentType[]
+            {
+                typeof(BulletComponent)
             }
         });
     }
@@ -36,35 +46,37 @@ public partial class BlockHitSystem : SystemBase
         public float3 position;
         public int dropCount;
     }
+    struct ContactPointData
+    {
+        public float3 point;
+        public float3 normal;
+
+        public int PsId1, PsId2;
+    }
     protected override void OnUpdate()
     {
         if (blockGroup.CalculateEntityCount() == 0)
         {
             return;
         }
-        var cap = blockGroup.CalculateEntityCount() / 2;
-        NativeList<Entity> tweenTarget = new NativeList<Entity>(cap, Allocator.TempJob);
-        NativeList<Entity> deadBlocks = new NativeList<Entity>(cap, Allocator.TempJob);
+        var capBlock = blockGroup.CalculateEntityCount();
+        var capBullet = bulletGroup.CalculateEntityCount();
+
+        NativeList<ContactPointData> contactData = new NativeList<ContactPointData>(capBullet, Allocator.TempJob);
+        NativeList<Entity> tweenTarget = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
+        NativeList<Entity> deadBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
 
         Dependency = new BlockCollisionEventsJob
         {
+            PhysicsWorld = buildPhysicsWorld.PhysicsWorld,
+            collisionDatas = contactData,
+            hitPsGroutp = GetComponentDataFromEntity<ColliderHitPsTag>(),
             blockGroup = GetComponentDataFromEntity<BlockComponent>() ,
             bulletGroup = GetComponentDataFromEntity<BulletComponent>() ,
             tweenTarget = tweenTarget,
             deadBlocks = deadBlocks,
         }.Schedule(m_StepPhysicsWorldSystem.Simulation, Dependency);
         Dependency.Complete();
-
-        //var dt = Time.DeltaTime;
-        //Entities.
-        //    ForEach((Entity ent, ref URPMaterialPropertyEmissionColor hdr) =>
-        //    {
-        //        hdr.Value.y += dt;
-        //        if (hdr.Value.y > 1)
-        //        {
-        //            hdr.Value.y = 0;
-        //        }
-        //    }).Run();
 
 
         //加入 变色动画
@@ -74,14 +86,35 @@ public partial class BlockHitSystem : SystemBase
             //从全白渐变到无hdr
             ITweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
         }
-        tweenTarget.Dispose();
+
+        //命中效果
+        length = contactData.Length;
+        for (int i = 0; i < length; i++)
+        {
+            Entities.WithoutBurst().ForEach((UnityEngine.ParticleSystem ps , in HitPsTag hitPs) =>
+            {
+                var hitInfo = contactData[i];
+                if (hitInfo.PsId1 == ps.GetInstanceID() || hitInfo.PsId2 == ps.GetInstanceID())
+                {
+                    ps.transform.position = hitInfo.point;
+                    ps.transform.forward = hitInfo.normal;
+                    ps.Play();
+                }
+            }).Run();
+        }
 
 
         //删除 死亡实体,记录死亡位置
         length = deadBlocks.Length;
-        if (length == 0) { deadBlocks.Dispose(); return; }
+        if (length == 0)
+        {
+            contactData.Dispose();
+            tweenTarget.Dispose();
+            deadBlocks.Dispose();
+            return;
+        }
 
-        NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(cap, Allocator.TempJob);
+        NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(capBlock / 2, Allocator.TempJob);
         for (int i = 0; i < length; i++)
         {
             var deadData = new DeadBrickData
@@ -92,14 +125,9 @@ public partial class BlockHitSystem : SystemBase
 
             deadBrickDatas.Add(deadData);
             EntityManager.DestroyEntity(deadBlocks[i]);
-        }
-        deadBlocks.Dispose();
 
-        //播放死亡时粒子
-
-        for (int i = 0; i < length; i++)
-        {
-            Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps , in BrickDeadPsTag psTag) =>
+            //播放死亡时粒子
+            Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps, in BrickDeadPsTag psTag) =>
             {
                 ps.transform.position = deadBrickDatas[i].position;
                 int n = deadBrickDatas[i].dropCount;
@@ -114,7 +142,7 @@ public partial class BlockHitSystem : SystemBase
 
 
         //查找需要下降的砖 比死亡砖块高的
-        NativeList<Entity> toFallBlocks = new NativeList<Entity>(cap, Allocator.TempJob);
+        NativeList<Entity> toFallBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
         Entities
             .WithAll<BlockComponent>()
             .ForEach((Entity entity, in Translation t) => {
@@ -134,7 +162,6 @@ public partial class BlockHitSystem : SystemBase
 
 
         Dependency.Complete();
-        deadBrickDatas.Dispose();
 
         //加入下降动画
         length = toFallBlocks.Length;
@@ -142,7 +169,12 @@ public partial class BlockHitSystem : SystemBase
         {
             ITweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
         }
+
+        tweenTarget.Dispose();
+        contactData.Dispose();
+        deadBrickDatas.Dispose();
         toFallBlocks.Dispose();
+        deadBlocks.Dispose();
     }
 
     protected override void OnStartRunning()
@@ -153,8 +185,14 @@ public partial class BlockHitSystem : SystemBase
 
     private struct BlockCollisionEventsJob : ICollisionEventsJob
     {
+        [ReadOnly]
+        public PhysicsWorld PhysicsWorld;
+
+        public ComponentDataFromEntity<ColliderHitPsTag> hitPsGroutp;
         public ComponentDataFromEntity<BlockComponent> blockGroup;
         public ComponentDataFromEntity<BulletComponent> bulletGroup;
+
+        public NativeList<ContactPointData> collisionDatas;
         public NativeList<Entity> tweenTarget;
         public NativeList<Entity> deadBlocks;
         public void Execute(CollisionEvent collisionEvent)
@@ -162,6 +200,15 @@ public partial class BlockHitSystem : SystemBase
             var entityA = collisionEvent.EntityA;
             var entityB = collisionEvent.EntityB;
 
+
+            var colision = collisionEvent.CalculateDetails(ref PhysicsWorld);
+            collisionDatas.Add(new ContactPointData
+            {
+                point = colision.EstimatedContactPointPositions[0],
+                normal = collisionEvent.Normal,
+                PsId1 = hitPsGroutp.HasComponent(entityA) ? hitPsGroutp[entityA].PsId : 0,
+                PsId2 = hitPsGroutp.HasComponent(entityB) ? hitPsGroutp[entityB].PsId : 0,
+            });
 
             bool isABullet = bulletGroup.HasComponent(entityA);
             bool isBBullet = bulletGroup.HasComponent(entityB);
