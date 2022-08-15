@@ -144,12 +144,27 @@ public partial class TriggerVolumePortalSystem : SystemBase
                     companionTriggerVolumePortal.TransferCount++;
 
                     //改变位置时要重置 粒子的拖尾.
-                    psTrailEntities.Add(otherEntity);
+
+                    var childs = GetBuffer<Child>(otherEntity, true);
+                    //查找最多两级
+                    for (int j = 0; j < childs.Length; j++)
+                    {
+                        var sonOfChild = GetBuffer<Child>(childs[j].Value);
+
+                        for (int k = 0; k < sonOfChild.Length; k++)
+                        {
+                            var sonOfChildEntity = sonOfChild[k].Value;
+                            if (HasComponent<ClearPsTrialAtPortalTag>(sonOfChildEntity))
+                            {
+                                psTrailEntities.Add(sonOfChildEntity);
+                            }
+                        }
+                    }
                 }
 
                 SetComponent(portalEntity, triggerVolumePortal);
                 SetComponent(companionEntity, companionTriggerVolumePortal);
-            }).Run();
+            }).Schedule();
 
         Dependency.Complete();
 
@@ -158,24 +173,10 @@ public partial class TriggerVolumePortalSystem : SystemBase
 
         for (int j = 0; j < length; j++)
         {
-            var childs = GetBuffer<Unity.Transforms.Child>(psTrailEntities[j] , true);
-            //查找最多两级
-            for (int i = 0; i < childs.Length; i++)
-            {
-                var sonOfChild = GetBuffer<Child>(childs[j].Value);
+            var ps = EntityManager.GetComponentObject<ParticleSystem>(psTrailEntities[j]);
 
-                for (int k = 0; k < sonOfChild.Length; k++)
-                {
-                    var sonOfChildEntity = sonOfChild[k].Value;
-                    if (HasComponent<ClearPsTrialAtPortalTag>(sonOfChildEntity))
-                    {
-                        var ps = EntityManager.GetComponentObject<ParticleSystem>(sonOfChildEntity);
-
-                        ps.Clear();
-                        ps.Play();
-                    }
-                }
-            }
+            ps.Clear();
+            ps.Play();
         }
 
 

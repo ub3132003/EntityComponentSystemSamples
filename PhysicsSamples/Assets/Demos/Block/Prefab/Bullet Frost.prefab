@@ -7105,7 +7105,7 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
@@ -7162,7 +7162,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1
     influenceList: []
   ClampVelocityModule:
     enabled: 1
@@ -14415,7 +14415,7 @@ GameObject:
   m_Layer: 0
   m_Name: Bullet Frost
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -14538,7 +14538,7 @@ MonoBehaviour:
         Category02: 1
         Category03: 1
         Category04: 1
-        Category05: 0
+        Category05: 1
         Category06: 1
         Category07: 1
         Category08: 1

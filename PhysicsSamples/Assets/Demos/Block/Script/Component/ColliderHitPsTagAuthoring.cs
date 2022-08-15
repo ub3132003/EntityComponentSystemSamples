@@ -17,7 +17,7 @@ public class ColliderHitPsTagAuthoring : MonoBehaviour, IConvertGameObjectToEnti
 {
     private void OnValidate()
     {
-        Assert.IsNotNull(GetComponent<ParticleSystem>());
+        Assert.IsNotNull(ParticleSystemRef.GetComponent<ParticleSystem>());
     }
 
     /// <summary>

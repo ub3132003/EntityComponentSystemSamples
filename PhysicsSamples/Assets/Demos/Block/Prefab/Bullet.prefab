@@ -7105,7 +7105,7 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
@@ -7162,7 +7162,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1
     influenceList: []
   ClampVelocityModule:
     enabled: 1
@@ -14414,7 +14414,7 @@ GameObject:
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -14492,7 +14492,7 @@ MonoBehaviour:
     m_Restitution:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 1
         CombineMode: 2
     m_BelongsToCategories:
       m_Override: 0
@@ -14602,7 +14602,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 0
+  m_GravityFactor: 1
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
@@ -21683,7 +21683,7 @@ ParticleSystem:
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     multiplierCurve:
       serializedVersion: 2
       minMaxState: 0
@@ -21740,7 +21740,7 @@ ParticleSystem:
     influenceFilter: 0
     influenceMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1
     influenceList: []
   ClampVelocityModule:
     enabled: 1

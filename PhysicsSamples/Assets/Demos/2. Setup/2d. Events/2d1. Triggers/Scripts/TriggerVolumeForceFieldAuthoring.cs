@@ -127,7 +127,7 @@ public partial class TriggerVolumeForceFieldSystem : SystemBase
         // captured by the Entities.Foreach loop below
         var stepComponent = HasSingleton<PhysicsStep>() ? GetSingleton<PhysicsStep>() : PhysicsStep.Default;
         var nonTriggerDynamicBodyMask = m_NonTriggerDynamicBodyMask;
-
+        //变力器
         Entities
             .WithName("ApplyForceFieldJob")
             .WithBurst()
@@ -161,6 +161,7 @@ public partial class TriggerVolumeForceFieldSystem : SystemBase
                 }
             }).Schedule();
 
+        //变向加速器
         Entities
             .WithName("VelocityChangeJob")
             .WithBurst()
