@@ -21,10 +21,16 @@ public partial class BlockHitSystem : SystemBase
     EntityQuery bulletGroup;
     StepPhysicsWorld m_StepPhysicsWorldSystem;
     BuildPhysicsWorld buildPhysicsWorld;
+
+
+    EndSimulationEntityCommandBufferSystem endSimulationEcbSystem;
     protected override void OnCreate()
     {
         buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
+
+        endSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+
         blockGroup = GetEntityQuery(new EntityQueryDesc
         {
             All = new ComponentType[]
@@ -73,6 +79,7 @@ public partial class BlockHitSystem : SystemBase
             hitPsGroutp = GetComponentDataFromEntity<ColliderHitPsTag>(),
             blockGroup = GetComponentDataFromEntity<BlockComponent>() ,
             bulletGroup = GetComponentDataFromEntity<BulletComponent>() ,
+            PhysicsVelocityGroup = GetComponentDataFromEntity<PhysicsVelocity>(),
             tweenTarget = tweenTarget,
             deadBlocks = deadBlocks,
         }.Schedule(m_StepPhysicsWorldSystem.Simulation, Dependency);
@@ -115,31 +122,38 @@ public partial class BlockHitSystem : SystemBase
         }
 
         NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(capBlock / 2, Allocator.TempJob);
-        for (int i = 0; i < length; i++)
+        using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
         {
-            var deadData = new DeadBrickData
+            for (int i = 0; i < length; i++)
             {
-                position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
-                dropCount = EntityManager.GetComponentData<BlockComponent>(deadBlocks[i]).DieDropCount,
-            };
-
-            deadBrickDatas.Add(deadData);
-            EntityManager.DestroyEntity(deadBlocks[i]);
-
-            //播放死亡时粒子
-            Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps, in BrickDeadPsTag psTag) =>
-            {
-                ps.transform.position = deadBrickDatas[i].position;
-                int n = deadBrickDatas[i].dropCount;
-                if (!psTag.IsEmit)
+                var deadData = new DeadBrickData
                 {
-                    ps.Emit(n);
-                }
+                    position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
+                    dropCount = EntityManager.GetComponentData<BlockComponent>(deadBlocks[i]).DieDropCount,
+                };
 
-                ps.Play();
-            }).Run();
+                deadBrickDatas.Add(deadData);
+                //EntityManager.DestroyEntity(deadBlocks[i]);
+                commandBuffer.DestroyEntity(deadBlocks[i]);
+
+                //播放死亡时粒子
+                Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps, in BrickDeadPsTag psTag) =>
+                {
+                    ps.transform.position = deadBrickDatas[i].position;
+                    int n = deadBrickDatas[i].dropCount;
+                    if (!psTag.IsEmit)
+                    {
+                        ps.Emit(n);
+                    }
+
+                    ps.Play();
+                }).Run();
+            }
+            commandBuffer.Playback(EntityManager);
         }
 
+
+        endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
 
         //查找需要下降的砖 比死亡砖块高的
         NativeList<Entity> toFallBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
@@ -191,6 +205,7 @@ public partial class BlockHitSystem : SystemBase
         public ComponentDataFromEntity<ColliderHitPsTag> hitPsGroutp;
         public ComponentDataFromEntity<BlockComponent> blockGroup;
         public ComponentDataFromEntity<BulletComponent> bulletGroup;
+        public ComponentDataFromEntity<PhysicsVelocity> PhysicsVelocityGroup;
 
         public NativeList<ContactPointData> collisionDatas;
         public NativeList<Entity> tweenTarget;
@@ -235,10 +250,17 @@ public partial class BlockHitSystem : SystemBase
             var block = blockGroup[blockEntity];
             block.HitCountDown -= bulletGroup[bulletEntity].Damage;
             blockGroup[blockEntity] = block;
-
+            //BUg 删除方块后 球不会反弹,手动设置反射速度
             if (block.HitCountDown == 0)
             {
                 deadBlocks.Add(blockEntity);
+                var I = PhysicsVelocityGroup[bulletEntity].Linear;
+                var N = collisionEvent.Normal;
+                var R = I - math.dot(N, I) * N * 2.0f;
+                PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
+                {
+                    Linear = R,
+                };
             }
             else if (block.HitCountDown < 0)
             {

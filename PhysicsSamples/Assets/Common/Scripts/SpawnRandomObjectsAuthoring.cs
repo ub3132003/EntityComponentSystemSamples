@@ -10,6 +10,7 @@ public enum RandomType
     RandomInRange,
     RandomInRangeInt,
     CellAtGrid,
+    TilePlane,
 }
 class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSettings>
 {
@@ -127,6 +128,9 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
                     case RandomType.RandomInRangeInt:
                         RandomPointsInRange((int3)spawnSettings.Position, (int3)spawnSettings.Range, ref positions, GetRandomSeed(spawnSettings));
                         break;
+                    case RandomType.TilePlane:
+                        TilePlane((int3)spawnSettings.Position, (int3)spawnSettings.Range, ref positions);
+                        break;
                     default:
                         break;
                 }
@@ -143,6 +147,32 @@ abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : st
 
                 EntityManager.RemoveComponent<T>(entity);
             }
+        }
+    }
+
+    /// <summary>
+    /// 平铺 平面
+    /// </summary>
+    /// <param name="center"></param>
+    /// <param name="range"></param>
+    /// <param name="positions"></param>
+    /// <param name="seed"></param>
+    protected static void TilePlane(int3 center, int3 range , ref NativeArray<float3> positions)
+    {
+        var count = positions.Length;
+
+        //for (int i = 0; i < range.x; i++)
+        //{
+        //    for (int j = 0; j < range.y; j++)
+        //    {
+        //        if(count>range.x*range.y)
+        //        positions[i] = center + new int3(i,0,j);
+        //    }
+        //}
+
+        for (int i = 0; i < count; i++)
+        {
+            positions[i] = center + new int3(i % range.x, 0, i / range.z);
         }
     }
 
