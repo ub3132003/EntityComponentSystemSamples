@@ -8,7 +8,7 @@ using Unity.Physics.Stateful;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
-
+using Unity.Collections;
 public struct TriggerVolumePortal : IComponentData
 {
     public Entity Companion;
@@ -80,10 +80,11 @@ public partial class TriggerVolumePortalSystem : SystemBase
         // captured by the Entities.Foreach loop below
         var hierarchyChildMask = m_HierarchyChildMask;
         var nonTriggerDynamicBodyMask = m_NonTriggerDynamicBodyMask;
+        NativeList<Entity> psTrailEntities = new NativeList<Entity>(10, Allocator.TempJob);
 
         Entities
             .WithName("TriggerVolumePortalJob")
-            .WithBurst()
+            //.WithBurst()
             .WithAll<TriggerVolumePortal>()
             .ForEach((Entity portalEntity, ref DynamicBuffer<StatefulTriggerEvent> triggerBuffer) =>
             {
@@ -141,10 +142,43 @@ public partial class TriggerVolumePortalSystem : SystemBase
                     }
 
                     companionTriggerVolumePortal.TransferCount++;
+
+                    //改变位置时要重置 粒子的拖尾.
+                    psTrailEntities.Add(otherEntity);
                 }
 
                 SetComponent(portalEntity, triggerVolumePortal);
                 SetComponent(companionEntity, companionTriggerVolumePortal);
-            }).Schedule();
+            }).Run();
+
+        Dependency.Complete();
+
+        //粒子的拖尾 清除
+        var length = psTrailEntities.Length;
+
+        for (int j = 0; j < length; j++)
+        {
+            var childs = GetBuffer<Unity.Transforms.Child>(psTrailEntities[j] , true);
+            //查找最多两级
+            for (int i = 0; i < childs.Length; i++)
+            {
+                var sonOfChild = GetBuffer<Child>(childs[j].Value);
+
+                for (int k = 0; k < sonOfChild.Length; k++)
+                {
+                    var sonOfChildEntity = sonOfChild[k].Value;
+                    if (HasComponent<ClearPsTrialAtPortalTag>(sonOfChildEntity))
+                    {
+                        var ps = EntityManager.GetComponentObject<ParticleSystem>(sonOfChildEntity);
+
+                        ps.Clear();
+                        ps.Play();
+                    }
+                }
+            }
+        }
+
+
+        psTrailEntities.Dispose();
     }
 }

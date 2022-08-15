@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using Unity.Transforms;
 namespace Unity.Mathematics
 {
     public static class MathExtension
@@ -13,6 +13,16 @@ namespace Unity.Mathematics
         public static bool IsZero(this float3 num)
         {
             return num.x == 0 && num.y == 0 && num.z == 0 ? true : false;
+        }
+
+        /// <summary>
+        /// 返回旋转的 z轴方向
+        /// </summary>
+        /// <param name="rotation"></param>
+        /// <returns></returns>
+        public static float3 IsZero(this Rotation rotation)
+        {
+            return math.normalize(math.mul(rotation.Value, math.forward()));
         }
     }
 }

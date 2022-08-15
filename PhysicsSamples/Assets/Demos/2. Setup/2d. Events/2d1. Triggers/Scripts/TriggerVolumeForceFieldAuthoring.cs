@@ -160,5 +160,37 @@ public partial class TriggerVolumeForceFieldSystem : SystemBase
                     SetComponent(otherEntity, physicsVelocity);
                 }
             }).Schedule();
+
+        Entities
+            .WithName("VelocityChangeJob")
+            .WithBurst()
+            .ForEach((Entity e, ref DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer, in TriggerVolumeVelocityChange velocityChange , in Rotation rotation) =>
+            {
+                for (int i = 0; i < triggerEventBuffer.Length; i++)
+                {
+                    var triggerEvent = triggerEventBuffer[i];
+
+                    var otherEntity = triggerEvent.GetOtherEntity(e);
+
+                    // exclude static bodies, other triggers and enter/exit events
+                    if (triggerEvent.State != StatefulEventState.Stay || !nonTriggerDynamicBodyMask.Matches(otherEntity))
+                    {
+                        continue;
+                    }
+
+                    var physicsVelocity = GetComponent<PhysicsVelocity>(otherEntity);
+                    var physicsMass = GetComponent<PhysicsMass>(otherEntity);
+                    var pos = GetComponent<Translation>(otherEntity);
+
+
+                    var targetDir = math.normalize(math.mul(rotation.Value, math.forward()));
+
+                    physicsVelocity.Linear = targetDir * velocityChange.MaxSpeed;
+
+
+                    // write back
+                    SetComponent(otherEntity, physicsVelocity);
+                }
+            }).Schedule();
     }
 }

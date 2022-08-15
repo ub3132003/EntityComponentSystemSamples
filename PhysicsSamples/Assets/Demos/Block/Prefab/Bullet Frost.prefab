@@ -4839,6 +4839,7 @@ GameObject:
   - component: {fileID: 5505157972247231847}
   - component: {fileID: 5505157972247231865}
   - component: {fileID: 5505157972247231846}
+  - component: {fileID: 6837117798615197701}
   m_Layer: 0
   m_Name: SnowflakeTrail
   m_TagString: Untagged
@@ -9580,6 +9581,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6837117798615197701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505157972247231844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d674fb4509083547adb60ce97f5a9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5505157972876281020
 GameObject:
   m_ObjectHideFlags: 0
@@ -19427,6 +19440,7 @@ GameObject:
   - component: {fileID: 5505157973810865864}
   - component: {fileID: 5505157973810865866}
   - component: {fileID: 5505157973810865867}
+  - component: {fileID: 39120881987318994}
   m_Layer: 0
   m_Name: GlowTrail
   m_TagString: Untagged
@@ -24159,3 +24173,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &39120881987318994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505157973810865865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d674fb4509083547adb60ce97f5a9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7700460492135577155
+--- !u!1001 &4826603267552397011
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1191054677816456, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_Name
-      value: BlockBase Variant
+      value: BrickBase Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_RootOrder
@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -26.21
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalPosition.y
@@ -59,12 +59,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0bb6c016790392c42a521dd3c77e34c4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5f3b65e711b5c7b49a70ee0c89a78d64, type: 2}
     - target: {fileID: 3902839512095237529, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: 4e202a43983787e4ebe01e96d828f0cf, type: 3}
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Material.m_Friction.m_Value.Value
@@ -73,7 +73,7 @@ PrefabInstance:
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Material.m_CollisionResponse.m_Value
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
@@ -418,44 +418,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7527659606607854721, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
---- !u!1 &7699382154791289547 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1191054677816456, guid: 72ed9871ccf992c4fbcb7250c50b8805,
-    type: 3}
-  m_PrefabInstance: {fileID: 7700460492135577155}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &-5048834705247497812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7699382154791289547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d849f6ed953e947a0ea6954432e1ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  overrideAsset: {fileID: 11400000, guid: fb1d23c9ef3a04d40ae70c75afc50d47, type: 2}
-  overrideList:
-  - name: _EmissionColor
-    displayName: _EmissionColor
-    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
-    materialName: Mat_Grid_Orange
-    type: 0
-    value: {x: 0, y: 0, z: 0, w: 1}
-    instanceOverride: 0
---- !u!114 &7009711955207176835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7699382154791289547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2823015469f53374ab8a9bbe379ceece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HitCountDown: 3
-  DieDropCount: 1
