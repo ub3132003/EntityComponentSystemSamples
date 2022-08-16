@@ -23,6 +23,16 @@ public struct FollowMouseOnGroud : IComponentData
 /// </summary>
 public partial class MouseMoveInput : SystemBase
 {
+    protected override void OnCreate()
+    {
+        base.OnCreate();
+        EntityQuery query
+            = GetEntityQuery(typeof(FollowMouseOnGroud));
+        var allPlayers = query.ToEntityArray(Allocator.TempJob);
+        PlayerEcsConnect.Instance.RegistPlayer(allPlayers[0]);
+        allPlayers.Dispose();
+    }
+
     protected override void OnUpdate()
     {
         //跟随鼠标 没有y轴

@@ -19,7 +19,8 @@
         "Havok.Physics",
         "Havok.Physics.Editor",
         "Havok.Physics.Hybrid",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Unity.Localization"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

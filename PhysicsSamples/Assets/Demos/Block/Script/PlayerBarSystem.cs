@@ -6,7 +6,8 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 using Unity.Physics.Stateful;
-using UnityEngine;
+
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(BlockHitSystem))]
 public partial class PlayerBarSystem : SystemBase
 {
