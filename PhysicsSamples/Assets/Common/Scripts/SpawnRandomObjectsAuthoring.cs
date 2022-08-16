@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Unity.Assertions;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
+
 public enum RandomType
 {
     RandomInRange,
@@ -20,7 +22,26 @@ class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSetting
 abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
     where T : struct, IComponentData, ISpawnSettings
 {
-    #pragma warning disable 649
+    private void OnValidate()
+    {
+        switch (randomType)
+        {
+            case RandomType.RandomInRange:
+                break;
+            case RandomType.RandomInRangeInt:
+                break;
+            case RandomType.CellAtGrid:
+
+                break;
+            case RandomType.TilePlane:
+                Assert.IsTrue(count <= range.x * range.z);
+                break;
+            default:
+                break;
+        }
+    }
+
+#pragma warning disable 649
     public GameObject prefab;
     public float3 range = new float3(10f);
     [Tooltip("Limited to 500 on some platforms!")]

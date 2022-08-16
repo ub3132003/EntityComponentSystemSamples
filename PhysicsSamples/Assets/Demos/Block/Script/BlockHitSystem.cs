@@ -113,6 +113,8 @@ public partial class BlockHitSystem : SystemBase
 
         //删除 死亡实体,记录死亡位置
         length = deadBlocks.Length;
+        //mono 通讯
+        PlayerEcsConnect.Instance.AddEXP(length);
         if (length == 0)
         {
             contactData.Dispose();
@@ -254,13 +256,13 @@ public partial class BlockHitSystem : SystemBase
             if (block.HitCountDown == 0)
             {
                 deadBlocks.Add(blockEntity);
-                var I = PhysicsVelocityGroup[bulletEntity].Linear;
-                var N = collisionEvent.Normal;
-                var R = I - math.dot(N, I) * N * 2.0f;
-                PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
-                {
-                    Linear = R,
-                };
+                //var I = PhysicsVelocityGroup[bulletEntity].Linear;
+                //var N = collisionEvent.Normal;
+                //var R = I - math.dot(N, I) * N * 2.0f;
+                //PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
+                //{
+                //    Linear = R,
+                //};
             }
             else if (block.HitCountDown < 0)
             {

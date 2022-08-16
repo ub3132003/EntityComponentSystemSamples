@@ -10,10 +10,12 @@ public class FollowEnetityObj : MonoBehaviour, IReceiveEntity
     public float3 Offset;
     public void SetReceivedEntity(Entity entity)
     {
-        if (World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<CharacterControllerComponentData>(entity))
-        {
-            m_DisplayEntity = entity;
-        }
+        //bug 除了CharacterControllerComponentData能被找到其他组件找不到
+        //if (World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<CharacterControllerComponentData>(entity))
+        //{
+
+        //}
+        m_DisplayEntity = entity;
     }
 
     void Start()

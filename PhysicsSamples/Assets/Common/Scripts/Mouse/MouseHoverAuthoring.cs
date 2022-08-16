@@ -66,7 +66,7 @@ namespace Unity.Physics.Extensions
 
         protected void OnEnable() {}
     }
-
+    //只返回第一个射线检测到的
     // Applies any mouse spring as a change in velocity on the entity's motion component
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial class MouseHoverSystem : SystemBase

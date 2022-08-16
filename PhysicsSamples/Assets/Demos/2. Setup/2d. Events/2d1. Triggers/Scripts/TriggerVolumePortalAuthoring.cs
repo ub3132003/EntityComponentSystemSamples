@@ -84,7 +84,7 @@ public partial class TriggerVolumePortalSystem : SystemBase
 
         Entities
             .WithName("TriggerVolumePortalJob")
-            //.WithBurst()
+            .WithBurst()
             .WithAll<TriggerVolumePortal>()
             .ForEach((Entity portalEntity, ref DynamicBuffer<StatefulTriggerEvent> triggerBuffer) =>
             {
