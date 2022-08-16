@@ -29,7 +29,7 @@ public partial class PlayerBarSystem : SystemBase
                         continue;
                     }
                     var bulletPv = GetComponent<PhysicsVelocity>(bullet);
-                    bulletPv.Linear += GetComponent<PhysicsVelocity>(playerBar).Linear*new float3(1, 1, plyerMove.HitYForce);
+                    bulletPv.Linear += GetComponent<PhysicsVelocity>(playerBar).Linear* plyerMove.HitForce;
                     SetComponent(bullet, new PhysicsVelocity
                     {
                         Linear = bulletPv.Linear
@@ -43,9 +43,8 @@ public partial class PlayerBarSystem : SystemBase
             .WithAll<BulletComponent>()
             .ForEach((ref PhysicsVelocity pv) =>
             {
-                //var speed = math.length(pv.Linear);
-                var dir = math.normalize(pv.Linear);
-                pv.Linear = math.clamp(pv.Linear, dir * 10, dir * 40);
+                //var dir = math.normalize(pv.Linear);
+                //pv.Linear = math.clamp(pv.Linear, dir * 10, dir * 40);
             }).Schedule();
     }
 }

@@ -16,7 +16,7 @@ public struct FollowMouseOnGroud : IComponentData
     public float MoveSpeed;
 
     //y加速强度
-    public float HitYForce;
+    public float3 HitForce;
 }
 /// <summary>
 /// 按照鼠标移动增量移动物体
