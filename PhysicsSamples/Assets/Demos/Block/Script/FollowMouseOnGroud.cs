@@ -29,7 +29,12 @@ public partial class MouseMoveInput : SystemBase
         EntityQuery query
             = GetEntityQuery(typeof(FollowMouseOnGroud));
         var allPlayers = query.ToEntityArray(Allocator.TempJob);
-        PlayerEcsConnect.Instance.RegistPlayer(allPlayers[0]);
+        if (allPlayers.Length > 0)
+            PlayerEcsConnect.Instance.RegistPlayer(allPlayers[0]);
+        else
+        {
+            Debug.LogError("Player NO Find ");
+        }
         allPlayers.Dispose();
     }
 

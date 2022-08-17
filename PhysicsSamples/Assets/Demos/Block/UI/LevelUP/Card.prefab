@@ -150,9 +150,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardButton: {fileID: 3679332896581686283}
-  Icon: {fileID: 4770340822977966244}
+  Icon: {fileID: 3679332897230889719}
+  IconBGI: {fileID: 4770340822977966244}
   Title: {fileID: 3679332897659235452}
   description: {fileID: 4770340822248629265}
+  OnSubmit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3679332897230889720
 GameObject:
   m_ObjectHideFlags: 0

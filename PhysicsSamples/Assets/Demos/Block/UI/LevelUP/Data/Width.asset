@@ -15,14 +15,14 @@ MonoBehaviour:
   _guid: 
   _name:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 33332068352
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _previewImage: {fileID: 0}
+  _previewImage: {fileID: 21300000, guid: 2552d68bb0e328d40ba77727b7ac2238, type: 3}
   _description:
     m_TableReference:
       m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
@@ -40,7 +40,7 @@ MonoBehaviour:
   effectTag: 
   isState: 0
   isBuffOnSelf: 1
-  stackLimit: 1
+  stackLimit: 10
   allowMultiple: 0
   allowMixedCaster: 0
   pulses: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
     statEffectsData:
     - statID: -1
       statREF: {fileID: 11400000, guid: 6cd2ded2296f6e84dba146d0d641a549, type: 2}
-      statEffectModification: 0
+      statEffectModification: 1
       isPercent: 0
   references:
     version: 2

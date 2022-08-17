@@ -63,7 +63,7 @@ public class RpgEffectSO : ThingSO
     {
         public int statID = -1;
         public RpgStatSO statREF;
-        public float statEffectModification;
+        public float statEffectModification = 1;
         public bool isPercent;
     }
 

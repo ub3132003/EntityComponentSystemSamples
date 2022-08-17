@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalScale.z
@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 7527659606607854721, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_MotionType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7527659606607854721, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
@@ -476,32 +476,6 @@ MonoBehaviour:
     x: 1
     y: 1
     z: 1
---- !u!114 &66565433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66565428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f494e2edb708a2b43bbdfe6902cda6ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset:
-    x: 0
-    y: 0
-    z: 0
-  StopDistance: 0
-  MaxSpeed:
-    x: 50
-    y: 0
-    z: 20
-  MoveSpeed: 120
-  HitForce:
-    x: 0.5
-    y: 0
-    z: 0.2
 --- !u!114 &66565434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +518,32 @@ MonoBehaviour:
   AffectsPhysicsBodies: 1
   RaiseCollisionEvents: 0
   RaiseTriggerEvents: 0
+--- !u!114 &66565441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66565428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d809f15c9c7a2f4580da1b8d7450c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset:
+    x: 0
+    y: 0
+    z: 0
+  StopDistance: 0
+  MaxSpeed:
+    x: 50
+    y: 0
+    z: 20
+  MoveSpeed: 100
+  HitForce:
+    x: 0.5
+    y: 0
+    z: 0.2
 --- !u!1 &87783734
 GameObject:
   m_ObjectHideFlags: 0
