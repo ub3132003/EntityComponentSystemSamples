@@ -43,12 +43,17 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
 
 
     [SerializeField] List<RpgStatSO> rpgStatSOs;
-    private void Start()
+    IEnumerator Start()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //TOdo 等待player
 
         playerNode.InitStats(rpgStatSOs);
+        while (player == null)
+        {
+            yield return 0;
+        }
+        Debug.Log("Player Regist");
     }
 
     private void Update()

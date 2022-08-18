@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
 using Unity.Entities;
+using DataStructures.RandomSelector;
 
 public class SelectSkillPanel : MonoBehaviour
 {
@@ -26,11 +27,17 @@ public class SelectSkillPanel : MonoBehaviour
     private void Start()
     {
         OpenPanel(false);
+        RandomSelectorBuilder<int> builder = new RandomSelectorBuilder<int>();
+
+        for (int i = 0; i < DropRate.Length; i++)
+        {
+            builder.Add(i, DropRate[i]);
+        }
+        selector = builder.Build(42);
     }
 
-    void Update()
-    {
-    }
+    IRandomSelector<int> selector;
+
 
     //Unity.Core.TimeData time = new Unity.Core.TimeData();
     public void OpenPanel(bool opt)
@@ -70,36 +77,13 @@ public class SelectSkillPanel : MonoBehaviour
 
         foreach (var item in randomSkill)
         {
-            var rank = StepRandom(DropRate);
+            var rank = selector.SelectRandomItem();
             if (rank > item.ranks.Count - 1)//防止越界
             {
                 rank = item.ranks.Count - 1;
             }
             allSkillCardUI[i++].SetCard(item , rank);
         }
-    }
-
-    /// <summary>
-    /// 返回 0-... 按给定概率 需要保证rate和=1;
-    /// </summary>
-    /// <param name="rate"> 0-1, 和=1</param>
-    /// <returns></returns>
-    public int StepRandom(float[] rate)
-    {
-        var sumRate = 0f;
-        for (int i = 0; i < rate.Length; i++)
-        {
-            sumRate += rate[i];
-            if (sumRate > 1)
-            {
-                break;
-            }
-            if (Random.value < sumRate)
-            {
-                return i;
-            }
-        }
-        return 0;
     }
 
     public void Submit()

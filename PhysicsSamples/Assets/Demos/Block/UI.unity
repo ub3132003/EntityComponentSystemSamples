@@ -674,7 +674,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbe49cb80950cc644951391f116c8ed4, type: 2}
   - {fileID: 11400000, guid: 2f1603e9d414cbc48a4743953408ba5e, type: 2}
   DropRate:
-  - 0.3
+  - 0.4
   - 0.3
   - 0.3
 --- !u!224 &197320489 stripped

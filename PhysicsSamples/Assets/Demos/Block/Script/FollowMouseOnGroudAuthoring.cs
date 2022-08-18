@@ -5,12 +5,13 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+/// <summary>
+/// 角色基础信息 属性
+/// </summary>
 [Serializable]
-[GenerateAuthoringComponent]
+
 public struct FollowMouseOnGroud : IComponentData
 {
-    public float3 offset;
-    public float StopDistance;
     public float3 MaxSpeed;
     // 移动比例
     public float MoveSpeed;
@@ -18,6 +19,26 @@ public struct FollowMouseOnGroud : IComponentData
     //y加速强度
     public float3 HitForce;
 }
+
+public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+{
+    public float3 MaxSpeed;
+
+    public float MoveSpeed;
+
+    public float3 HitForce;
+    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    {
+        dstManager.AddComponentData(entity, new FollowMouseOnGroud
+        {
+            MaxSpeed = MaxSpeed,
+            MoveSpeed = MoveSpeed,
+            HitForce = HitForce,
+        });
+        PlayerEcsConnect.Instance.RegistPlayer(entity);
+    }
+}
+
 /// <summary>
 /// 按照鼠标移动增量移动物体
 /// </summary>
@@ -26,16 +47,6 @@ public partial class MouseMoveInput : SystemBase
     protected override void OnCreate()
     {
         base.OnCreate();
-        EntityQuery query
-            = GetEntityQuery(typeof(FollowMouseOnGroud));
-        var allPlayers = query.ToEntityArray(Allocator.TempJob);
-        if (allPlayers.Length > 0)
-            PlayerEcsConnect.Instance.RegistPlayer(allPlayers[0]);
-        else
-        {
-            Debug.LogError("Player NO Find ");
-        }
-        allPlayers.Dispose();
     }
 
     protected override void OnUpdate()

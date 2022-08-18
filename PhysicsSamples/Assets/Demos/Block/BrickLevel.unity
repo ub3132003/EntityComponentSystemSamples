@@ -518,7 +518,7 @@ MonoBehaviour:
   AffectsPhysicsBodies: 1
   RaiseCollisionEvents: 0
   RaiseTriggerEvents: 0
---- !u!114 &66565441
+--- !u!114 &66565436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -530,16 +530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d809f15c9c7a2f4580da1b8d7450c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset:
-    x: 0
-    y: 0
-    z: 0
-  StopDistance: 0
   MaxSpeed:
     x: 50
     y: 0
     z: 20
-  MoveSpeed: 100
+  MoveSpeed: 200
   HitForce:
     x: 0.5
     y: 0
