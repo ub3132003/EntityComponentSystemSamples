@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+using Unity.Transforms;
+using Unity.Mathematics;
 
 public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
 {
@@ -49,7 +51,7 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
         //TOdo 等待player
 
         playerNode.InitStats(rpgStatSOs);
-        while (player == null)
+        while (player == Entity.Null)
         {
             yield return 0;
         }
@@ -62,6 +64,8 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
         LevelDisplayEvent.RaiseEvent(levelCompoent.currentLevel);
 
         PlayerNode.UpdateStates();
+
+        UpdateEntity();
     }
 
     public void RegistPlayer(Entity player)
@@ -82,11 +86,36 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
     public void UpdateEntity()
     {
         //写回实体系统
-        if (player != null)
+        if (player != Entity.Null)
         {
             var stats = playerNode.nodeStats;
             foreach (var item in stats)
             {
+                foreach (var bonuses in item.stat.statBonuses)
+                {
+                    switch (bonuses.statType)
+                    {
+                        case RpgStatSO.STAT_TYPE.MOVEMENT_SPEED:
+                            break;
+                        case RpgStatSO.STAT_TYPE.BODY_SCALE:
+                            //entityManager.SetComponentData(player, new NonUniformScale
+                            //{
+                            //    Value = new float3(item.curValue, 1, 1)
+                            //});
+                            //entityManager.SetComponentData(player, new Scale
+                            //{
+                            //    Value = item.curValue
+                            //});
+                            var scale = entityManager.GetComponentData<CompositeScale>(player);
+                            scale.Value = float4x4.Scale(item.curValue, 1, 1);
+                            entityManager.SetComponentData(player, scale);
+                            break;
+
+
+                        default:
+                            break;
+                    }
+                }
             }
         }
     }
@@ -454,8 +483,27 @@ public static class StatCalculator
     private static List<TemporaryStatsDATA> tempStatList = new List<TemporaryStatsDATA>();
     public static void CalculateEffectsStats(CombatNode cbtNode)
     {
-        tempStatList.Clear();
+        void ResetEffectsStats(CombatNode cbtNode)
+        {
+            foreach (var t2 in cbtNode.nodeStats)
+            {
+                if (t2.valueFromEffect == 0) continue;
+                if (t2.stat.isVitalityStat)
+                {
+                    t2.curMaxValue -= t2.valueFromEffect;
+                }
+                else
+                {
+                    t2.curValue -= t2.valueFromEffect;
+                }
 
+                t2.valueFromEffect = 0;
+                ClampStat(t2.stat, cbtNode);
+            }
+        }
+
+        tempStatList.Clear();
+        ResetEffectsStats(cbtNode);
 
         foreach (var t in cbtNode.nodeStateData)
         {

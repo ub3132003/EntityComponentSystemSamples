@@ -35,6 +35,11 @@ public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEn
             MoveSpeed = MoveSpeed,
             HitForce = HitForce,
         });
+        //dstManager.AddComponentData(entity, new NonUniformScale
+        //{
+        //    Value = new float3(2, 0, 0)
+        //});
+
         PlayerEcsConnect.Instance.RegistPlayer(entity);
     }
 }
