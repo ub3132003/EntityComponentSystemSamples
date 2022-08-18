@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1.001
       objectReference: {fileID: 0}
     - target: {fileID: 4442955371177768, guid: 72ed9871ccf992c4fbcb7250c50b8805, type: 3}
       propertyPath: m_LocalScale.z
@@ -228,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Material.m_Restitution.m_Value.Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
@@ -450,8 +450,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 5505157973118836275, guid: e2d8f6c3b0c496143b0522dc8348d1da, type: 3}
-  Strength: 20
-  Rate: 0.1
+  Strength: 10
+  Rate: 1
   SensitivityYAxis: 0
   Capacity: 3
 --- !u!114 &66565432
@@ -531,14 +531,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed:
-    x: 50
+    x: 20
     y: 0
-    z: 20
+    z: 10
   MoveSpeed: 200
   HitForce:
-    x: 0.5
+    x: 0.2
     y: 0
-    z: 0.2
+    z: 0
 --- !u!1 &87783734
 GameObject:
   m_ObjectHideFlags: 0

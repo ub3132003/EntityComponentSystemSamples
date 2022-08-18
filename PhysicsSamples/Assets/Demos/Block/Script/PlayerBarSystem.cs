@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 using Unity.Physics.Stateful;
+using UnityEngine;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(BlockHitSystem))]
@@ -30,7 +31,14 @@ public partial class PlayerBarSystem : SystemBase
                         continue;
                     }
                     var bulletPv = GetComponent<PhysicsVelocity>(bullet);
+                    Debug.Log($"b:{bulletPv.Linear}  p:{GetComponent<PhysicsVelocity>(playerBar).Linear * plyerMove.HitForce}");
                     bulletPv.Linear += GetComponent<PhysicsVelocity>(playerBar).Linear* plyerMove.HitForce;
+
+                    var dir = math.normalize(bulletPv.Linear);
+
+                    var speed = math.clamp(math.length(bulletPv.Linear), 5, 30);
+                    bulletPv.Linear = dir * speed;
+                    Debug.Log($"next:{bulletPv.Linear}");
                     SetComponent(bullet, new PhysicsVelocity
                     {
                         Linear = bulletPv.Linear
@@ -39,13 +47,13 @@ public partial class PlayerBarSystem : SystemBase
             }).Schedule();
 
         //子弹速度限制
-        Entities
-            .WithName("BulletSpeed")
-            .WithAll<BulletComponent>()
-            .ForEach((ref PhysicsVelocity pv) =>
-            {
-                //var dir = math.normalize(pv.Linear);
-                //pv.Linear = math.clamp(pv.Linear, dir * 10, dir * 40);
-            }).Schedule();
+        //Entities
+        //    .WithName("BulletSpeed")
+        //    .WithAll<BulletComponent>()
+        //    .ForEach((ref PhysicsVelocity pv) =>
+        //    {
+        //        //var dir = math.normalize(pv.Linear);
+        //        //pv.Linear = math.clamp(pv.Linear, dir * 10, dir * 40);
+        //    }).Schedule();
     }
 }

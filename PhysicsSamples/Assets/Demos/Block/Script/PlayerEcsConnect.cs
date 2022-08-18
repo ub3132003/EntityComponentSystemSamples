@@ -6,6 +6,7 @@ using UnityEngine;
 
 using Unity.Transforms;
 using Unity.Mathematics;
+using Unity.Physics;
 
 public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
 {
@@ -112,6 +113,15 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
                             var scale = entityManager.GetComponentData<CompositeScale>(player);
                             scale.Value = float4x4.Scale(item.curValue, 1, 1);
                             entityManager.SetComponentData(player, scale);
+                            var collider = entityManager.GetComponentData<PhysicsCollider>(player);
+                            unsafe
+                            {
+                                Unity.Physics.BoxCollider* bcPtr = (Unity.Physics.BoxCollider*)collider.ColliderPtr;
+                                var boxGeometry = bcPtr->Geometry;
+                                boxGeometry.Size = new float3(item.curValue, 1, 1);
+                                bcPtr->Geometry = boxGeometry;
+                            }
+
                             break;
 
 
