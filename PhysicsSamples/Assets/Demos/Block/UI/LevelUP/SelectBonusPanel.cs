@@ -7,13 +7,13 @@ using System.Linq;
 using Unity.Entities;
 using DataStructures.RandomSelector;
 
-public class SelectSkillPanel : MonoBehaviour
+public class SelectBonusPanel : MonoBehaviour
 {
     [SerializeField] IntEventChannelSO updateEvent;
     [SerializeField] CanvasGroup canvasGroup;
 
-    [SerializeField] List<UpdateSkillSelectUI> allSkillCardUI;
-    [SerializeField] List<RpgEffectSO> allSkillSO;
+    [SerializeField] List<UIBonusSkillCard> allSkillCardUI;
+    [SerializeField] List<RPGBonus> allBonusSO;
     private void OnEnable()
     {
         updateEvent.OnEventRaised += LevelUPDo;
@@ -27,17 +27,7 @@ public class SelectSkillPanel : MonoBehaviour
     private void Start()
     {
         OpenPanel(false);
-        RandomSelectorBuilder<int> builder = new RandomSelectorBuilder<int>();
-
-        for (int i = 0; i < DropRate.Length; i++)
-        {
-            builder.Add(i, DropRate[i]);
-        }
-        selector = builder.Build(42);
     }
-
-    IRandomSelector<int> selector;
-
 
     //Unity.Core.TimeData time = new Unity.Core.TimeData();
     public void OpenPanel(bool opt)
@@ -72,24 +62,30 @@ public class SelectSkillPanel : MonoBehaviour
         var length = allSkillCardUI.Count;
 
         //洗牌抽取
-        var randomSkill = allSkillSO.OrderBy(d => Random.Range(0, 100)).Take(length);
+        var randomSkill = allBonusSO.OrderBy(d => Random.Range(0, 100)).Take(length);
         var i = 0;
 
         foreach (var item in randomSkill)
         {
-            var rank = selector.SelectRandomItem();
-            if (rank > item.ranks.Count - 1)//防止越界
+            var rank = CharacterData.GetRankFromCharacterData(item);
+            //找到了 第一级
+            if (rank == -1)
             {
-                rank = item.ranks.Count - 1;
+                rank = 0;
+            }//已近有的 加一级
+            else
+            {
+                rank++;
             }
             var ui = allSkillCardUI[i++];
-            ui.SetCard(item.Name.GetLocalizedString(), item.PreviewImage , rank);
-            ui.SubmitAction = () => Submit(item, rank);
+            ui.SetCard(item.Name.GetLocalizedString(), item.PreviewImage , rank + 1);
+            ui.SubmitAction = () => Submit(item);
         }
     }
 
-    public void Submit(RpgEffectSO rpgEffectSO , int rank)
+    public void Submit(RPGBonus rPGBonus)
     {
-        PlayerEcsConnect.Instance.AddBuff(rpgEffectSO, rank);
+        //升一级被动技能
+        BonusManager.RankUpBonus(rPGBonus);
     }
 }

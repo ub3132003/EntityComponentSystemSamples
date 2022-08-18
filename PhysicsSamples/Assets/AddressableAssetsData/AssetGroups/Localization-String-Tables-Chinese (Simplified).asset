@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-String-Tables-English (en)
+  m_Name: Localization-String-Tables-Chinese (Simplified)
   m_EditorClassIdentifier: 
-  m_GroupName: Localization-String-Tables-English (en)
+  m_GroupName: Localization-String-Tables-Chinese (Simplified)
   m_Data:
     m_SerializedData: []
-  m_GUID: 081f1e082ec968c40a283e606a669bc5
+  m_GUID: 494cdacde42ad8c4ba969d843244e5f4
   m_SerializeEntries:
-  - m_GUID: 3894a62b70f1c0f4faffe8d228fc7f45
-    m_Address: BallGame_en
+  - m_GUID: 377ec7c587595594aa7b00cf22f1b914
+    m_Address: RpgGame_zh
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale-en
-    - Preload
-  - m_GUID: 0be6256ad3b8a5849a7082b901a91cfc
-    m_Address: RpgGame_en
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-en
+    - Locale-zh
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 38eb063b5b34eb74085f8fe466d14375, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d8a97e2df60d3e640885238f314fcbd0, type: 2}
-    - {fileID: 11400000, guid: 0cedb8e1097e98941b435b04ab592082, type: 2}
+    - {fileID: 11400000, guid: e4234d9018f673e4d974d3cc934aaafa, type: 2}
+    - {fileID: 11400000, guid: 38b7f36a3f6b31c4e8336d918f0315bf, type: 2}

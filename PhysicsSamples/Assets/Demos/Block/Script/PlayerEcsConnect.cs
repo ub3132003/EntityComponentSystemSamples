@@ -83,6 +83,9 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
         PlayerNode.InitNodeState(PlayerNode, PlayerNode, rpgEffectSO, rank);
     }
 
+    //升级被动
+
+
     public void UpdateEntity()
     {
         //写回实体系统
@@ -202,7 +205,9 @@ public class CombatNode
     /// buff 状态
     /// </summary>
     public List<NodeStatesDATA> nodeStateData = new List<NodeStatesDATA>();
-
+    /// <summary>
+    /// 叠加计算bug , 相同buff的不同等级之间不能叠加, 叠加类型要小心,用等级代替叠加
+    /// </summary>
     [Serializable]
     public class NODE_STATS
     {
@@ -474,6 +479,50 @@ public class CombatNode
 /// </summary>
 public static class StatCalculator
 {
+    #region bouns
+    public static void CalculateBonusStats()
+    {
+        tempStatList.Clear();
+        ResetBonusStats();
+
+        foreach (var t in CharacterData.Instance.bonusesData)
+        {
+            if (!t.known) continue;
+            if (!t.On) continue;
+
+            RPGBonus bonusREF = t.BonusRef;
+
+            foreach (var t1 in bonusREF.ranks[t.rank].statEffectsData)
+            {
+                var statREF = t1.statREF;
+                foreach (var t3 in PlayerEcsConnect.Instance.PlayerNode.nodeStats)
+                {
+                    if (t3.stat.Name != statREF.Name) continue;
+                    HandleStat(PlayerEcsConnect.Instance.PlayerNode, statREF, t3, t1.statEffectModification, t1.isPercent,
+                        TemporaryStatSourceType.bonus);
+                }
+            }
+        }
+    }
+
+    private static void ResetBonusStats()
+    {
+        foreach (var t2 in PlayerEcsConnect.Instance.PlayerNode.nodeStats)
+        {
+            if (t2.valueFromBonus == 0) continue;
+            if (t2.stat.isVitalityStat)
+            {
+                t2.curMaxValue -= t2.valueFromBonus;
+            }
+            else
+            {
+                t2.curValue -= t2.valueFromBonus;
+            }
+            t2.valueFromBonus = 0;
+        }
+    }
+
+    #endregion
     private class TemporaryStatsDATA
     {
         public RpgStatSO stat;

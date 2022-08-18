@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d3b4c327cfc49418e2a53955aa95cb, type: 3}
-  m_Name: BodyScale
+  m_Script: {fileID: 11500000, guid: 7b8e3945ffd389d4093ea7069f8fe614, type: 3}
+  m_Name: new rpgbonus 2
   m_EditorClassIdentifier: 
-  _guid: 6cd2ded2296f6e84dba146d0d641a549
+  _guid: 
   _name:
     m_TableReference:
-      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 33332068352
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -34,25 +34,10 @@ MonoBehaviour:
     m_LocalVariables: []
   _prefab: {fileID: 0}
   ID: -1
-  _fileName: 
   displayName: 
-  minCheck: 1
-  minValue: 0
-  maxCheck: 0
-  maxValue: 10
-  baseValue: 1
-  StatUICategory: 
-  StartsAtMax: 1
-  isPercentStat: 0
-  isVitalityStat: 0
-  vitalityActions: []
-  statBonuses:
-  - statType: 59
-    modifyValue: 1
-    StatFunction: 
-    OppositeStat: 
-    statID: -1
-  onHitEffectsData: []
+  _fileName: 
+  learnedByDefault: 0
+  ranks: []
   references:
     version: 2
     RefIds: []

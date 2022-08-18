@@ -6,6 +6,7 @@ using TMPro;
 using Unity.Assertions;
 using UnityEngine.Events;
 
+
 /// <summary>
 /// 对自己释放技能
 /// </summary>
@@ -22,15 +23,9 @@ public class UpdateSkillSelectUI : MonoBehaviour
     {
         public RpgEffectSO skillRef;
         public int rank;
-
-        public SkillData(RpgEffectSO skillRef, int rank)
-        {
-            this.skillRef = skillRef;
-            this.rank = rank;
-        }
     }
-    SkillData skillData;
 
+    SkillData skillData = new SkillData();
 
     public Color GetColor(int i)
     {
@@ -46,17 +41,16 @@ public class UpdateSkillSelectUI : MonoBehaviour
         return BG_COLOR[i];
     }
 
-    public void SetCard(RpgEffectSO cardSO , int rank)
+    public void SetCard(string text, Sprite icon , int rank)
     {
-        description.text = cardSO.Description.GetLocalizedString();
-        Icon.sprite = cardSO.PreviewImage;
-        IconBGI.color = GetColor(rank);
-        skillData =  new SkillData(cardSO, rank);
-
-        Assert.AreEqual(skillData.skillRef.effectType, RpgEffectSO.EFFECT_TYPE.Stat , "Only Stat Allowd");
+        description.text = text;
+        Icon.sprite = icon;
+        IconBGI.color = GetColor(rank)
+        ;
+        skillData.rank = rank;
     }
 
-    public UnityEvent<RpgEffectSO , int> OnSubmit;
+    public UnityAction SubmitAction;
     private void Awake()
     {
         CardButton.onClick.AddListener(OnClick);
@@ -64,6 +58,7 @@ public class UpdateSkillSelectUI : MonoBehaviour
 
     public void OnClick()
     {
-        OnSubmit.Invoke(skillData.skillRef, skillData.rank);
+        //OnSubmit.Invoke(skillData.skillRef, skillData.rank);
+        SubmitAction.Invoke();
     }
 }

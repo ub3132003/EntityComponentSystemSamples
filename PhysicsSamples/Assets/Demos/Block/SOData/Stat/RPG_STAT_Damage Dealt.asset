@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0d3b4c327cfc49418e2a53955aa95cb, type: 3}
-  m_Name: BodyScale
+  m_Name: RPG_STAT_Damage Dealt
   m_EditorClassIdentifier: 
-  _guid: 6cd2ded2296f6e84dba146d0d641a549
+  _guid: d70a997b0925f404c8ae5b80b7cd48ca
   _name:
     m_TableReference:
       m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
     m_TableEntryReference:
-      m_KeyId: 33332068352
+      m_KeyId: 740417381269504
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _previewImage: {fileID: 0}
+  _previewImage: {fileID: 21300000, guid: 7298f3e267e31944894f964e6e6737b4, type: 3}
   _description:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 740417381269504
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -36,18 +36,18 @@ MonoBehaviour:
   ID: -1
   _fileName: 
   displayName: 
-  minCheck: 1
+  minCheck: 0
   minValue: 0
   maxCheck: 0
-  maxValue: 10
-  baseValue: 1
+  maxValue: 0
+  baseValue: 0
   StatUICategory: 
   StartsAtMax: 1
   isPercentStat: 0
   isVitalityStat: 0
   vitalityActions: []
   statBonuses:
-  - statType: 59
+  - statType: 1
     modifyValue: 1
     StatFunction: 
     OppositeStat: 

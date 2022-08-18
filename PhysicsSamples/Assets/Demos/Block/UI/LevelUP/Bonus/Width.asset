@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8e3945ffd389d4093ea7069f8fe614, type: 3}
+  m_Name: Width
+  m_EditorClassIdentifier: 
+  _guid: 3ea63d969011bf246aeea5cf70bdf2f3
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
+    m_TableEntryReference:
+      m_KeyId: 33332068352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _previewImage: {fileID: 21300000, guid: 225237883786a814893a59d009ebf1ad, type: 3}
+  _description:
+    m_TableReference:
+      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
+    m_TableEntryReference:
+      m_KeyId: 33332068352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _prefab: {fileID: 0}
+  ID: -1
+  displayName: 
+  _fileName: 
+  learnedByDefault: 0
+  ranks:
+  - ShowedInEditor: 0
+    unlockCost: 0
+    statEffectsData:
+    - statID: -1
+      statREF: {fileID: 11400000, guid: 6cd2ded2296f6e84dba146d0d641a549, type: 2}
+      statEffectModification: 1
+      isPercent: 0
+  - ShowedInEditor: 0
+    unlockCost: 0
+    statEffectsData:
+    - statID: -1
+      statREF: {fileID: 11400000, guid: 6cd2ded2296f6e84dba146d0d641a549, type: 2}
+      statEffectModification: 2
+      isPercent: 0
+  - ShowedInEditor: 0
+    unlockCost: 0
+    statEffectsData:
+    - statID: -1
+      statREF: {fileID: 11400000, guid: 6cd2ded2296f6e84dba146d0d641a549, type: 2}
+      statEffectModification: 3
+      isPercent: 0
+  - ShowedInEditor: 0
+    unlockCost: 0
+    statEffectsData:
+    - statID: -1
+      statREF: {fileID: 11400000, guid: 6cd2ded2296f6e84dba146d0d641a549, type: 2}
+      statEffectModification: 4
+      isPercent: 0
+    - statID: -1
+      statREF: {fileID: 11400000, guid: d70a997b0925f404c8ae5b80b7cd48ca, type: 2}
+      statEffectModification: 1
+      isPercent: 0
+  references:
+    version: 2
+    RefIds: []

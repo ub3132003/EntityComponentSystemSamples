@@ -8,4 +8,9 @@ public class EcsRefAPI : MonoBehaviour
     {
         PlayerEcsConnect.Instance.AddBuff(rpgEffectSO, rank);
     }
+
+    public void UPRankBonus(RPGBonus rPGBonus)
+    {
+        BonusManager.RankUpBonus(rPGBonus);
+    }
 }
