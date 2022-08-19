@@ -14655,6 +14655,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
+  SpeedRange:
+    x: 5
+    y: 20
+  LockAixs:
+    x: 1
+    y: 0
+    z: 1
 --- !u!114 &6363414251488596987
 MonoBehaviour:
   m_ObjectHideFlags: 0

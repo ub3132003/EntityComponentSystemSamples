@@ -10,6 +10,8 @@ using Unity.Physics.Systems;
 public struct BulletComponent : IComponentData
 {
     public int Damage;
+    public float2 SpeedRange;
+    public float3 LockAixs;
 }
 
 [DisallowMultipleComponent]
@@ -17,11 +19,15 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
 {
     [Min(0)]
     public int Damage;
+    public float2 SpeedRange;
+    public float3 LockAixs;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new BulletComponent
         {
-            Damage = Damage
+            Damage = Damage,
+            SpeedRange = SpeedRange,
+            LockAixs = LockAixs
         });
     }
 }

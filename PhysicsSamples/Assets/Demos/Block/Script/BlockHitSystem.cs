@@ -11,6 +11,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Physics.Stateful;
+using Unity.Physics.Extensions;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateAfter(typeof(Unity.Physics.Extensions.MousePickSystem))]
@@ -252,17 +253,9 @@ public partial class BlockHitSystem : SystemBase
             var block = blockGroup[blockEntity];
             block.HitCountDown -= bulletGroup[bulletEntity].Damage;
             blockGroup[blockEntity] = block;
-            //BUg 删除方块后 球不会反弹,手动设置反射速度
             if (block.HitCountDown == 0)
             {
                 deadBlocks.Add(blockEntity);
-                //var I = PhysicsVelocityGroup[bulletEntity].Linear;
-                //var N = collisionEvent.Normal;
-                //var R = I - math.dot(N, I) * N * 2.0f;
-                //PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
-                //{
-                //    Linear = R,
-                //};
             }
             else if (block.HitCountDown < 0)
             {
@@ -270,6 +263,25 @@ public partial class BlockHitSystem : SystemBase
                 if (!deadBlocks.Contains(blockEntity))
                 {
                     deadBlocks.Add(blockEntity);
+                }
+                var manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                if (manager.HasComponent<BulletRockTag>(bulletEntity))
+                {
+                    //继续前进而不是反弹
+                    var I = PhysicsVelocityGroup[bulletEntity].Linear;
+                    var N = collisionEvent.Normal;
+                    var R = I - math.dot(N, I) * N * 2.0f;
+                    PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
+                    {
+                        Linear = R,
+                        Angular = R / 3 // 线速度 除 半径
+                    };
+                    //var pv = PhysicsVelocityGroup[bulletEntity];
+                    //pv.ApplyImpulse(
+                    //    manager.GetComponentData<PhysicsMass>(bulletEntity),
+                    //    manager.GetComponentData<Translation>(bulletEntity),
+                    //    manager.GetComponentData<Rotation>(bulletEntity),
+                    //    R, float3.zero);
                 }
             }
             else
