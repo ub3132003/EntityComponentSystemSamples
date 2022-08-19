@@ -15,7 +15,7 @@ public struct PeriodicallySpawnDroneComponent : IComponentData, ISpawnSettings, 
 
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
-    public RandomType randomType { get ; set; }
+    public RandomType randomType { get; set; }
 
     public int Id;
 }
@@ -49,7 +49,7 @@ public class PeriodicallySpawnDroneAuthoring : MonoBehaviour, IConvertGameObject
 
 class PeriodicallySpawnDroneSystem : PeriodicalySpawnRandomObjectsSystem<PeriodicallySpawnDroneComponent>
 {
-    internal override void ConfigureInstance(Entity instance, ref PeriodicallySpawnDroneComponent spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref PeriodicallySpawnDroneComponent spawnSettings)
     {
         var pos = EntityManager.GetComponentData<Translation>(instance);
         EntityManager.AddComponentData<DroneComponent>(instance, new DroneComponent

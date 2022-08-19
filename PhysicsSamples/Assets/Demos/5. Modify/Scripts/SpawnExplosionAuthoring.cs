@@ -78,7 +78,7 @@ class SpawnExplosionSystem : SpawnRandomObjectsSystemBase<SpawnExplosionSettings
         CreatedColliders.Dispose();
     }
 
-    internal override void ConfigureInstance(Entity instance, ref SpawnExplosionSettings spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref SpawnExplosionSettings spawnSettings)
     {
         // Create single collider per Explosion group
         if (GroupId != spawnSettings.Id)

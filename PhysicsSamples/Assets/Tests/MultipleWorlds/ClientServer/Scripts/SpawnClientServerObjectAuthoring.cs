@@ -44,7 +44,7 @@ class SpawnClientServerObjectSystem : SpawnRandomObjectsSystemBase<ClientServerO
         return seed;
     }
 
-    internal override void ConfigureInstance(Entity serverInstance, ref ClientServerObjectSpawnSettings spawnSettings)
+    protected override void ConfigureInstance(Entity serverInstance, ref ClientServerObjectSpawnSettings spawnSettings)
     {
         // Create a ghost instance for the client world
         var clientInstance = EntityManager.Instantiate(spawnSettings.ClientPrefab);

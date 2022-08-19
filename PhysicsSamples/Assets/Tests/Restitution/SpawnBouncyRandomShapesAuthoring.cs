@@ -37,7 +37,7 @@ class SpawnBouncyRandomShapesSystem : SpawnRandomObjectsSystemBase<BouncySpawnSe
         return seed;
     }
 
-    internal override void OnBeforeInstantiatePrefab(ref BouncySpawnSettings spawnSettings)
+    protected override void OnBeforeInstantiatePrefab(ref BouncySpawnSettings spawnSettings)
     {
         base.OnBeforeInstantiatePrefab(ref spawnSettings);
 
@@ -54,7 +54,7 @@ class SpawnBouncyRandomShapesSystem : SpawnRandomObjectsSystemBase<BouncySpawnSe
         }
     }
 
-    internal override void ConfigureInstance(Entity instance, ref BouncySpawnSettings spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref BouncySpawnSettings spawnSettings)
     {
         base.ConfigureInstance(instance, ref spawnSettings);
         var collider = EntityManager.GetComponentData<PhysicsCollider>(instance);

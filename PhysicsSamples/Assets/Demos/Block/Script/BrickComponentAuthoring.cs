@@ -2,10 +2,12 @@ using System;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+
 
 [Serializable]
 public struct BlockComponent : IComponentData
@@ -74,7 +76,7 @@ partial class BrickMoveSytem : SystemBase
     private partial struct FallDownRayCastJob : IJobEntity
     {
         //public float Length;
-        public NativeList<RaycastHit> RaycastHits;
+        public NativeList<Unity.Physics.RaycastHit> RaycastHits;
         public bool CollectAllHits; // 没用到
         public NativeList<Entity> FallEntities;
         [ReadOnly] public PhysicsWorld World;
@@ -93,7 +95,7 @@ partial class BrickMoveSytem : SystemBase
             {
                 World.CastRay(raycastInput, ref RaycastHits);
             }
-            else if (World.CastRay(raycastInput, out RaycastHit hit))
+            else if (World.CastRay(raycastInput, out Unity.Physics.RaycastHit hit))
             {
                 RaycastHits.Add(hit);
                 if (hit.Fraction * maxDistance > 0.1f)//需要下落

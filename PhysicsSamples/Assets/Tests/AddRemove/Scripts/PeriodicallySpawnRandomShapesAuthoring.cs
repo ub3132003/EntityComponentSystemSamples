@@ -52,7 +52,7 @@ public abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObject
         return seed;
     }
 
-    internal override void OnBeforeInstantiatePrefab(ref T spawnSettings)
+    protected override void OnBeforeInstantiatePrefab(ref T spawnSettings)
     {
         if (spawnSettings.DeathRate <= 0)
         {

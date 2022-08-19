@@ -110,9 +110,9 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
         return seed;
     }
 
-    internal virtual void OnBeforeInstantiatePrefab(ref T spawnSettings) {}
+    protected virtual void OnBeforeInstantiatePrefab(ref T spawnSettings) {}
 
-    internal virtual void ConfigureInstance(Entity instance, ref T spawnSettings) {}
+    protected virtual void ConfigureInstance(Entity instance, ref T spawnSettings) {}
 
     protected override void OnUpdate()
     {

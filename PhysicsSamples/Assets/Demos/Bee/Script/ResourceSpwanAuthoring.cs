@@ -18,7 +18,7 @@ struct SpawnResourceSettings : ISpawnSettings, IComponentData
     public quaternion Rotation { get; set; }
     public float3 Range { get; set; }
     public int Count { get; set; }
-    public RandomType randomType { get ; set; }
+    public RandomType randomType { get; set; }
     #endregion
 
     public int Id;
@@ -35,7 +35,7 @@ class ResourceSpwanAuthoring : SpawnRandomObjectsAuthoringBase<SpawnResourceSett
 /// </summary>
 class SpawnResourceSystem : SpawnRandomObjectsSystemBase<SpawnResourceSettings>
 {
-    internal override void ConfigureInstance(Entity instance, ref SpawnResourceSettings spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref SpawnResourceSettings spawnSettings)
     {
         EntityManager.AddComponentData(instance, new DropResourceComponent
         {

@@ -16,7 +16,7 @@ public struct PeriodicallySpawnExplosionComponent : IComponentData, ISpawnSettin
 
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
-    public RandomType randomType { get ; set ; }
+    public RandomType randomType { get; set; }
 
     public int Id;
 }
@@ -50,7 +50,7 @@ public class PeriodicallySpawnExplosionAuthoring : MonoBehaviour, IConvertGameOb
 [UpdateBefore(typeof(BuildPhysicsWorld))]
 class PeriodicallySpawnExplosionsSystem : PeriodicalySpawnRandomObjectsSystem<PeriodicallySpawnExplosionComponent>
 {
-    internal override void ConfigureInstance(Entity instance, ref PeriodicallySpawnExplosionComponent spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref PeriodicallySpawnExplosionComponent spawnSettings)
     {
         Assert.IsTrue(EntityManager.HasComponent<SpawnExplosionSettings>(instance));
 

@@ -628,7 +628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104149455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -663,11 +663,11 @@ MonoBehaviour:
   prefab: {fileID: 7699382154791289547, guid: 569d51406ba323944b658d032b3060fd, type: 3}
   range:
     x: 9
-    y: 0
+    y: 1
     z: 7
-  count: 3
+  count: 15
   randomType: 1
-  SpawnRate: 50
+  SpawnRate: 500
   DeathRate: 0
 --- !u!1 &139829919
 GameObject:

@@ -36,13 +36,13 @@ class SpawnRandomAsteroidsSystem : SpawnRandomObjectsSystemBase<AsteroidSpawnSet
         return seed;
     }
 
-    internal override void OnBeforeInstantiatePrefab(ref AsteroidSpawnSettings spawnSettings)
+    protected override void OnBeforeInstantiatePrefab(ref AsteroidSpawnSettings spawnSettings)
     {
         m_RandomMass = new Random();
         m_RandomMass.InitState(10);
     }
 
-    internal override void ConfigureInstance(Entity instance, ref AsteroidSpawnSettings spawnSettings)
+    protected override void ConfigureInstance(Entity instance, ref AsteroidSpawnSettings spawnSettings)
     {
         var mass = EntityManager.GetComponentData<PhysicsMass>(instance);
         var halfMassFactor = spawnSettings.MassFactor * 0.5f;
