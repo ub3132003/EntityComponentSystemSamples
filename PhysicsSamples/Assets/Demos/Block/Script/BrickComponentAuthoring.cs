@@ -43,7 +43,16 @@ partial class BrickMoveSytem : SystemBase
     protected override void OnCreate()
     {
         // Query that contains all of Execute params found in `QueryJob` - as well as additional user specified component `BoidTarget`.
-        filldownTaget = GetEntityQuery(ComponentType.ReadWrite<Translation>(), ComponentType.ReadOnly<FallDownComponent>());
+        var desc1 = new EntityQueryDesc
+        {
+            All = new ComponentType[]
+            {
+                ComponentType.ReadWrite<Translation>(),
+                ComponentType.ReadOnly<FallDownComponent>()
+            },
+            None = new ComponentType[] {typeof(TweenPositionComponent)}
+        };
+        filldownTaget = GetEntityQuery(desc1);
     }
 
     protected override void OnUpdate()
@@ -67,7 +76,7 @@ partial class BrickMoveSytem : SystemBase
             //var hitPosition = raycastHits[i].Position
             var moveLen = raycastHits[i].Fraction * 5f;
             ITweenComponent.CreateMoveTween(fallDownEntites[i], new float3(0, -moveLen, 0), 0.5f, DG.Tweening.Ease.InCubic, isRelative: true);
-            EntityManager.RemoveComponent<FallDownComponent>(fallDownEntites[i]);
+            //EntityManager.RemoveComponent<FallDownComponent>(fallDownEntites[i]); 需要一直检测.
         }
         fallDownEntites.Dispose();
         raycastHits.Dispose();
@@ -97,12 +106,17 @@ partial class BrickMoveSytem : SystemBase
             }
             else if (World.CastRay(raycastInput, out Unity.Physics.RaycastHit hit))
             {
-                RaycastHits.Add(hit);
                 if (hit.Fraction * maxDistance > 0.1f)//需要下落
                 {
                     FallEntities.Add(e);
+                    RaycastHits.Add(hit);
+                    UnityEngine.Debug.Log($"Hit At {hit.Fraction }");
                 }
             }
+            //else
+            //{
+            //    UnityEngine.Debug.Log($"NO Hit {startPos} {raycastInput.End}");
+            //}
         }
     }
 }

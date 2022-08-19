@@ -32,6 +32,10 @@ public interface ITweenComponent
     public Ease ease { get; set; }
     public bool isReset { get; set; }//完成时重置到form
     public bool isRelative { get; set; }
+    /// <summary>
+    /// 完成后移除动画
+    /// </summary>
+    public bool AutoKill { get; set; }
     //TODO 重复触发问题, 在动画进行时再次触发了该动作该如何处理
     /// <summary>
     ///
@@ -43,7 +47,7 @@ public interface ITweenComponent
     /// <param name="isReset"></param>
     /// <param name="start"></param>
     /// <param name="isRelative"> 是否增量</param>
-    public static void CreateTween(Entity tweenTarget, float4 to, float lifetime, Ease ease, bool isReset = false, float4 start = default, bool isRelative = false)
+    public static void CreateTween(Entity tweenTarget, float4 to, float lifetime, Ease ease, bool isReset = false, float4 start = default, bool isRelative = false, bool autoKill = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -55,12 +59,13 @@ public interface ITweenComponent
             isReset = isReset,
             Start = start,
             isRelative = isRelative,
+            AutoKill = autoKill,
 
             To = to,
         });
     }
 
-    public static void CreateTween(Entity tweenTarget, float4 from, float4 to, float lifetime, Ease ease, bool isReset = false , float4 start = default, bool isRelative = false)
+    public static void CreateTween(Entity tweenTarget, float4 from, float4 to, float lifetime, Ease ease, bool isReset = false , float4 start = default, bool isRelative = false, bool autoKill = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //var entity = entityManager.CreateEntity();
@@ -81,6 +86,7 @@ public interface ITweenComponent
                 isReset = isReset,
                 Start = start,
                 isRelative = isRelative,
+                AutoKill = autoKill,
 
                 From = from,
                 To = to,
@@ -103,7 +109,7 @@ public interface ITweenComponent
         }
     }
 
-    public static void CreateMoveTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false)
+    public static void CreateMoveTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false , bool autoKill = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -116,6 +122,7 @@ public interface ITweenComponent
             isReset = isReset,
             Start = new float4(start, 0),
             isRelative = isRelative,
+            AutoKill = autoKill,
 
             To = to,
         });
@@ -136,7 +143,7 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
     public Ease ease { get; set; }
     public bool isReset { get; set; }//完成时重置到for
     public bool isRelative { get; set; }
-
+    public bool AutoKill { get; set; }
 
     public float3 From { get; set; }
     public float3 To { get; set; }
@@ -156,6 +163,7 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
     public bool isReset { get; set; }//完成时重置到for
     public bool isRelative { get; set; }
 
+    public bool AutoKill { get; set; }
 
     public float4 From { get; set; }
     public float4 To { get; set; }
@@ -223,10 +231,35 @@ public partial class TweenSystem : SystemBase
                     }
                 }
             }).Schedule();
+
+        Entities
+            .WithoutBurst()
+            .ForEach((Entity entity , in TweenHDRColorComponent tween) =>
+            {
+                RemoveTwenn(entity, tween);
+            }).Run();
+
+        Entities
+            .WithoutBurst()
+            .ForEach((Entity entity, in TweenPositionComponent tween) =>
+            {
+                RemoveTwenn(entity, tween);
+            }).Run();
+
+        //auto kill
+
         //new TweenJob()
         //{
         //    hdrColorGroup = GetComponentDataFromEntity<URPMaterialPropertyEmissionColor>(),
         //};
+    }
+
+    static void RemoveTwenn(Entity entity , ITweenComponent tween)
+    {
+        if (tween.AutoKill == true)
+        {
+            World.DefaultGameObjectInjectionWorld.EntityManager.RemoveComponent<ITweenComponent>(entity);
+        }
     }
 
     private struct TweenJob<T> : IJobEntity where T : struct

@@ -35,7 +35,7 @@ public partial class PlayerBarSystem : SystemBase
                     bulletPv.Linear += GetComponent<PhysicsVelocity>(playerBar).Linear* plyerMove.HitForce;
 
                     var dir = math.normalize(bulletPv.Linear);
-
+                    //限制反弹速度
                     var speed = math.clamp(math.length(bulletPv.Linear), 5, 30);
                     bulletPv.Linear = dir * speed;
                     Debug.Log($"next:{bulletPv.Linear}");
@@ -47,13 +47,15 @@ public partial class PlayerBarSystem : SystemBase
             }).Schedule();
 
         //子弹速度限制
-        //Entities
-        //    .WithName("BulletSpeed")
-        //    .WithAll<BulletComponent>()
-        //    .ForEach((ref PhysicsVelocity pv) =>
-        //    {
-        //        //var dir = math.normalize(pv.Linear);
-        //        //pv.Linear = math.clamp(pv.Linear, dir * 10, dir * 40);
-        //    }).Schedule();
+        Entities
+            .WithName("BulletSpeed")
+            .WithAll<BulletComponent>()
+            .ForEach((ref PhysicsVelocity pv) =>
+            {
+                //限制y轴速度
+                var velocity = pv.Linear;
+                velocity.y = 0;
+                pv.Linear = velocity;
+            }).Schedule();
     }
 }
