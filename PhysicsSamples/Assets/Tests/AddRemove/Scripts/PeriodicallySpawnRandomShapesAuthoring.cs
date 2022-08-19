@@ -11,19 +11,22 @@ public interface IPeriodicSpawnSettings
 }
 
 
-class PeriodicallySpawnRandomShapesAuthoring : SpawnRandomObjectsAuthoringBase<PeriodicSpawnSettings>
+public class PeriodicallySpawnRandomShapesAuthoring : SpawnRandomObjectsAuthoringBase<PeriodicSpawnSettings>
 {
     public int SpawnRate = 50;
+    /// <summary>
+    /// 小于等于0时不会销毁
+    /// </summary>
     public int DeathRate = 50;
 
-    internal override void Configure(ref PeriodicSpawnSettings spawnSettings)
+    protected override void Configure(ref PeriodicSpawnSettings spawnSettings)
     {
         spawnSettings.SpawnRate = SpawnRate;
         spawnSettings.DeathRate = DeathRate;
     }
 }
 
-struct PeriodicSpawnSettings : IComponentData, ISpawnSettings, IPeriodicSpawnSettings
+public struct PeriodicSpawnSettings : IComponentData, ISpawnSettings, IPeriodicSpawnSettings
 {
     public Entity Prefab { get; set; }
     public float3 Position { get; set; }
@@ -32,10 +35,10 @@ struct PeriodicSpawnSettings : IComponentData, ISpawnSettings, IPeriodicSpawnSet
     public int Count { get; set; }
     public int SpawnRate { get; set; }
     public int DeathRate { get; set; }
-    public RandomType randomType { get ; set ; }
+    public RandomType randomType { get; set; }
 }
 
-abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObjectsSystemBase<T> where T : struct, ISpawnSettings, IPeriodicSpawnSettings, IComponentData
+public abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObjectsSystemBase<T> where T : struct, ISpawnSettings, IPeriodicSpawnSettings, IComponentData
 {
     public int FrameCount = 0;
 
@@ -51,11 +54,21 @@ abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObjectsSystem
 
     internal override void OnBeforeInstantiatePrefab(ref T spawnSettings)
     {
+        if (spawnSettings.DeathRate <= 0)
+        {
+            return;
+        }
         if (!EntityManager.HasComponent<LifeTime>(spawnSettings.Prefab))
         {
             EntityManager.AddComponent<LifeTime>(spawnSettings.Prefab);
         }
         EntityManager.SetComponentData(spawnSettings.Prefab, new LifeTime { Value = spawnSettings.DeathRate });
+    }
+
+    protected virtual void InitTransform(float3 center, quaternion orientation, float3 range,
+        ref NativeArray<float3> positions, ref NativeArray<quaternion> rotations, int seed = 1)
+    {
+        RandomPointsInRange(center, orientation, range, ref positions, ref rotations, seed);
     }
 
     protected override void OnUpdate()
@@ -86,7 +99,8 @@ abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObjectsSystem
 
                     var positions = new NativeArray<float3>(count, Allocator.Temp);
                     var rotations = new NativeArray<quaternion>(count, Allocator.Temp);
-                    RandomPointsInRange(spawnSettings.Position, spawnSettings.Rotation, spawnSettings.Range, ref positions, ref rotations, GetRandomSeed(spawnSettings));
+
+                    InitTransform(spawnSettings.Position, spawnSettings.Rotation, spawnSettings.Range, ref positions, ref rotations, GetRandomSeed(spawnSettings));
 
                     for (int i = 0; i < count; i++)
                     {

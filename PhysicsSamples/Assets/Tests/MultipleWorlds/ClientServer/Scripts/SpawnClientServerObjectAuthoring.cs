@@ -11,12 +11,12 @@ class SpawnClientServerObjectAuthoring : SpawnRandomObjectsAuthoringBase<ClientS
 {
     public DriveGhostBodyAuthoring ClientPrefab;
 
-    internal override void Configure(ref ClientServerObjectSpawnSettings spawnSettings, Entity serverEntity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    protected override void Configure(ref ClientServerObjectSpawnSettings spawnSettings, Entity serverEntity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         spawnSettings.ClientPrefab = conversionSystem.GetPrimaryEntity(ClientPrefab);
     }
 
-    internal override void Configure(List<GameObject> referencedPrefabs)
+    protected override void Configure(List<GameObject> referencedPrefabs)
     {
         base.Configure(referencedPrefabs);
 
@@ -32,7 +32,7 @@ struct ClientServerObjectSpawnSettings : IComponentData, ISpawnSettings
     public float3 Range { get; set; }
     public int Count { get; set; }
     public Entity ClientPrefab { get; set; }
-    public RandomType randomType { get ; set ; }
+    public RandomType randomType { get; set; }
 }
 
 class SpawnClientServerObjectSystem : SpawnRandomObjectsSystemBase<ClientServerObjectSpawnSettings>

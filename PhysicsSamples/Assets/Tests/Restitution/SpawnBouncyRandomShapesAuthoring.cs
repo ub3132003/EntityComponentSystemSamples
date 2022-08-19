@@ -11,7 +11,7 @@ class SpawnBouncyRandomShapesAuthoring : SpawnRandomObjectsAuthoringBase<BouncyS
 {
     public float restitution = 1f;
 
-    internal override void Configure(ref BouncySpawnSettings spawnSettings) => spawnSettings.Restitution = restitution;
+    protected override void Configure(ref BouncySpawnSettings spawnSettings) => spawnSettings.Restitution = restitution;
 }
 
 struct BouncySpawnSettings : IComponentData, ISpawnSettings

@@ -9,7 +9,7 @@ class SpawnRandomAsteroidsAuthoring : SpawnRandomObjectsAuthoringBase<AsteroidSp
 {
     public float massFactor = 1;
 
-    internal override void Configure(ref AsteroidSpawnSettings spawnSettings) => spawnSettings.MassFactor = massFactor;
+    protected override void Configure(ref AsteroidSpawnSettings spawnSettings) => spawnSettings.MassFactor = massFactor;
 }
 
 struct AsteroidSpawnSettings : IComponentData, ISpawnSettings
@@ -19,7 +19,7 @@ struct AsteroidSpawnSettings : IComponentData, ISpawnSettings
     public quaternion Rotation { get; set; }
     public float3 Range { get; set; }
     public int Count { get; set; }
-    public RandomType randomType { get ; set ; }
+    public RandomType randomType { get; set; }
 
     public float MassFactor;
 }

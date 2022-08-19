@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Assertions;
 using UnityEngine.Events;
-
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
 /// <summary>
 /// 对自己释放技能
 /// </summary>
 
-public class UpdateSkillSelectUI : MonoBehaviour
+public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button CardButton;
     [SerializeField] Image Icon;
@@ -60,5 +61,15 @@ public class UpdateSkillSelectUI : MonoBehaviour
     {
         //OnSubmit.Invoke(skillData.skillRef, skillData.rank);
         SubmitAction.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.DOScale(1.1f, 0.2f).SetUpdate(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.DOScale(1.0f, 0.2f).SetUpdate(true);
     }
 }

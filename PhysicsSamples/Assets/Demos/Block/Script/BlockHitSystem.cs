@@ -183,7 +183,7 @@ public partial class BlockHitSystem : SystemBase
         length = toFallBlocks.Length;
         for (int i = 0; i < length; i++)
         {
-            ITweenComponent.CreateTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
+            ITweenComponent.CreateMoveTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
         }
 
         tweenTarget.Dispose();

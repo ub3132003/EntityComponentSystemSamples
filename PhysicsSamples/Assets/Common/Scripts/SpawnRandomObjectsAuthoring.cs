@@ -19,7 +19,7 @@ class SpawnRandomObjectsAuthoring : SpawnRandomObjectsAuthoringBase<SpawnSetting
 }
 
 
-abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
+public abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
     where T : struct, IComponentData, ISpawnSettings
 {
     private void OnValidate()
@@ -66,14 +66,14 @@ abstract class SpawnRandomObjectsAuthoringBase<T> : MonoBehaviour, IConvertGameO
         dstManager.AddComponentData(entity, spawnSettings);
     }
 
-    internal virtual void Configure(ref T spawnSettings) {}
-    internal virtual void Configure(ref T spawnSettings, Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {}
-    internal virtual void Configure(List<GameObject> referencedPrefabs) { referencedPrefabs.Add(prefab); }
+    protected virtual void Configure(ref T spawnSettings) {}
+    protected virtual void Configure(ref T spawnSettings, Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem) {}
+    protected virtual void Configure(List<GameObject> referencedPrefabs) { referencedPrefabs.Add(prefab); }
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => Configure(referencedPrefabs);
 }
 
-interface ISpawnSettings
+public interface ISpawnSettings
 {
     Entity Prefab { get; set; }
     float3 Position { get; set; }
@@ -99,7 +99,7 @@ class SpawnRandomObjectsSystem : SpawnRandomObjectsSystemBase<SpawnSettings>
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 [UpdateBefore(typeof(BuildPhysicsWorld))]
-abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : struct, IComponentData, ISpawnSettings
+public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : struct, IComponentData, ISpawnSettings
 {
     internal virtual int GetRandomSeed(T spawnSettings)
     {

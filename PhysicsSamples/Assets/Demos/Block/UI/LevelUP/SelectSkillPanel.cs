@@ -45,17 +45,21 @@ public class SelectSkillPanel : MonoBehaviour
         if (opt)
         {
             Time.timeScale = 0.05f;
-            canvasGroup.alpha = 0;
+            canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
-            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 0.5f).SetUpdate(true);
+            //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 0.5f).SetUpdate(true);
+            foreach (var item in allSkillCardUI)
+            {
+                item.transform.DOScale(1, 0.5f).From(0.5f).SetEase(Ease.OutCubic).SetUpdate(true);
+            }
         }
         else
         {
             Time.timeScale = 1;
 
-            canvasGroup.alpha = 1;
+            canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
-            DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0, 0.5f);
+            //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0, 0.5f);
         }
     }
 

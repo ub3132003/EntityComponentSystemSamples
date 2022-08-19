@@ -103,7 +103,7 @@ public interface ITweenComponent
         }
     }
 
-    public static void CreateTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false)
+    public static void CreateMoveTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
