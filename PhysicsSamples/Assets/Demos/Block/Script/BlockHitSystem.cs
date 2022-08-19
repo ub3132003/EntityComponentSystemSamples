@@ -267,6 +267,10 @@ public partial class BlockHitSystem : SystemBase
             else if (block.HitCountDown < 0)
             {
                 //一帧中同时命中,导致hcountdown 小于0 避免重复添加
+                if (!deadBlocks.Contains(blockEntity))
+                {
+                    deadBlocks.Add(blockEntity);
+                }
             }
             else
             {

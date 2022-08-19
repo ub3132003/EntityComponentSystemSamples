@@ -665,9 +665,9 @@ MonoBehaviour:
     x: 9
     y: 1
     z: 7
-  count: 15
+  count: 5
   randomType: 1
-  SpawnRate: 500
+  SpawnRate: 300
   DeathRate: 0
 --- !u!1 &139829919
 GameObject:

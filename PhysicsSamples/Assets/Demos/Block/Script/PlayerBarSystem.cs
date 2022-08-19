@@ -49,6 +49,7 @@ public partial class PlayerBarSystem : SystemBase
         //子弹速度限制
         Entities
             .WithName("BulletSpeed")
+            .WithNone<BulletRockTag>()
             .WithAll<BulletComponent>()
             .ForEach((ref PhysicsVelocity pv) =>
             {
