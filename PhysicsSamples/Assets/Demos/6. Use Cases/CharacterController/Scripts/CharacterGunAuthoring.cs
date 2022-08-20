@@ -7,6 +7,7 @@ using UnityEngine;
 
 public struct CharacterGun : IComponentData
 {
+    public int ID;
     public Entity Bullet;
     public float Strength;
     public float Rate;
@@ -29,13 +30,13 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
 {
     public GameObject Bullet;
 
-    public float Strength;
-    public float Rate;
-    public float SensitivityYAxis;
+    public float Strength = 10;
+    public float Rate = 1;
+    public float SensitivityYAxis = 0;
     /// <summary>
     /// 子弹容量
     /// </summary>
-    public int Capacity;
+    public int Capacity = 10;
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
     public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
     {
@@ -48,6 +49,7 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
             entity,
             new CharacterGun
             {
+                ID = Bullet.GetInstanceID(),
                 Bullet = conversionSystem.GetPrimaryEntity(Bullet),
                 Strength = Strength,
                 Rate = Rate,
@@ -80,6 +82,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
         Entities
             .WithName("CharacterControllerGunToManyInputJob")
             .WithBurst()
+            .WithNone<DisableTag>()
             .ForEach((Entity entity, int entityInQueryIndex, ref Rotation gunRotation, ref CharacterGun gun, in LocalToWorld gunTransform) =>
             {
                 // Handle input

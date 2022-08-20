@@ -39,6 +39,10 @@ public class GameBaseInfoHud : MonoBehaviour
         gunGroup = entityManager.CreateEntityQuery(
             new EntityQueryDesc
             {
+                None = new ComponentType[]
+                {
+                    typeof(DisableTag)
+                },
                 All = new ComponentType[]
                 {
                     typeof(CharacterGun)

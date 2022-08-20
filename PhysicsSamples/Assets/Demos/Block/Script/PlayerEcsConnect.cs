@@ -43,12 +43,18 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
 
         set => playerNode = value;
     }
-
+    public Entity Player { get => player; set => player = value; }
+    public EntityManager EntityManager { get => entityManager; set => entityManager = value; }
 
     [SerializeField] List<RpgStatSO> rpgStatSOs;
+    protected override void Awake()
+    {
+        base.Awake();
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+    }
+
     IEnumerator Start()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //TOdo 等待player
 
         playerNode.InitStats(rpgStatSOs);

@@ -274,7 +274,7 @@ public partial class BlockHitSystem : SystemBase
                     PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
                     {
                         Linear = R,
-                        Angular = R / 3 // 线速度 除 半径
+                        Angular = R / 1 // 线速度 除 半径
                     };
                     //var pv = PhysicsVelocityGroup[bulletEntity];
                     //pv.ApplyImpulse(
