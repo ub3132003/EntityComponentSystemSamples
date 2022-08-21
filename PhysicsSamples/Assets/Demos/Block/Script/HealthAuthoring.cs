@@ -29,7 +29,7 @@ partial class HealthSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        NativeList<Entity> deadEntities = new NativeList<Entity>(10, Allocator.TempJob);
+        //NativeList<Entity> deadEntities = new NativeList<Entity>(10, Allocator.TempJob);
         Entities
             .ForEach((Entity e , ref DynamicBuffer<StatefulCollisionEvent> collisonEvents, ref Health health) =>
         {
@@ -43,6 +43,7 @@ partial class HealthSystem : SystemBase
                 {
                     var damage = GetComponent<Damage>(damageEntity);
                     health.Value -= damage.Value;
+                    Debug.Log($"H:{health.Value} D:{damage.Value}");
                 }
             }
         }).Schedule();
@@ -55,19 +56,17 @@ partial class HealthSystem : SystemBase
         {
             if (health.Value == 0)
             {
-                deadEntities.Add(e);
                 ecb.DestroyEntity(e);
             }
             else if (health.Value < 0)
             {
-                deadEntities.Add(e);
             }
             else
             {
                 //tweenTarget.Add(blockEntity);
             }
         }).Schedule();
-
-        deadEntities.Dispose();
+        destorySys.AddJobHandleForProducer(this.Dependency);
+        //deadEntities.Dispose();
     }
 }
