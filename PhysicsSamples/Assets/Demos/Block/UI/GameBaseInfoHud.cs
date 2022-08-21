@@ -24,7 +24,7 @@ public class GameBaseInfoHud : MonoBehaviour
             {
                 All = new ComponentType[]
                 {
-                    typeof(BlockComponent)
+                    typeof(BrickComponent)
                 }
             });
 

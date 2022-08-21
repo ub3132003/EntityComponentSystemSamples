@@ -33,7 +33,7 @@ public partial class TestPhysicsEventSystem : SystemBase
         {
             All = new ComponentType[]
             {
-                typeof(BlockComponent)
+                typeof(BrickComponent)
             }
         });
     }

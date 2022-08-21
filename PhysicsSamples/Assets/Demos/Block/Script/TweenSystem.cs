@@ -24,7 +24,9 @@ public interface ITweenComponent
     public float PassTime { get; set; }
     public Entity TweenEntity { get; set; }
 
-
+    /// <summary>
+    /// 开始时的值
+    /// </summary>
     public float4 Start { get; set; }
     public float4 End { get; set; }
     public float Lifetime { get; set; }
@@ -36,6 +38,8 @@ public interface ITweenComponent
     /// 完成后移除动画
     /// </summary>
     public bool AutoKill { get; set; }
+
+    public bool IsComplete { get; }
     //TODO 重复触发问题, 在动画进行时再次触发了该动作该如何处理
     /// <summary>
     ///
@@ -147,6 +151,8 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
 
     public float3 From { get; set; }
     public float3 To { get; set; }
+
+    public bool IsComplete => PassTime > Lifetime;
 }
 public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 {
@@ -167,10 +173,13 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 
     public float4 From { get; set; }
     public float4 To { get; set; }
+
+    public bool IsComplete
+    {
+        get { return PassTime > Lifetime; }
+    }
 }
 #endregion
-
-
 public partial class TweenSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -191,7 +200,7 @@ public partial class TweenSystem : SystemBase
                     tweenHdr.PassTime += datleTime;
 
                     var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
-                    //默认从当前值开始
+                                                                                                                   //默认从当前值开始
                     var from = tweenHdr.From.IsZero() ?
                         tweenHdr.Start : tweenHdr.From;
 
@@ -231,20 +240,24 @@ public partial class TweenSystem : SystemBase
                     }
                 }
             }).Schedule();
+        using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
+        {
+            Entities
+                .WithoutBurst()
+                .ForEach((Entity entity, in TweenHDRColorComponent tween) =>
+                {
+                    RemoveTwenn(commandBuffer, entity, tween);
+                }).Run();
 
-        Entities
-            .WithoutBurst()
-            .ForEach((Entity entity , in TweenHDRColorComponent tween) =>
-            {
-                RemoveTwenn(entity, tween);
-            }).Run();
+            Entities
+                .WithoutBurst()
+                .ForEach((Entity entity, in TweenPositionComponent tween) =>
+                {
+                    RemoveTwenn(commandBuffer, entity, tween);
+                }).Run();
+            commandBuffer.Playback(EntityManager);
+        }
 
-        Entities
-            .WithoutBurst()
-            .ForEach((Entity entity, in TweenPositionComponent tween) =>
-            {
-                RemoveTwenn(entity, tween);
-            }).Run();
 
         //auto kill
 
@@ -254,11 +267,11 @@ public partial class TweenSystem : SystemBase
         //};
     }
 
-    static void RemoveTwenn(Entity entity , ITweenComponent tween)
+    static void RemoveTwenn<T>(EntityCommandBuffer commandBuffer, Entity entity, T tween) where T : ITweenComponent
     {
-        if (tween.AutoKill == true)
+        if (tween.AutoKill && tween.IsComplete)
         {
-            World.DefaultGameObjectInjectionWorld.EntityManager.RemoveComponent<ITweenComponent>(entity);
+            commandBuffer.RemoveComponent<T>(entity);
         }
     }
 
@@ -266,7 +279,7 @@ public partial class TweenSystem : SystemBase
     {
         public float detleTime;
 
-        public void Execute(Entity entity , ref ITweenComponent tween , T tweenComponent)
+        public void Execute(Entity entity, ref ITweenComponent tween, T tweenComponent)
         {
             //tween.PassTime += detleTime;
 

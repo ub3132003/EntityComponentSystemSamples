@@ -14,7 +14,7 @@ using Unity.Physics.Stateful;
 using Unity.Physics.Extensions;
 
 [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateAfter(typeof(Unity.Physics.Extensions.MousePickSystem))]
+[UpdateAfter(typeof(Unity.Physics.Extensions.MousePickSystem)) , UpdateAfter(typeof(HealthSystem))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
 public partial class BlockHitSystem : SystemBase
 {
@@ -24,19 +24,19 @@ public partial class BlockHitSystem : SystemBase
     BuildPhysicsWorld buildPhysicsWorld;
 
 
-    EndSimulationEntityCommandBufferSystem endSimulationEcbSystem;
+    //EndSimulationEntityCommandBufferSystem endSimulationEcbSystem;
     protected override void OnCreate()
     {
         buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
 
-        endSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        //endSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 
         blockGroup = GetEntityQuery(new EntityQueryDesc
         {
             All = new ComponentType[]
             {
-                typeof(BlockComponent)
+                typeof(BrickComponent)
             }
         });
         bulletGroup = GetEntityQuery(new EntityQueryDesc
@@ -78,7 +78,7 @@ public partial class BlockHitSystem : SystemBase
             PhysicsWorld = buildPhysicsWorld.PhysicsWorld,
             collisionDatas = contactData,
             hitPsGroutp = GetComponentDataFromEntity<ColliderHitPsTag>(),
-            blockGroup = GetComponentDataFromEntity<BlockComponent>() ,
+            blockGroup = GetComponentDataFromEntity<BrickComponent>() ,
             bulletGroup = GetComponentDataFromEntity<BulletComponent>() ,
             PhysicsVelocityGroup = GetComponentDataFromEntity<PhysicsVelocity>(),
             tweenTarget = tweenTarget,
@@ -112,8 +112,25 @@ public partial class BlockHitSystem : SystemBase
         }
 
 
+        //查找死亡方块
+        NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(capBlock / 2, Allocator.TempJob);
+        Entities
+            .ForEach((Entity e, in Health health , in BrickComponent brick , in Translation t) =>
+        {
+            if (health.Value <= 0)
+            {
+                var deadData = new DeadBrickData
+                {
+                    position = t.Value,
+                    dropCount = brick.DieDropCount,
+                };
+                deadBrickDatas.Add(deadData);
+            }
+        }).Schedule();
+        Dependency.Complete();
+
         //删除 死亡实体,记录死亡位置
-        length = deadBlocks.Length;
+        length = deadBrickDatas.Length;
         //mono 通讯
         PlayerEcsConnect.Instance.AddEXP(length);
         if (length == 0)
@@ -121,61 +138,47 @@ public partial class BlockHitSystem : SystemBase
             contactData.Dispose();
             tweenTarget.Dispose();
             deadBlocks.Dispose();
+            deadBrickDatas.Dispose();
             return;
         }
 
-        NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(capBlock / 2, Allocator.TempJob);
-        using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
+        //播放死亡时粒子
+        Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps, in BrickDeadPsTag psTag) =>
         {
             for (int i = 0; i < length; i++)
             {
-                var deadData = new DeadBrickData
+                ps.transform.position = deadBrickDatas[i].position;
+                int n = deadBrickDatas[i].dropCount;
+                if (!psTag.IsEmit)
                 {
-                    position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
-                    dropCount = EntityManager.GetComponentData<BlockComponent>(deadBlocks[i]).DieDropCount,
-                };
+                    ps.Emit(n);
+                }
 
-                deadBrickDatas.Add(deadData);
-                //EntityManager.DestroyEntity(deadBlocks[i]);
-                commandBuffer.DestroyEntity(deadBlocks[i]);
-
-                //播放死亡时粒子
-                Entities.WithoutBurst().WithAll<BrickDeadPsTag>().ForEach((UnityEngine.ParticleSystem ps, in BrickDeadPsTag psTag) =>
-                {
-                    ps.transform.position = deadBrickDatas[i].position;
-                    int n = deadBrickDatas[i].dropCount;
-                    if (!psTag.IsEmit)
-                    {
-                        ps.Emit(n);
-                    }
-
-                    ps.Play();
-                }).Run();
+                ps.Play();
             }
-            commandBuffer.Playback(EntityManager);
-        }
+        }).Run();
 
-
-        endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
-
-        //查找需要下降的砖 比死亡砖块高的
-        //NativeList<Entity> toFallBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
-        //Entities
-        //    .WithAll<BlockComponent>()
-        //    .ForEach((Entity entity, in Translation t) => {
-        //        var x = t.Value.x;
-        //        var z = t.Value.z;
-        //        var y = t.Value.y;
-        //        var length = deadBrickDatas.Length;
-        //        for (int i = 0; i < length; i++)
+        //using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
+        //{
+        //    for (int i = 0; i < length; i++)
+        //    {
+        //        var deadData = new DeadBrickData
         //        {
-        //            var deadPos = deadBrickDatas[i].position;
-        //            if (x == deadPos.x && z == deadPos.z && deadPos.y < y)
-        //            {
-        //                toFallBlocks.Add(entity);
-        //            }
-        //        }
-        //    }).Schedule();
+        //            position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
+        //            dropCount = EntityManager.GetComponentData<BrickComponent>(deadBlocks[i]).DieDropCount,
+        //        };
+
+        //        deadBrickDatas.Add(deadData);
+        //        //EntityManager.DestroyEntity(deadBlocks[i]);
+        //        commandBuffer.DestroyEntity(deadBlocks[i]);
+
+
+        //    }
+        //    commandBuffer.Playback(EntityManager);
+        //}
+
+
+        //endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
 
 
         //Dependency.Complete();
@@ -206,7 +209,7 @@ public partial class BlockHitSystem : SystemBase
         public PhysicsWorld PhysicsWorld;
 
         public ComponentDataFromEntity<ColliderHitPsTag> hitPsGroutp;
-        public ComponentDataFromEntity<BlockComponent> blockGroup;
+        public ComponentDataFromEntity<BrickComponent> blockGroup;
         public ComponentDataFromEntity<BulletComponent> bulletGroup;
         public ComponentDataFromEntity<PhysicsVelocity> PhysicsVelocityGroup;
 
@@ -250,6 +253,7 @@ public partial class BlockHitSystem : SystemBase
             {
                 return;
             }
+            tweenTarget.Add(blockEntity);
             //var block = blockGroup[blockEntity];
             //block.HitCountDown -= bulletGroup[bulletEntity].Damage;
             //blockGroup[blockEntity] = block;
@@ -286,7 +290,7 @@ public partial class BlockHitSystem : SystemBase
             //}
             //else
             //{
-            //    tweenTarget.Add(blockEntity);
+
             //}
         }
     }

@@ -460,5 +460,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2823015469f53374ab8a9bbe379ceece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitCountDown: 3
+  HitCountDown: 2
   DieDropCount: 1

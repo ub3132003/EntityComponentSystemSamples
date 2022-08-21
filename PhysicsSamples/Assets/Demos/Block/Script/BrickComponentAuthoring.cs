@@ -10,7 +10,7 @@ using Unity.Transforms;
 
 
 [Serializable]
-public struct BlockComponent : IComponentData
+public struct BrickComponent : IComponentData
 {
     //倒数命中计数，0时爆碎
     //public int HitCountDown;
@@ -28,7 +28,7 @@ public class BrickComponentAuthoring : UnityEngine.MonoBehaviour, IConvertGameOb
     public int DieDropCount;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new BlockComponent
+        dstManager.AddComponentData(entity, new BrickComponent
         {
             DieDropCount = DieDropCount,
         });
@@ -78,7 +78,7 @@ partial class BrickMoveSytem : SystemBase
         {
             //var hitPosition = raycastHits[i].Position
             var moveLen = raycastHits[i].Fraction * 5f;
-            ITweenComponent.CreateMoveTween(fallDownEntites[i], new float3(0, -moveLen, 0), 0.5f, DG.Tweening.Ease.InCubic, isRelative: true);
+            ITweenComponent.CreateMoveTween(fallDownEntites[i], new float3(0, -moveLen, 0), 0.5f, DG.Tweening.Ease.InCubic, isRelative: true, autoKill: true);
             //EntityManager.RemoveComponent<FallDownComponent>(fallDownEntites[i]); 需要一直检测.
         }
         fallDownEntites.Dispose();

@@ -24,7 +24,7 @@ public class HealthAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         });
     }
 }
-
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
 partial class HealthSystem : SystemBase
 {
     EntityQueryMask damagerCollionMask;
@@ -76,11 +76,13 @@ partial class HealthSystem : SystemBase
                 if (health.Value == 0)
                 {
                     ecb.DestroyEntity(e);
+
                     break;
                 }
                 else if (health.Value < 0)
                 {
                     ecb.DestroyEntity(e);
+
                     break;
                 }
                 else
@@ -89,11 +91,6 @@ partial class HealthSystem : SystemBase
                 }
             }
         }).Schedule();
-
-
-        //Entities
-        //    .ForEach((Entity e, in Health health) =>
-        //{
 
         //}).Schedule();
         destorySys.AddJobHandleForProducer(this.Dependency);

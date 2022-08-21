@@ -44,7 +44,7 @@ class PeriodBrickSpawnSystem : PeriodicalySpawnRandomObjectsSystem<PeriodicSpawn
     {
         var queryDescription = new EntityQueryDesc
         {
-            All = new ComponentType[] { typeof(BlockComponent),
+            All = new ComponentType[] { typeof(BrickComponent),
                                         ComponentType.ReadOnly<Translation>() }
         };
         queryOldBrickGroup = GetEntityQuery(queryDescription);
