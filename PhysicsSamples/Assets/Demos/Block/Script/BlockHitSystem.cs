@@ -159,38 +159,38 @@ public partial class BlockHitSystem : SystemBase
         endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
 
         //查找需要下降的砖 比死亡砖块高的
-        NativeList<Entity> toFallBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
-        Entities
-            .WithAll<BlockComponent>()
-            .ForEach((Entity entity, in Translation t) => {
-                var x = t.Value.x;
-                var z = t.Value.z;
-                var y = t.Value.y;
-                var length = deadBrickDatas.Length;
-                for (int i = 0; i < length; i++)
-                {
-                    var deadPos = deadBrickDatas[i].position;
-                    if (x == deadPos.x && z == deadPos.z && deadPos.y < y)
-                    {
-                        toFallBlocks.Add(entity);
-                    }
-                }
-            }).Schedule();
+        //NativeList<Entity> toFallBlocks = new NativeList<Entity>(capBlock / 2, Allocator.TempJob);
+        //Entities
+        //    .WithAll<BlockComponent>()
+        //    .ForEach((Entity entity, in Translation t) => {
+        //        var x = t.Value.x;
+        //        var z = t.Value.z;
+        //        var y = t.Value.y;
+        //        var length = deadBrickDatas.Length;
+        //        for (int i = 0; i < length; i++)
+        //        {
+        //            var deadPos = deadBrickDatas[i].position;
+        //            if (x == deadPos.x && z == deadPos.z && deadPos.y < y)
+        //            {
+        //                toFallBlocks.Add(entity);
+        //            }
+        //        }
+        //    }).Schedule();
 
 
-        Dependency.Complete();
+        //Dependency.Complete();
 
-        //加入下降动画
-        length = toFallBlocks.Length;
-        for (int i = 0; i < length; i++)
-        {
-            ITweenComponent.CreateMoveTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
-        }
+        ////加入下降动画
+        //length = toFallBlocks.Length;
+        //for (int i = 0; i < length; i++)
+        //{
+        //    ITweenComponent.CreateMoveTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
+        //}
 
         tweenTarget.Dispose();
         contactData.Dispose();
         deadBrickDatas.Dispose();
-        toFallBlocks.Dispose();
+        //toFallBlocks.Dispose();
         deadBlocks.Dispose();
     }
 
@@ -250,44 +250,44 @@ public partial class BlockHitSystem : SystemBase
             {
                 return;
             }
-            var block = blockGroup[blockEntity];
-            block.HitCountDown -= bulletGroup[bulletEntity].Damage;
-            blockGroup[blockEntity] = block;
-            if (block.HitCountDown == 0)
-            {
-                deadBlocks.Add(blockEntity);
-            }
-            else if (block.HitCountDown < 0)
-            {
-                //一帧中同时命中,导致hcountdown 小于0 避免重复添加
-                if (!deadBlocks.Contains(blockEntity))
-                {
-                    deadBlocks.Add(blockEntity);
-                }
-                var manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-                if (manager.HasComponent<BulletRockTag>(bulletEntity))
-                {
-                    //继续前进而不是反弹
-                    var I = PhysicsVelocityGroup[bulletEntity].Linear;
-                    var N = collisionEvent.Normal;
-                    var R = I - math.dot(N, I) * N * 2.0f;
-                    PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
-                    {
-                        Linear = R,
-                        Angular = R / 1 // 线速度 除 半径
-                    };
-                    //var pv = PhysicsVelocityGroup[bulletEntity];
-                    //pv.ApplyImpulse(
-                    //    manager.GetComponentData<PhysicsMass>(bulletEntity),
-                    //    manager.GetComponentData<Translation>(bulletEntity),
-                    //    manager.GetComponentData<Rotation>(bulletEntity),
-                    //    R, float3.zero);
-                }
-            }
-            else
-            {
-                tweenTarget.Add(blockEntity);
-            }
+            //var block = blockGroup[blockEntity];
+            //block.HitCountDown -= bulletGroup[bulletEntity].Damage;
+            //blockGroup[blockEntity] = block;
+            //if (block.HitCountDown == 0)
+            //{
+            //    deadBlocks.Add(blockEntity);
+            //}
+            //else if (block.HitCountDown < 0)
+            //{
+            //    //一帧中同时命中,导致hcountdown 小于0 避免重复添加
+            //    if (!deadBlocks.Contains(blockEntity))
+            //    {
+            //        deadBlocks.Add(blockEntity);
+            //    }
+            //    var manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            //    if (manager.HasComponent<BulletRockTag>(bulletEntity))
+            //    {
+            //        //继续前进而不是反弹
+            //        var I = PhysicsVelocityGroup[bulletEntity].Linear;
+            //        var N = collisionEvent.Normal;
+            //        var R = I - math.dot(N, I) * N * 2.0f;
+            //        PhysicsVelocityGroup[bulletEntity] = new PhysicsVelocity
+            //        {
+            //            Linear = R,
+            //            Angular = R / 1 // 线速度 除 半径
+            //        };
+            //        //var pv = PhysicsVelocityGroup[bulletEntity];
+            //        //pv.ApplyImpulse(
+            //        //    manager.GetComponentData<PhysicsMass>(bulletEntity),
+            //        //    manager.GetComponentData<Translation>(bulletEntity),
+            //        //    manager.GetComponentData<Rotation>(bulletEntity),
+            //        //    R, float3.zero);
+            //    }
+            //}
+            //else
+            //{
+            //    tweenTarget.Add(blockEntity);
+            //}
         }
     }
 }

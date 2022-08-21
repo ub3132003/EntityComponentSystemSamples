@@ -13,7 +13,7 @@ using Unity.Transforms;
 public struct BlockComponent : IComponentData
 {
     //倒数命中计数，0时爆碎
-    public int HitCountDown;
+    //public int HitCountDown;
 
     /// <summary>
     /// 死亡时掉落金币数量
@@ -30,11 +30,14 @@ public class BrickComponentAuthoring : UnityEngine.MonoBehaviour, IConvertGameOb
     {
         dstManager.AddComponentData(entity, new BlockComponent
         {
-            HitCountDown = HitCountDown,
-
             DieDropCount = DieDropCount,
         });
         dstManager.AddComponentData(entity, new FallDownComponent());
+
+        dstManager.AddComponentData(entity, new Health
+        {
+            Value = HitCountDown
+        });
     }
 }
 partial class BrickMoveSytem : SystemBase
@@ -92,31 +95,35 @@ partial class BrickMoveSytem : SystemBase
 
         public void Execute(Entity e, in Translation translation)
         {
-            var maxDistance = 5f;
-            var startPos = translation.Value + new float3(0, -0.5f, 0);
-            RaycastInput raycastInput = new RaycastInput
+            //第二层以上方块
+            if (translation.Value.y > 1)
             {
-                Start = startPos,
-                End = startPos + math.down()  * maxDistance,
-                Filter = CollisionFilter.Default
-            };
-            if (CollectAllHits)
-            {
-                World.CastRay(raycastInput, ref RaycastHits);
-            }
-            else if (World.CastRay(raycastInput, out Unity.Physics.RaycastHit hit))
-            {
-                if (hit.Fraction * maxDistance > 0.1f)//需要下落
+                var maxDistance = 5f;
+                var startPos = translation.Value + new float3(0, -0.5f, 0);
+                RaycastInput raycastInput = new RaycastInput
                 {
-                    FallEntities.Add(e);
-                    RaycastHits.Add(hit);
-                    UnityEngine.Debug.Log($"Hit At {hit.Fraction }");
+                    Start = startPos,
+                    End = startPos + math.down() * maxDistance,
+                    Filter = CollisionFilter.Default
+                };
+                if (CollectAllHits)
+                {
+                    World.CastRay(raycastInput, ref RaycastHits);
                 }
+                else if (World.CastRay(raycastInput, out Unity.Physics.RaycastHit hit))
+                {
+                    if (hit.Fraction * maxDistance > 0.1f)//需要下落
+                    {
+                        FallEntities.Add(e);
+                        RaycastHits.Add(hit);
+                        UnityEngine.Debug.Log($"Hit At {hit.Fraction }");
+                    }
+                }
+                //else
+                //{
+                //    UnityEngine.Debug.Log($"NO Hit {startPos} {raycastInput.End}");
+                //}
             }
-            //else
-            //{
-            //    UnityEngine.Debug.Log($"NO Hit {startPos} {raycastInput.End}");
-            //}
         }
     }
 }

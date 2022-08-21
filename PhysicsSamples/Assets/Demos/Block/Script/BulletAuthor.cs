@@ -17,8 +17,12 @@ public struct BulletComponent : IComponentData
 [DisallowMultipleComponent]
 public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
 {
+    public RpgEffectSO effectSO;
+    public int rank;
+
     [Min(0)]
     public int Damage;
+    public COST_TYPES Type;
     public float2 SpeedRange;
     public float3 LockAixs;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
@@ -29,6 +33,11 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
             SpeedRange = SpeedRange,
             LockAixs = LockAixs
         });
+        //    dstManager.AddComponentData(entity, new Damage
+        //    {
+        //        Value = Damage,
+        //        Type = Type,
+        //    });
     }
 }
 

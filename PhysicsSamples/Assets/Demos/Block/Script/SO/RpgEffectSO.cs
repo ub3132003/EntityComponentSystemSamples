@@ -98,17 +98,17 @@ public class RpgEffectSO : ThingSO
     public string effectTag;
 
 
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public bool isState, isBuffOnSelf;
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public int stackLimit = 1;
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public bool allowMultiple, allowMixedCaster;
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public int pulses = 1;
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public float duration;
-    [ShowIf("effectType", Value = EFFECT_TYPE.Stat)]
+    [ShowIf("@effectType ==  EFFECT_TYPE.Stat || effectType == EFFECT_TYPE.DamageOverTime")]
     public bool endless;
 
     public enum BLOCK_DURATION_TYPE
@@ -162,6 +162,7 @@ public class RpgEffectSO : ThingSO
         [ShowIf("@effectType == EFFECT_TYPE.InstantDamage || effectType == EFFECT_TYPE.DamageOverTime || effectType == EFFECT_TYPE.InstantHeal")]
         public RpgStatSO alteredStatREF;
 
+        public COST_TYPES hitValueType;
 
         [ShowIf("@effectType == EFFECT_TYPE.InstantDamage || effectType == EFFECT_TYPE.DamageOverTime || effectType == EFFECT_TYPE.InstantHeal")]
         public bool FlatCalculation;

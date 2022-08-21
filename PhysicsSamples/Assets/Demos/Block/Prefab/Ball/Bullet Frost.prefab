@@ -14412,6 +14412,7 @@ GameObject:
   - component: {fileID: 5505157973118836274}
   - component: {fileID: -3685949313751581713}
   - component: {fileID: 6363414251488596987}
+  - component: {fileID: 5316875372964889433}
   m_Layer: 0
   m_Name: Bullet Frost
   m_TagString: Untagged
@@ -14654,7 +14655,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 870e0f5e8552fdd4faf001c15de169b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectSO: {fileID: 0}
+  rank: 0
   Damage: 1
+  Type: 0
   SpeedRange:
     x: 5
     y: 20
@@ -14675,6 +14679,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 3000
+--- !u!114 &5316875372964889433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505157973118836275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949cf3d11ca980a43ad2fb605162ab9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 1
+  Type: 0
 --- !u!1 &5505157973448375820
 GameObject:
   m_ObjectHideFlags: 0
