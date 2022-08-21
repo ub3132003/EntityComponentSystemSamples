@@ -31,7 +31,7 @@ public partial class PlayerBarSystem : SystemBase
                         continue;
                     }
                     var bulletPv = GetComponent<PhysicsVelocity>(bullet);
-                    Debug.Log($"b:{bulletPv.Linear}  p:{GetComponent<PhysicsVelocity>(playerBar).Linear * plyerMove.HitForce}");
+                    //Debug.Log($"b:{bulletPv.Linear}  p:{GetComponent<PhysicsVelocity>(playerBar).Linear * plyerMove.HitForce}");
                     bulletPv.Linear += GetComponent<PhysicsVelocity>(playerBar).Linear* plyerMove.HitForce;
                     SetComponent(bullet, new PhysicsVelocity
                     {

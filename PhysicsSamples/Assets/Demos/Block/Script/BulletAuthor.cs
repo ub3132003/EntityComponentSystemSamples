@@ -33,11 +33,12 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
             SpeedRange = SpeedRange,
             LockAixs = LockAixs
         });
-        //    dstManager.AddComponentData(entity, new Damage
-        //    {
-        //        Value = Damage,
-        //        Type = Type,
-        //    });
+
+        dstManager.AddComponentData(entity, new Damage
+        {
+            Value = Damage,
+            Type = Type,
+        });
     }
 }
 
