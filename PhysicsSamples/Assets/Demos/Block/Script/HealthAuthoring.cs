@@ -53,7 +53,7 @@ partial class HealthSystem : SystemBase
         var damageMask = damagerCollionMask;
 
         Entities
-            .ForEach((Entity e , ref DynamicBuffer<StatefulCollisionEvent> collisonEvents, ref Health health) =>
+            .ForEach((Entity e , ref DynamicBuffer<StatefulCollisionEvent> collisonEvents, ref Health health , ref DynamicBuffer<BuffEffectComponent> buffEffects) =>
         {
             var length = collisonEvents.Length;
             for (int i = 0; i < length; i++)
@@ -70,6 +70,15 @@ partial class HealthSystem : SystemBase
                     var damage = GetComponent<Damage>(damageEntity);
                     health.Value -= damage.Value;
                     //Debug.Log($"H:{health.Value} D:{damage.Value}");
+                }
+                if (HasComponent<DamagetOverTime>(damageEntity))
+                {
+                    buffEffects.Add(new BuffEffectComponent
+                    {
+                        stateCurDuration = 0,
+                        stateMaxDuration = 10
+                    });
+                    Debug.Log($"Add Buff e:{e} b:{buffEffects.Length} ");
                 }
 
                 //死亡

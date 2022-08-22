@@ -999,7 +999,7 @@ MonoBehaviour:
     BulletUI: {fileID: 11400000, guid: cc8c422d463d68342a37c17f448ae712, type: 2}
     IsActive: 0
   - SoltId: 3
-    BulletUI: {fileID: 11400000, guid: 9c5d12e746bf1e9448e0756aa89d5bf9, type: 2}
+    BulletUI: {fileID: 11400000, guid: 7bb4587405b5e2c44aa01fba0a3651d8, type: 2}
     IsActive: 0
   - SoltId: 4
     BulletUI: {fileID: 11400000, guid: 9c5d12e746bf1e9448e0756aa89d5bf9, type: 2}
