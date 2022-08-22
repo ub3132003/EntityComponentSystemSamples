@@ -73,12 +73,29 @@ partial class HealthSystem : SystemBase
                 }
                 if (HasComponent<DamagetOverTime>(damageEntity))
                 {
-                    buffEffects.Add(new BuffEffectComponent
+                    var damagetOverTime = GetComponent<DamagetOverTime>(damageEntity);
+
+
+                    var newbuff = new BuffEffectComponent
                     {
+                        buffRef = damagetOverTime.buffRef,
                         stateCurDuration = 0,
                         stateMaxDuration = 10
-                    });
-                    Debug.Log($"Add Buff e:{e} b:{buffEffects.Length} ");
+                    };
+
+                    var buffIndex = buffEffects.FindBuffIndex(newbuff);
+                    //没找到时新增，找到时替换
+                    if (buffIndex < 0)
+                    {
+                        buffEffects.Add(newbuff);
+                    }
+                    else
+                    {
+                        buffEffects[buffIndex] = newbuff;
+                    }
+
+
+                    Debug.Log($"Add Buff e:{e} b:{newbuff.buffRef} ");
                 }
 
                 //死亡

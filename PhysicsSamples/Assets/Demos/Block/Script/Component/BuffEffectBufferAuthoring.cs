@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -6,7 +7,7 @@ using Unity.Physics.Stateful;
 using UnityEngine;
 
 
-public struct BuffEffectComponent : IBufferElementData
+public struct BuffEffectComponent : IBufferElementData, IEquatable<BuffEffectComponent>
 {
     public int StackLimit { get; }
     //public bool AllowMultiple, AllowMixedCaster;
@@ -26,6 +27,33 @@ public struct BuffEffectComponent : IBufferElementData
     public float stateCurDuration;
     public int curStack;
     public int maxStack;
+
+    //同种buff
+    public bool Equals(BuffEffectComponent other)
+    {
+        return other.buffRef == buffRef;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        return obj is BuffEffectComponent && Equals((BuffEffectComponent)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return this.GetHashCode();
+    }
+
+    public static bool operator==(BuffEffectComponent left, BuffEffectComponent right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator!=(BuffEffectComponent left, BuffEffectComponent right)
+    {
+        return !left.Equals(right);
+    }
 }
 
 public class BuffEffectBufferAuthoring : MonoBehaviour, IConvertGameObjectToEntity
@@ -76,7 +104,7 @@ partial class BuffEffectSystem : SystemBase
 
     static void HandleEffectEnd(DynamicBuffer<BuffEffectComponent> buffs, int nodeStateIndex)
     {
+        Debug.Log($"End Buff{buffs[nodeStateIndex].buffRef}");
         buffs.RemoveAt(nodeStateIndex);
-        Debug.Log($"End Buff{nodeStateIndex}");
     }
 }
