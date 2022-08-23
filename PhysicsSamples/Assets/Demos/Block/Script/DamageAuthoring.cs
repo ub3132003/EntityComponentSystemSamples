@@ -15,6 +15,7 @@ public struct Damage : IComponentData, IDamage
 [DisallowMultipleComponent]
 public class DamageAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
+    [Min(1)]
     public int Value;
     public COST_TYPES Type;
 

@@ -116,7 +116,7 @@ partial class BrickMoveSytem : SystemBase
                     {
                         FallEntities.Add(e);
                         RaycastHits.Add(hit);
-                        UnityEngine.Debug.Log($"Hit At {hit.Fraction }");
+                        //UnityEngine.Debug.Log($"Hit At {hit.Fraction }");
                     }
                 }
                 //else
