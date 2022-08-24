@@ -5,7 +5,7 @@ using UnityEngine;
 
 public struct DamagetOverTime : IComponentData, IDamage
 {
-    public int Value { get; set; }
+    public int DamageValue { get; set; }
     public COST_TYPES Type { get; set; }
 
     public BlobAssetReference<BuffBlobAsset> buffRef;
@@ -26,7 +26,7 @@ public class DamagetOverTimeAuthoring : MonoBehaviour, IConvertGameObjectToEntit
 
         dstManager.AddComponentData(entity, new DamagetOverTime
         {
-            Value = Value,
+            DamageValue = Value,
             Type = Type,
             buffRef = buffBlob
         });

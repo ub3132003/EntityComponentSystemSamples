@@ -3,12 +3,12 @@ using Unity.Mathematics;
 using UnityEngine;
 public interface IDamage
 {
-    public int Value { get; set; }
+    public int DamageValue { get; set; }
     public COST_TYPES Type { get; set; }
 }
 public struct Damage : IComponentData, IDamage
 {
-    public int Value { get; set; }
+    public int DamageValue { get; set; }
     public COST_TYPES Type { get; set; }
 }
 
@@ -23,7 +23,7 @@ public class DamageAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         dstManager.AddComponentData(entity, new Damage
         {
-            Value = Value,
+            DamageValue = Value,
             Type = Type,
         });
     }

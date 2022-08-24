@@ -82,12 +82,12 @@ partial class HealthSystem : SystemBase
                     switch (damage.Type)
                     {
                         case COST_TYPES.FLAT:
-                            health.Value -= damage.Value;
+                            health.Value -= damage.DamageValue;
                             break;
                         case COST_TYPES.PERCENT_OF_MAX:
                             break;
                         case COST_TYPES.PERCENT_OF_CURRENT:
-                            health.Value -= (int)math.ceil(health.Value * (damage.Value / 100f));
+                            health.Value -= (int)math.ceil(health.Value * (damage.DamageValue / 100f));
                             break;
                         default:
                             break;
@@ -138,27 +138,26 @@ partial class HealthSystem : SystemBase
                         eventbuffer[j] = HealthEvent.CompareEvent(eventbuffer[j], health.Value);
                     }
                 }
-
-                //死亡
-                if (health.Value == 0)
-                {
-                    ecb.DestroyEntity(e);
-
-                    break;
-                }
-                else if (health.Value < 0)
-                {
-                    ecb.DestroyEntity(e);
-
-                    break;
-                }
-                else
-                {
-                    //tweenTarget.Add(blockEntity);
-                }
             }
         }).Schedule();
 
+        Entities
+            .ForEach((Entity e, in Health health) =>
+        {
+            //死亡
+            if (health.Value == 0)
+            {
+                ecb.DestroyEntity(e);
+            }
+            else if (health.Value < 0)
+            {
+                ecb.DestroyEntity(e);
+            }
+            else
+            {
+                //tweenTarget.Add(blockEntity);
+            }
+        }).Schedule();
 
         destorySys.AddJobHandleForProducer(this.Dependency);
     }

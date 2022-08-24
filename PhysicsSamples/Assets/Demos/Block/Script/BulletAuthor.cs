@@ -36,7 +36,7 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponentData(entity, new Damage
         {
-            Value = Damage,
+            DamageValue = Damage,
             Type = Type,
         });
     }
