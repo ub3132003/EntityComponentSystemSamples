@@ -23,3 +23,11 @@ public enum TRIGGER
     RISING_EDGE = 1 << 2,
     FALLING_EDGE = 1 << 3,
 }
+
+public enum ACTION_TYPE
+{
+    INSTANT,
+    CASTED,
+    CHANNELED,
+    CHARGED,
+}

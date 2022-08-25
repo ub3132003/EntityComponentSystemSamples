@@ -57,6 +57,8 @@ public partial class HealthEventSystem : SystemBase
         //var currentEvents = m_StateFulEventBuffers.Current;
         //var previousEvents = m_StateFulEventBuffers.Previous;
 
+        var time = Time.ElapsedTime;
+
         var commandBuffer = m_CommandBufferSystem.CreateCommandBuffer();
 
         Entities
@@ -99,7 +101,7 @@ public partial class HealthEventSystem : SystemBase
         //爆炸方块触发
         var physicsWorld = m_BuildPhysicsWorld.PhysicsWorld;
         Entities
-            .ForEach((Entity e, in DynamicBuffer<HealthEvent> triggerEventBuffer, in ExplodeComponent explode, in Translation t, in Rotation r) =>
+            .ForEach((Entity e, ref AbillitySpawnComponent ab, in DynamicBuffer<HealthEvent> triggerEventBuffer,  in Translation t, in Rotation r) =>
         {
             for (int i = 0; i < triggerEventBuffer.Length; i++)
             {
@@ -107,43 +109,23 @@ public partial class HealthEventSystem : SystemBase
                 {
                     continue;
                 }
-                var distanceHits = new NativeList<DistanceHit>(8, Allocator.Temp);
-
-                if (physicsWorld.CollisionWorld.OverlapSphere(t.Value, explode.ExplodeHalfRange, ref distanceHits, explode.Filter))
-                {
-                    //Debug.Log($"hit: {distanceHits[0].Entity}");
-                    for (int j = 0; j < distanceHits.Length; j++)
-                    {
-                        var other = distanceHits[j].Entity;
-                        if (HasComponent<PhysicsVelocity>(other))
-                        {
-                            //var pv = GetComponent<PhysicsVelocity>(other);
-                            //var pm = GetComponent<PhysicsMass>(other);
-                            //var force = new float3(0, 10, 0);
-                            //var tOther = GetComponent<Translation>(other);
-                            //var rOther = GetComponent<Rotation>(other);
-                            //pv.ApplyImpulse(pm, tOther, rOther, force, distanceHits[j].Position);
-
-                            //SetComponent(other, pv
-                        }
-                        if (HasComponent<Health>(other))
-                        {
-                            //TODO 解耦伤害计算?
-                            var hp = GetComponent<Health>(other);
-                            if (hp.Value > 0)
-                            {
-                                hp.Value -= explode.DamageValue;
-                                SetComponent(other, hp);
-                            }
-                        }
-                    }
-                }
-
-                //销毁爆炸方块
-                SetComponent<Health>(e, new Health { Value = 0});
+                ab.StartTime = time + ab.Delay;
             }
         }).Schedule();
 
+        //执行技能
+        Entities
+            .ForEach((ref AbillitySpawnComponent ab , in Translation translation) =>
+        {
+            if (time > ab.StartTime && ab.StartTime != 0)
+            {
+                //SetComponent(ab.Target, new Health { Value = 0 });
+                var abEntity = commandBuffer.Instantiate(ab.Abillity);
+                commandBuffer.SetComponent(abEntity, translation);
+                ab.StartTime = 0;
+            }
+        }).Schedule();
+        m_CommandBufferSystem.AddJobHandleForProducer(Dependency);
 
         //TODO 改为缓存当前,在下一帧重置
         //更新血量触发事件

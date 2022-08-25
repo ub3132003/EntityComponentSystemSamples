@@ -4,6 +4,9 @@ using UnityEngine;
 using Unity.Physics.Stateful;
 using Unity.Collections;
 using System;
+using Unity.Physics;
+using Unity.Transforms;
+using Unity.Physics.Systems;
 
 public struct Health : IComponentData, IComparable<Health>
 {
@@ -34,8 +37,11 @@ public class HealthAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 partial class HealthSystem : SystemBase
 {
     EntityQueryMask damagerCollionMask;
+    private BuildPhysicsWorld m_BuildPhysicsWorld;
     protected override void OnCreate()
     {
+        m_BuildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
+
         damagerCollionMask = EntityManager.GetEntityQueryMask(
             GetEntityQuery(new EntityQueryDesc
             {
@@ -60,6 +66,7 @@ partial class HealthSystem : SystemBase
 
         var eventBuffers = GetBufferFromEntity<HealthEvent>();
 
+        //碰撞触发的伤害 投射技能
         Entities
             .ForEach((Entity e , ref DynamicBuffer<StatefulCollisionEvent> collisonEvents, ref Health health , ref DynamicBuffer<BuffEffectComponent> buffEffects) =>
         {
@@ -78,20 +85,8 @@ partial class HealthSystem : SystemBase
                 if (HasComponent<Damage>(damageEntity))
                 {
                     var damage = GetComponent<Damage>(damageEntity);
+                    health = damage.DealHealth(health);
 
-                    switch (damage.Type)
-                    {
-                        case COST_TYPES.FLAT:
-                            health.Value -= damage.DamageValue;
-                            break;
-                        case COST_TYPES.PERCENT_OF_MAX:
-                            break;
-                        case COST_TYPES.PERCENT_OF_CURRENT:
-                            health.Value -= (int)math.ceil(health.Value * (damage.DamageValue / 100f));
-                            break;
-                        default:
-                            break;
-                    }
                     //Debug.Log($"H:{health.Value} D:{damage.Value}");
                 }
                 if (HasComponent<DamagetOverTime>(damageEntity))
@@ -140,6 +135,35 @@ partial class HealthSystem : SystemBase
                 }
             }
         }).Schedule();
+
+
+        var physicsWorld = m_BuildPhysicsWorld.PhysicsWorld;
+        //主动触发的伤害Aoe ,通过overlay
+        Entities
+            .ForEach((in ExplodeComponent explode, in Damage damage, in Translation t, in Rotation r) =>
+        {
+            var distanceHits = new NativeList<DistanceHit>(8, Allocator.Temp);
+
+            if (physicsWorld.CollisionWorld.OverlapSphere(t.Value, explode.ExplodeHalfRange, ref distanceHits, explode.Filter))
+            {
+                //Debug.Log($"hit: {distanceHits[0].Entity}");
+                for (int j = 0; j < distanceHits.Length; j++)
+                {
+                    var other = distanceHits[j].Entity;
+
+                    if (HasComponent<Health>(other))
+                    {
+                        //TODO 解耦伤害计算?
+                        var hp = GetComponent<Health>(other);
+                        if (hp.Value > 0)
+                        {
+                            SetComponent(other, damage.DealHealth(hp));
+                        }
+                    }
+                }
+            }
+        }).Schedule();
+
 
         Entities
             .ForEach((Entity e, in Health health) =>

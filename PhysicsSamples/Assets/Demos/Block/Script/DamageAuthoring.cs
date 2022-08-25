@@ -10,6 +10,23 @@ public struct Damage : IComponentData, IDamage
 {
     public int DamageValue { get; set; }
     public COST_TYPES Type { get; set; }
+    public Health DealHealth(Health health)
+    {
+        switch (Type)
+        {
+            case COST_TYPES.FLAT:
+                health.Value -= DamageValue;
+                break;
+            case COST_TYPES.PERCENT_OF_MAX:
+                break;
+            case COST_TYPES.PERCENT_OF_CURRENT:
+                health.Value -= (int)math.ceil(health.Value * (DamageValue / 100f));
+                break;
+            default:
+                break;
+        }
+        return health;
+    }
 }
 
 [DisallowMultipleComponent]
