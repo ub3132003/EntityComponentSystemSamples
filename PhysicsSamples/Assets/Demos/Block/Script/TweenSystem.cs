@@ -182,38 +182,65 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 #endregion
 public partial class TweenSystem : SystemBase
 {
+    static float4 TweenHdrColor(float4 hdrColor , float datleTime, ref TweenHDRColorComponent tweenHdr)
+    {
+        if (tweenHdr.PassTime == 0)
+        {
+            tweenHdr.Start = hdrColor;
+        }
+        if (tweenHdr.Lifetime > 0)
+        {
+            tweenHdr.PassTime += datleTime;
+
+            var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
+                                                                                                           //默认从当前值开始
+            var from = tweenHdr.From.IsZero() ?
+                tweenHdr.Start : tweenHdr.From;
+
+            hdrColor = math.lerp(from, tweenHdr.To, v);
+
+            if (tweenHdr.PassTime >= tweenHdr.Lifetime)
+            {
+                tweenHdr.Lifetime = 0;
+                if (tweenHdr.isReset)
+                {
+                    hdrColor = tweenHdr.Start;
+                }
+            }
+        }
+        return hdrColor;
+    }
+
     protected override void OnUpdate()
     {
         var datleTime = Time.DeltaTime;
-
+        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
         //hdr 颜色
         Entities
+            .WithName("TweenHdrColor")
+            .WithAny<URPMaterialPropertyEmissionColor, EmissionVector4Override>()
             .WithoutBurst()
-            .ForEach((ref URPMaterialPropertyEmissionColor HDRColor, ref TweenHDRColorComponent tweenHdr) =>
+            .ForEach((Entity e , ref TweenHDRColorComponent tweenHdr) =>
             {
-                if (tweenHdr.PassTime == 0)
+                float4 hdrColor = new float4();
+                if (HasComponent<URPMaterialPropertyEmissionColor>(e))
                 {
-                    tweenHdr.Start = HDRColor.Value;
+                    hdrColor = GetComponent<URPMaterialPropertyEmissionColor>(e).Value;
                 }
-                if (tweenHdr.Lifetime > 0)
+                if (HasComponent<EmissionVector4Override>(e))
                 {
-                    tweenHdr.PassTime += datleTime;
+                    hdrColor = GetComponent<EmissionVector4Override>(e).Value;
+                }
 
-                    var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
-                                                                                                                   //默认从当前值开始
-                    var from = tweenHdr.From.IsZero() ?
-                        tweenHdr.Start : tweenHdr.From;
+                hdrColor = TweenHdrColor(hdrColor , datleTime, ref tweenHdr);
 
-                    HDRColor.Value = math.lerp(from, tweenHdr.To, v);
-
-                    if (tweenHdr.PassTime >= tweenHdr.Lifetime)
-                    {
-                        tweenHdr.Lifetime = 0;
-                        if (tweenHdr.isReset)
-                        {
-                            HDRColor.Value = tweenHdr.Start; //TOdo 短时连续触发会保持值,在闪烁时无法达到效果
-                        }
-                    }
+                if (HasComponent<URPMaterialPropertyEmissionColor>(e))
+                {
+                    SetComponent(e, new URPMaterialPropertyEmissionColor { Value = hdrColor });
+                }
+                if (HasComponent<EmissionVector4Override>(e))
+                {
+                    SetComponent(e, new EmissionVector4Override { Value = hdrColor });
                 }
             }).Schedule();
 

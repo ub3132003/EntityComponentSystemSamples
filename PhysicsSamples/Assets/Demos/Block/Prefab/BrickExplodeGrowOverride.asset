@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1c49a92ef1771844b9c93a4037158cd, type: 3}
-  m_Name: BlockFlashHDROverride
+  m_Name: BrickExplodeGrowOverride
   m_EditorClassIdentifier: 
   overrideList:
-  - name: _EmissionColor
-    displayName: _EmissionColor
-    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
-    materialName: Black
+  - name: _Emission
+    displayName: _Emission
+    shaderName: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+    materialName: BrickExplode
     type: 0
-    value: {x: 0.0045564175, y: 0.0045564175, z: 0.0045564175, w: 1}
+    value: {x: 0.509434, y: 0.21889699, z: 0.03556424, w: 0}
     instanceOverride: 0
-  material: {fileID: 2100000, guid: b23baaf1af90ed947898be00ccf3b708, type: 2}
+  material: {fileID: 2100000, guid: 5d52c8af3f8c1ad4697881a8fc3dca27, type: 2}

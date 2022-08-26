@@ -97,11 +97,30 @@ public partial class HealthEventSystem : SystemBase
                 }
             }).Run();
         m_CommandBufferSystem.AddJobHandleForProducer(Dependency);
+        //爆炸方块动画
+        Entities
+            .WithAll<HealthEventHdrAnimTag>()
+            .WithoutBurst()
+            .WithStructuralChanges()
+            .ForEach((Entity e, in DynamicBuffer<HealthEvent> triggerEventBuffer) =>
+            {
+                if (triggerEventBuffer[0].state == TRIGGER.RISING_EDGE)
+                {
+                    if (HasComponent<EmissionVector4Override>(e))
+                    {
+                        var intensity = 4f;
+                        var hdrColor = GetComponent<EmissionVector4Override>(e);
+                        float factor = Mathf.Pow(2, intensity);
+
+                        ITweenComponent.CreateTween(e, hdrColor.Value, hdrColor.Value * factor, 1, DG.Tweening.Ease.OutSine);
+                    }
+                }
+            }).Run();
 
         //爆炸方块触发
         var physicsWorld = m_BuildPhysicsWorld.PhysicsWorld;
         Entities
-            .ForEach((Entity e, ref AbillitySpawnComponent ab, in DynamicBuffer<HealthEvent> triggerEventBuffer,  in Translation t, in Rotation r) =>
+            .ForEach((Entity e, ref DynamicBuffer<AbillitySpawnComponent> abBuffer, in DynamicBuffer<HealthEvent> triggerEventBuffer,  in Translation t, in Rotation r) =>
         {
             for (int i = 0; i < triggerEventBuffer.Length; i++)
             {
@@ -109,23 +128,44 @@ public partial class HealthEventSystem : SystemBase
                 {
                     continue;
                 }
-                ab.StartTime = time + ab.Delay;
+                for (int k = 0; k < abBuffer.Length; k++)
+                {
+                    var ab = abBuffer[k];
+                    ab.StartTime = time + ab.Delay;
+                    abBuffer[k] = ab;
+                }
             }
         }).Schedule();
 
-        //执行技能
+        // 技能生成
         Entities
-            .ForEach((ref AbillitySpawnComponent ab , in Translation translation) =>
+            .ForEach((Entity e, ref DynamicBuffer<AbillitySpawnComponent> abBuffer, in Translation translation) =>
         {
-            if (time > ab.StartTime && ab.StartTime != 0)
+            for (int k = 0; k < abBuffer.Length; k++)
             {
-                //SetComponent(ab.Target, new Health { Value = 0 });
-                var abEntity = commandBuffer.Instantiate(ab.Abillity);
-                commandBuffer.SetComponent(abEntity, translation);
-                ab.StartTime = 0;
+                var ab = abBuffer[k];
+                if (time > ab.StartTime && ab.StartTime != 0)
+                {
+                    //SetComponent(ab.Target, new Health { Value = 0 });
+                    var abEntity = commandBuffer.Instantiate(ab.Abillity);
+                    commandBuffer.SetComponent(abEntity, translation);
+
+                    commandBuffer.AddComponent(abEntity, new Abillity { Caster = e });
+                    //if(ab.TargetType == AbillitySpawnComponent.TARGET_TYPES.TARGET_PROJECTILE
+                    //||ab.TargetType == AbillitySpawnComponent.TARGET_TYPES.TARGET_INSTANT)
+                    //{
+                    //    if (HasComponent<TargetInstant>(abEntity))
+                    //    {
+                    //        commandBuffer.SetComponent(abEntity,new TargetInstant { Target = })
+                    //    }
+                    //}
+                    ab.StartTime = 0;
+                }
+                abBuffer[k] = ab;
             }
         }).Schedule();
         m_CommandBufferSystem.AddJobHandleForProducer(Dependency);
+
 
         //TODO 改为缓存当前,在下一帧重置
         //更新血量触发事件

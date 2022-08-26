@@ -434,7 +434,7 @@ MonoBehaviour:
     materialName: Mat_Grid_Orange
     type: 0
     value: {x: 0, y: 0, z: 0, w: 1}
-    instanceOverride: 0
+    instanceOverride: 1
 --- !u!114 &-4822100849949644583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +448,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CalculateDetails: 0
+--- !u!114 &770868650604029517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7699382154791289547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86e09125edeb8a4db8ad9d029778663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7009711955207176835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,15 +474,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitCountDown: 2
   DieDropCount: 1
---- !u!114 &770868650604029517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7699382154791289547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86e09125edeb8a4db8ad9d029778663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

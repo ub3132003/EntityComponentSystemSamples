@@ -4,7 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 
-public struct AbillitySpawnComponent : IComponentData
+public struct AbillitySpawnComponent : IBufferElementData
 {
     public Entity Abillity;
     public Entity Target;
@@ -26,28 +26,36 @@ public struct AbillitySpawnComponent : IComponentData
         TARGET_PROJECTILE,
         TARGET_INSTANT
     }
+    public TARGET_TYPES TargetType;
     public enum TARGET_TYPE
     {
         Target,
         Caster
     }
 }
-class AbillitySpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
+class AbillityMulSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
 {
-    public GameObject AbPerfab;
+    public List<GameObject> AbPerfabList;
 
     public float Delay;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new AbillitySpawnComponent
+        var abBuffer = dstManager.AddBuffer<AbillitySpawnComponent>(entity);
+        foreach (var AbPerfab in AbPerfabList)
         {
-            Abillity = conversionSystem.GetPrimaryEntity(AbPerfab),
-            Delay = Delay
-        });
+            abBuffer.Add(new AbillitySpawnComponent
+            {
+                Abillity = conversionSystem.GetPrimaryEntity(AbPerfab),
+                Delay = Delay
+            });
+        }
     }
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
-        referencedPrefabs.Add(AbPerfab);
+        foreach (var AbPerfab in AbPerfabList)
+        {
+            referencedPrefabs.Add(AbPerfab);
+        }
     }
 }

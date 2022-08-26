@@ -140,27 +140,41 @@ partial class HealthSystem : SystemBase
         var physicsWorld = m_BuildPhysicsWorld.PhysicsWorld;
         //主动触发的伤害Aoe ,通过overlay
         Entities
-            .ForEach((in ExplodeComponent explode, in Damage damage, in Translation t, in Rotation r) =>
-        {
-            var distanceHits = new NativeList<DistanceHit>(8, Allocator.Temp);
-
-            if (physicsWorld.CollisionWorld.OverlapSphere(t.Value, explode.ExplodeHalfRange, ref distanceHits, explode.Filter))
+            .WithAll<Abillity>()
+            .ForEach((Entity e, in ExplodeComponent explode, in Damage damage, in Translation t, in Rotation r) =>
             {
-                //Debug.Log($"hit: {distanceHits[0].Entity}");
-                for (int j = 0; j < distanceHits.Length; j++)
-                {
-                    var other = distanceHits[j].Entity;
+                var distanceHits = new NativeList<DistanceHit>(8, Allocator.Temp);
 
-                    if (HasComponent<Health>(other))
+                if (physicsWorld.CollisionWorld.OverlapSphere(t.Value, explode.ExplodeHalfRange, ref distanceHits, explode.Filter))
+                {
+                    //Debug.Log($"hit: {distanceHits[0].Entity}");
+                    for (int j = 0; j < distanceHits.Length; j++)
                     {
-                        //TODO 解耦伤害计算?
-                        var hp = GetComponent<Health>(other);
-                        if (hp.Value > 0)
+                        var other = distanceHits[j].Entity;
+
+                        if (HasComponent<Health>(other))
                         {
-                            SetComponent(other, damage.DealHealth(hp));
+                            //TODO 解耦伤害计算?
+                            var hp = GetComponent<Health>(other);
+                            if (hp.Value > 0)
+                            {
+                                SetComponent(other, damage.DealHealth(hp));
+                            }
                         }
                     }
                 }
+                ecb.RemoveComponent<ExplodeComponent>(e);
+            }).Schedule();
+
+        //对象立即伤害
+        Entities
+            .ForEach((in Abillity ab, in SelfComponent self, in Damage damage) =>
+        {
+            if (HasComponent<Health>(ab.Caster))
+            {
+                var hp = GetComponent<Health>(ab.Caster);
+                hp = damage.DealHealth(hp);
+                SetComponent(ab.Caster, hp);
             }
         }).Schedule();
 

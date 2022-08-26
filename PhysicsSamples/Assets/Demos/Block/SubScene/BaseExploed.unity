@@ -2128,6 +2128,177 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 124675746}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &139310216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1783147790}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &139310217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139310216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d849f6ed953e947a0ea6954432e1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideAsset: {fileID: 11400000, guid: fb1d23c9ef3a04d40ae70c75afc50d47, type: 2}
+  overrideList:
+  - name: _EmissionColor
+    displayName: _EmissionColor
+    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    materialName: Black
+    type: 0
+    value: {x: 0.0045564175, y: 0.0045564175, z: 0.0045564175, w: 1}
+    instanceOverride: 0
+--- !u!1001 &142179637
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (21)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &142970121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2278,6 +2449,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 143844388}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &146012178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &147950137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3710,6 +4025,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -9444,6 +9834,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 494956414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &498012253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (16)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &501797295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11268,6 +11802,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 658802944}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &662078472
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (20)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &670639473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14660,6 +15338,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 827249708}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &831872300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 870612590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &831872311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831872300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d849f6ed953e947a0ea6954432e1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideAsset: {fileID: 11400000, guid: fb1d23c9ef3a04d40ae70c75afc50d47, type: 2}
+  overrideList:
+  - name: _EmissionColor
+    displayName: _EmissionColor
+    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    materialName: Black
+    type: 0
+    value: {x: 0.0045564175, y: 0.0045564175, z: 0.0045564175, w: 1}
+    instanceOverride: 0
 --- !u!1001 &832652377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15110,6 +15815,92 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7709f9f51fe7a754cbbf2fd1b0c4609c,
+        type: 2}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.38260666
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.13428265
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].instanceOverride
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
         type: 3}
       propertyPath: Delay
@@ -15334,6 +16125,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -15996,6 +16862,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 933468113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &937595581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &937951660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16296,6 +17306,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 964494314}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &969331494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &988903446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16378,6 +17532,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
         type: 3}
       propertyPath: m_RootOrder
@@ -17522,6 +18751,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1056072960}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1056143969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1245032592}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1056143970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056143969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d849f6ed953e947a0ea6954432e1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideAsset: {fileID: 11400000, guid: fb1d23c9ef3a04d40ae70c75afc50d47, type: 2}
+  overrideList:
+  - name: _EmissionColor
+    displayName: _EmissionColor
+    shaderName: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    materialName: Black
+    type: 0
+    value: {x: 0.0045564175, y: 0.0045564175, z: 0.0045564175, w: 1}
+    instanceOverride: 0
 --- !u!1001 &1056724070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18715,6 +19971,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1108815228}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1111382506
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (19)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1114839444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20206,6 +21606,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1184421610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1188841517
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (13)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1189324778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21024,6 +22568,166 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1230623829}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1245032592
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7709f9f51fe7a754cbbf2fd1b0c4609c,
+        type: 2}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.38260666
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.13428265
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].instanceOverride
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (10)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1246354275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21249,6 +22953,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1247466240}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1273017486
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (15)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1274490850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22223,6 +24071,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1317516716}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1343274362
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1348806832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24789,6 +26781,150 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: debc64688aab69f4a85fff0f89550aed, type: 3}
+--- !u!1001 &1478835526
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (23)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1483177237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24864,6 +27000,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1483177237}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1488394586
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (18)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1498400982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26198,6 +28478,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1581090709}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1586518356
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1587146348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29488,6 +31912,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1746006292}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1751435433
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (22)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1757080558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29788,6 +32356,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1767103936}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1768010769
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (12)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1774162071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30013,6 +32725,166 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1782717066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1783147790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7709f9f51fe7a754cbbf2fd1b0c4609c,
+        type: 2}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.38260666
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.13428265
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].instanceOverride
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (17)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &1789992693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31349,6 +34221,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1848276927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1854668876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (9)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1 &1865424617
 GameObject:
   m_ObjectHideFlags: 0
@@ -34407,6 +37423,150 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2043097695}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2045252619
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101526424107471315, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BrickExpolde (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af9671648d0550c4ba3da4ad037ca2a6, type: 3}
 --- !u!1001 &2047543103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36001,6 +39161,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2694810962643059958, guid: ebe7e3ce6ed92214d86ef9d6ddd93c30,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe7e3ce6ed92214d86ef9d6ddd93c30, type: 3}
 --- !u!1001 &6513306629284269442
@@ -36010,6 +39175,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].name
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.21889699
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.03556424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.x
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].value.y
+      value: 0.4355809
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].displayName
+      value: _EmissionColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547132523063001780, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: overrideList.Array.data[1].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003819713926349710, guid: af9671648d0550c4ba3da4ad037ca2a6,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8099043064917623411, guid: af9671648d0550c4ba3da4ad037ca2a6,
         type: 3}
       propertyPath: m_RootOrder

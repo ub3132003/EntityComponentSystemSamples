@@ -1,21 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4671426623466165446
+--- !u!1001 &1925240587566240536
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 7709f9f51fe7a754cbbf2fd1b0c4609c,
+        type: 2}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].name
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.x
+      value: 0.754717
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.y
+      value: 0.30527368
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].value.z
+      value: 0.08116763
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].shaderName
+      value: Assets/Demos/Block/Matial/CubeInLine.shadergraph
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].displayName
+      value: _Emission
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].materialName
+      value: BrickExplode
+      objectReference: {fileID: 0}
+    - target: {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26,
+        type: 3}
+      propertyPath: overrideList.Array.data[0].instanceOverride
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6698017988594897882, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: 39463a0a0a9195b498e5ad11fd2e4db1, type: 2}
+      objectReference: {fileID: 5752834312384674383, guid: 3b9eb89d022d85a45abe31a2425a2142,
+        type: 3}
     - target: {fileID: 7009711955207176835, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
       propertyPath: HitCountDown
-      value: 800
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 7697286030928204139, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
@@ -25,7 +77,7 @@ PrefabInstance:
     - target: {fileID: 7697286030928204139, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.91
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7697286030928204139, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
@@ -35,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 7697286030928204139, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.46
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7697286030928204139, guid: 11489db26aeb5ec49b040068bf71dc26,
         type: 3}
@@ -82,22 +134,33 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5d52c8af3f8c1ad4697881a8fc3dca27, type: 2}
-    m_RemovedComponents:
-    - {fileID: -5048834705247497812, guid: 11489db26aeb5ec49b040068bf71dc26, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11489db26aeb5ec49b040068bf71dc26, type: 3}
---- !u!1 &3030234827519546893 stripped
+--- !u!1 &8101526424107471315 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7699382154791289547, guid: 11489db26aeb5ec49b040068bf71dc26,
     type: 3}
-  m_PrefabInstance: {fileID: 4671426623466165446}
+  m_PrefabInstance: {fileID: 1925240587566240536}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2221418977482623876
+--- !u!114 &2076164110647069141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3030234827519546893}
+  m_GameObject: {fileID: 8101526424107471315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01735f9dd3cf7094b977ab161b3950b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2221418976549421528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101526424107471315}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5162c096c9b74f408b8130726ace4d4, type: 3}
@@ -105,4 +168,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthEvents:
   - opt: 2
-    Threshold: 799
+    Threshold: 512
+--- !u!114 &4003819713926349710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101526424107471315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d346de7572ccf498516c80080efec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbPerfabList:
+  - {fileID: 3673755602852626815, guid: 8ab947e943d79e24f8eeb7c507177dfe, type: 3}
+  - {fileID: 3673755602852626815, guid: cb38123f34887c8498a3e733b6a9fea4, type: 3}
+  Delay: 1
