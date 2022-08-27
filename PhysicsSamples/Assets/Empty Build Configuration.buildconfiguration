@@ -1,0 +1,23 @@
+{
+    "Show": true,
+    "Dependencies": [],
+    "Components": [
+        {
+            "$type": "Unity.Build.Common.GeneralSettings, Unity.Build",
+            "ProductName": "BallVsBrick",
+            "CompanyName": "Iced",
+            "Version": "1.0"
+        },
+        {
+            "$type": "Unity.Build.Common.SceneList, Unity.Build",
+            "$version": 1,
+            "BuildCurrentScene": true,
+            "SceneInfos": [
+                {
+                    "Scene": "GlobalObjectId_V1-1-1ffb28b05a5e6e44b82c5c7678bd03d8-102900000-0",
+                    "AutoLoad": true
+                }
+            ]
+        }
+    ]
+}

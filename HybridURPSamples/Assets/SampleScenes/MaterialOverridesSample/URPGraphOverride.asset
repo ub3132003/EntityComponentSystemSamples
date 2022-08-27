@@ -34,4 +34,11 @@ MonoBehaviour:
     type: 2
     value: {x: 0.5, y: 0, z: 0, w: 0}
     instanceOverride: 0
+  - name: _Emission
+    displayName: _Emission
+    shaderName: Assets/SampleScenes/MaterialOverridesSample/URPGraph.shadergraph
+    materialName: URPGraphMaterial
+    type: 0
+    value: {x: 0.7169812, y: 0.13798502, z: 0.13798502, w: 0}
+    instanceOverride: 0
   material: {fileID: 2100000, guid: 70aa96a5c489d7f47b274f9a4e3f11da, type: 2}

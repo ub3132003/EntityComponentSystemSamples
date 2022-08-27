@@ -182,14 +182,6 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
     {
         var count = positions.Length;
 
-        //for (int i = 0; i < range.x; i++)
-        //{
-        //    for (int j = 0; j < range.y; j++)
-        //    {
-        //        if(count>range.x*range.y)
-        //        positions[i] = center + new int3(i,0,j);
-        //    }
-        //}
 
         for (int i = 0; i < count; i++)
         {
