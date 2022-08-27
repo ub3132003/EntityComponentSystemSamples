@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 18a83d1b2af93e14baf283f0cb8d17e3
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 125f1b3a220adf646976f23c41394c5e
+    m_Address: Assets/Demos/Block/Prefab/AB/CreateExplodeEvent.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 38eb063b5b34eb74085f8fe466d14375, type: 2}
   m_SchemaSet:

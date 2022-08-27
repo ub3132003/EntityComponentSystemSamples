@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Sirenix.OdinInspector;
+using Unity.Entities;
 
 public class CameraShakeSouce : MonoBehaviour
 {
@@ -10,24 +11,29 @@ public class CameraShakeSouce : MonoBehaviour
     [SerializeField] Vector3 Force;
     //lisent in
     [SerializeField] EntityChannelSO createExplodeEvent;
+    private void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
+
     private void OnEnable()
     {
-        createExplodeEvent.OnEventRaised += (e) => Shark();
+        createExplodeEvent.OnEventRaised += Shake;
     }
 
     private void OnDisable()
     {
-        createExplodeEvent.OnEventRaised -= (e) => Shark();
+        createExplodeEvent.OnEventRaised -= Shake;
+    }
+
+    void Shake(Entity e)
+    {
+        impulseSource.GenerateImpulse(Force);
     }
 
     [Button]
     void Shark()
     {
         impulseSource.GenerateImpulse(Force);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
