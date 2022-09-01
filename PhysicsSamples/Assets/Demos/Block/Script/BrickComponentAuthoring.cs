@@ -26,6 +26,7 @@ public class BrickComponentAuthoring : UnityEngine.MonoBehaviour, IConvertGameOb
     public int HitCountDown;
 
     public int DieDropCount;
+
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new BrickComponent
@@ -40,6 +41,8 @@ public class BrickComponentAuthoring : UnityEngine.MonoBehaviour, IConvertGameOb
         });
     }
 }
+
+
 partial class BrickMoveSytem : SystemBase
 {
     EntityQuery filldownTaget;
@@ -125,5 +128,62 @@ partial class BrickMoveSytem : SystemBase
                 //}
             }
         }
+    }
+}
+
+/// <summary>
+/// 特殊方块机制
+/// </summary>
+[UpdateBefore(typeof(HealthEventSystem))]
+partial class SpecialBrickSystem : SystemBase
+{
+    //private NativeParallelMultiHashMap<int, Entity> ChainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8,Allocator.Persistent);
+    protected override void OnUpdate()
+    {
+        //连锁方块1
+        NativeParallelMultiHashMap<int, Entity> chainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8, Allocator.TempJob);
+        Entities
+            .ForEach((Entity e,  ref ChainBrick chainBrick , in DynamicBuffer<HealthEvent> healthEvents) =>
+        {
+            //加入集合
+            chainBrickMap.Add(chainBrick.GroupId, e);
+            //判断触发标志
+            for (int i = 0; i < healthEvents.Length; i++)
+            {
+                if (healthEvents[i].state == TRIGGER.RISING_EDGE)
+                {
+                    chainBrick.IsHited = true;
+                }
+            }
+        }).Schedule();
+
+        Dependency.Complete();
+
+        var keys = chainBrickMap.GetKeyArray(Allocator.Temp);
+        for (int i = 0; i < keys.Length; i++)
+        {
+            var groupBrick = chainBrickMap.GetValuesForKey(keys[i]);
+            bool allBreak = true;
+            foreach (var item in groupBrick)
+            {
+                var chainBrick = EntityManager.GetComponentData<ChainBrick>(item);
+
+                if (chainBrick.IsHited == false)
+                {
+                    allBreak = false;
+                    break;
+                }
+            }
+            //消灭所有方块
+            if (allBreak)
+            {
+                foreach (var item in groupBrick)
+                {
+                    EntityManager.SetComponentData<Health>(item, new Health { Value = 0 });
+                }
+            }
+        }
+
+        chainBrickMap.Dispose();
     }
 }

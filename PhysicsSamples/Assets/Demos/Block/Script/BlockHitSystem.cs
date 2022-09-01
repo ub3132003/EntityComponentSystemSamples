@@ -158,37 +158,6 @@ public partial class BlockHitSystem : SystemBase
             }
         }).Run();
 
-        //using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
-        //{
-        //    for (int i = 0; i < length; i++)
-        //    {
-        //        var deadData = new DeadBrickData
-        //        {
-        //            position = EntityManager.GetComponentData<Translation>(deadBlocks[i]).Value,
-        //            dropCount = EntityManager.GetComponentData<BrickComponent>(deadBlocks[i]).DieDropCount,
-        //        };
-
-        //        deadBrickDatas.Add(deadData);
-        //        //EntityManager.DestroyEntity(deadBlocks[i]);
-        //        commandBuffer.DestroyEntity(deadBlocks[i]);
-
-
-        //    }
-        //    commandBuffer.Playback(EntityManager);
-        //}
-
-
-        //endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
-
-
-        //Dependency.Complete();
-
-        ////加入下降动画
-        //length = toFallBlocks.Length;
-        //for (int i = 0; i < length; i++)
-        //{
-        //    ITweenComponent.CreateMoveTween(toFallBlocks[i], math.down(), 1f, DG.Tweening.Ease.InCubic , isRelative: true);
-        //}
 
         tweenTarget.Dispose();
         contactData.Dispose();

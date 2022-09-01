@@ -10,7 +10,12 @@ using Unity.Physics.Systems;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
+
+
 [UpdateAfter(typeof(HealthSystem))]
+/// <summary>
+/// 重置血量时间，如果需要用到血量时间需要在此系统之前判断
+/// </summary>
 public partial class HealthEventSystem : SystemBase
 {
     private EntityQuery m_Query = default;
