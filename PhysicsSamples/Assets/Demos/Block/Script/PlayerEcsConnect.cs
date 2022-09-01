@@ -145,7 +145,8 @@ public class LevelCompoent
 {
     public RpgLevelTemplateSO LevelTemplate;
     public int currentLevel;
-    public int currentXP, maxXP = 1;
+    public int currentXP;
+    public int maxXP => LevelTemplate.allLevels[currentLevel].XPRequired;
 }
 [System.Serializable]
 public class PlayerLevel
@@ -171,7 +172,7 @@ public class PlayerLevel
                 charactorLv.currentXP = 0;
                 totalAmt -= XPRemaining;
                 charactorLv.currentLevel++;
-                charactorLv.maxXP = charactorLv.LevelTemplate.allLevels[charactorLv.currentLevel - 1].XPRequired;
+                //charactorLv.maxXP = charactorLv.LevelTemplate.allLevels[charactorLv.currentLevel - 1].XPRequired;
 
                 // EXECUTE POINTS GAIN REQUIREMENTS
                 ClassLevelUp(charactorLv);

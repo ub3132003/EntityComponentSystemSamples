@@ -47,6 +47,7 @@ public class SelectSkillPanel : MonoBehaviour
             Time.timeScale = 0.05f;
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
             //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 0.5f).SetUpdate(true);
             foreach (var item in allSkillCardUI)
             {
@@ -59,6 +60,7 @@ public class SelectSkillPanel : MonoBehaviour
 
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
             //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0, 0.5f);
         }
     }

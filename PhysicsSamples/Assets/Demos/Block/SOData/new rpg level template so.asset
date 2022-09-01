@@ -23,7 +23,7 @@ MonoBehaviour:
   allLevels:
   - levelName: 
     level: 1
-    XPRequired: 4
+    XPRequired: 4000
   - levelName: 
     level: 2
     XPRequired: 8

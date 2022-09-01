@@ -12,7 +12,7 @@ using DG.Tweening;
 /// 对自己释放技能
 /// </summary>
 
-public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button CardButton;
     [SerializeField] Image Icon;
@@ -20,6 +20,7 @@ public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] TextMeshProUGUI Title;
     [SerializeField] TextMeshProUGUI description;
 
+    public int CallFuncId;
     class SkillData
     {
         public RpgEffectSO skillRef;
@@ -42,7 +43,7 @@ public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointer
         return BG_COLOR[i];
     }
 
-    public void SetCard(string text, Sprite icon , int rank)
+    public void SetCard(string text, Sprite icon, int rank)
     {
         description.text = text;
         Icon.sprite = icon;
@@ -51,7 +52,7 @@ public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointer
         skillData.rank = rank;
     }
 
-    public UnityAction SubmitAction;
+    public UnityEvent<int> SubmitAction;
     private void Awake()
     {
         CardButton.onClick.AddListener(OnClick);
@@ -60,7 +61,7 @@ public class UpdateSkillSelectUI : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnClick()
     {
         //OnSubmit.Invoke(skillData.skillRef, skillData.rank);
-        SubmitAction.Invoke();
+        SubmitAction.Invoke(CallFuncId);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

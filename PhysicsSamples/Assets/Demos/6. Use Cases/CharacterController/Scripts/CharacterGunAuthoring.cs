@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public struct CharacterGun : IComponentData
 {
@@ -75,6 +76,11 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
         var input = GetSingleton<CharacterGunInput>();
         float dt = Time.DeltaTime;

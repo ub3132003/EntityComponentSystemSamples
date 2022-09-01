@@ -37,6 +37,12 @@ public partial class PlayerBarSystem : SystemBase
                     {
                         Linear = bulletPv.Linear
                     });
+
+                    //天赋回弹加伤害
+                    if (HasComponent<DamageAddOnCatchTag>(bullet))
+                    {
+                        SetComponent(bullet, new Damage { DamageValue = GetComponent<Damage>(bullet).DamageValue + 1 });
+                    }
                 }
             }).Schedule();
 

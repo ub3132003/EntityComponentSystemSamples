@@ -16,8 +16,18 @@
                 {
                     "Scene": "GlobalObjectId_V1-1-1ffb28b05a5e6e44b82c5c7678bd03d8-102900000-0",
                     "AutoLoad": true
+                },
+                {
+                    "Scene": "GlobalObjectId_V1-1-af60ee3939a0d584f8825bd1023beec8-102900000-0",
+                    "AutoLoad": true
                 }
             ]
+        },
+        {
+            "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
+            "$version": 1,
+            "Platform": "StandaloneWindows64",
+            "Configuration": 2
         }
     ]
 }
