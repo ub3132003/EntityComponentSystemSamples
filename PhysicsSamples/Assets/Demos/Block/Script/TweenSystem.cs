@@ -34,6 +34,9 @@ public interface ITweenComponent
     public Ease ease { get; set; }
     public bool isReset { get; set; }//完成时重置到form
     public bool isRelative { get; set; }
+
+    public bool isLoop { get; set; }
+    public LoopMode loopMode { get; set; }
     /// <summary>
     /// 完成后移除动画
     /// </summary>
@@ -133,27 +136,13 @@ public interface ITweenComponent
     }
 }
 #region 动画组件对象
-public struct TweenPositionComponent : IComponentData, ITweenComponent
+public enum LoopMode
 {
-    /// <summary>
-    /// 已经过去的时间
-    /// </summary>
-    public float PassTime { get; set; }
-    public Entity TweenEntity { get; set; }
-
-    public float4 Start { get; set; }
-    public float4 End { get; set; }
-    public float Lifetime { get; set; }
-    public Ease ease { get; set; }
-    public bool isReset { get; set; }//完成时重置到for
-    public bool isRelative { get; set; }
-    public bool AutoKill { get; set; }
-
-    public float3 From { get; set; }
-    public float3 To { get; set; }
-
-    public bool IsComplete => PassTime > Lifetime;
+    Restart,
+    Yoyo,
+    Incremental,//叠加模式
 }
+
 public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 {
     /// <summary>
@@ -170,6 +159,8 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
     public bool isRelative { get; set; }
 
     public bool AutoKill { get; set; }
+    public bool isLoop { get; set; }
+    public LoopMode loopMode { get; set; }
 
     public float4 From { get; set; }
     public float4 To { get; set; }
@@ -201,10 +192,17 @@ public partial class TweenSystem : SystemBase
 
             if (tweenHdr.PassTime >= tweenHdr.Lifetime)
             {
-                tweenHdr.Lifetime = 0;
-                if (tweenHdr.isReset)
+                if (tweenHdr.isLoop)
                 {
-                    hdrColor = tweenHdr.Start;
+                    tweenHdr.PassTime = 0;
+                }
+                else
+                {
+                    tweenHdr.Lifetime = 0;
+                    if (tweenHdr.isReset)
+                    {
+                        hdrColor = tweenHdr.Start;
+                    }
                 }
             }
         }
@@ -263,7 +261,18 @@ public partial class TweenSystem : SystemBase
                     translation.Value = math.lerp(from, to, v);
                     if (tweenPosition.PassTime >= tweenPosition.Lifetime)
                     {
-                        tweenPosition.Lifetime = 0;
+                        if (tweenPosition.isLoop)
+                        {
+                            tweenPosition.PassTime = 0;
+                            if (tweenPosition.loopMode == LoopMode.Yoyo)
+                            {
+                                tweenPosition.To = -tweenPosition.To;
+                            }
+                        }
+                        else
+                        {
+                            tweenPosition.Lifetime = 0;
+                        }
                     }
                 }
             }).Schedule();

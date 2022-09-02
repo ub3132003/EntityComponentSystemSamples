@@ -185,5 +185,27 @@ partial class SpecialBrickSystem : SystemBase
         }
 
         chainBrickMap.Dispose();
+
+
+        //看向挡板
+        var playerEntity = PlayerEcsConnect.Instance.Player;
+        Entities
+            .ForEach((ref Rotation r, in Translation t, in EyeBrickTag eye) =>
+        {
+            var playTrans = GetComponent<Translation>(playerEntity);
+            var dir = t.Value - playTrans.Value;
+            r.Value = quaternion.LookRotation(dir, math.up());
+        }).Schedule();
+
+        //第一层方块移动
+        var delteTime = Time.DeltaTime;
+        Entities
+            .ForEach((ref Translation t, in BrickMoveComponent brickMove) =>
+        {
+            if (t.Value.y <= 1)
+            {
+                t.Value += brickMove.Dirction * delteTime;
+            }
+        }).Schedule();
     }
 }

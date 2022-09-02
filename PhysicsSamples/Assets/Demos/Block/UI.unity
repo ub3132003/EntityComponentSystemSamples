@@ -1401,7 +1401,7 @@ MonoBehaviour:
   - {fileID: 1006018116}
   soltParis:
   - SoltId: 1
-    BulletUI: {fileID: 11400000, guid: 808e115e86453c24bbb3474e80937679, type: 2}
+    BulletUI: {fileID: 11400000, guid: c7cd56af805b7284d94e9758f1c66cf6, type: 2}
     IsActive: 1
   - SoltId: 2
     BulletUI: {fileID: 11400000, guid: cc8c422d463d68342a37c17f448ae712, type: 2}

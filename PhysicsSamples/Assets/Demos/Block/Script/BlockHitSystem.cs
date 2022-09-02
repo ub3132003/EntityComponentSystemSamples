@@ -92,6 +92,7 @@ public partial class BlockHitSystem : SystemBase
         for (int i = 0; i < length; i++)
         {
             //从全白渐变到无hdr
+            //问题，从原色改变时，短时间多次改变会累加值无法记录原始值，  对于原本已经有hdr颜色，无法做到闪白恢复效果。
             ITweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
         }
 
@@ -115,13 +116,13 @@ public partial class BlockHitSystem : SystemBase
         //查找死亡方块
         NativeList<DeadBrickData> deadBrickDatas = new NativeList<DeadBrickData>(capBlock / 2, Allocator.TempJob);
         Entities
-            .ForEach((Entity e, in Health health , in BrickComponent brick , in Translation t) =>
+            .ForEach((Entity e, in Health health , in BrickComponent brick , in  LocalToWorld localToWorld) =>
         {
             if (health.Value <= 0)
             {
                 var deadData = new DeadBrickData
                 {
-                    position = t.Value,
+                    position = localToWorld.Position,
                     dropCount = brick.DieDropCount,
                 };
                 deadBrickDatas.Add(deadData);

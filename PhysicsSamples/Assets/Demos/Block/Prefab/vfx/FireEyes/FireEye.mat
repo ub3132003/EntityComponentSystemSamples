@@ -116,12 +116,12 @@ Material:
     - _ZWrite: 1
     - _depth: 0.6
     - _pupilHight: 0.342
-    - _pupilWidth: 0.046
+    - _pupilWidth: 0.051
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Emission: {r: 1.0943396, g: 0.16322924, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.54901963, g: 0.2845704, b: 0.15809466, a: 1}
     - _FireTilling: {r: 2, g: 13, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _center: {r: 0, g: 0, b: 0, a: 0}
