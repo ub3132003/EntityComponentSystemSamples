@@ -21,13 +21,6 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] TextMeshProUGUI description;
 
     public int CallFuncId;
-    class SkillData
-    {
-        public RpgEffectSO skillRef;
-        public int rank;
-    }
-
-    SkillData skillData = new SkillData();
 
     public Color GetColor(int i)
     {
@@ -47,12 +40,10 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         description.text = text;
         Icon.sprite = icon;
-        IconBGI.color = GetColor(rank)
-        ;
-        skillData.rank = rank;
+        IconBGI.color = GetColor(rank);
     }
 
-    public UnityEvent<int> SubmitAction;
+    public UnityAction SubmitAction;
     private void Awake()
     {
         CardButton.onClick.AddListener(OnClick);
@@ -60,8 +51,7 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnClick()
     {
-        //OnSubmit.Invoke(skillData.skillRef, skillData.rank);
-        SubmitAction.Invoke(CallFuncId);
+        SubmitAction.Invoke();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
