@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.014165472, g: 0.34264582, b: 0.34512937, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1826,17 +1826,17 @@ PrefabInstance:
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -1871,12 +1871,12 @@ PrefabInstance:
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CallFuncMap
+      value: Expand
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_alpha
+      value: set_interactable
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -1897,6 +1897,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.CanvasGroup, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686283, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -1931,7 +1936,7 @@ PrefabInstance:
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -1941,7 +1946,7 @@ PrefabInstance:
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -1991,12 +1996,12 @@ PrefabInstance:
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 553.25104
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -235.031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3679332896581686292, guid: 667a034733f4c9e4e96c3603dbde3989,
         type: 3}
@@ -2133,21 +2138,6 @@ MonoBehaviour:
   Title: {fileID: 527373582}
   description: {fileID: 527373581}
   CallFuncId: 0
-  SubmitAction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 804396542}
-        m_TargetAssemblyTypeName: BallAbillityManager, BrickDemo
-        m_MethodName: CallFuncMap
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &544910761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2646,7 +2636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &804396541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2661,7 +2651,7 @@ RectTransform:
   m_Children:
   - {fileID: 527373580}
   m_Father: {fileID: 1916891983}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2680,9 +2670,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84adbca69d20f8040b62e5c18e1d927a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: AbFunctionMap
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[UnityEngine.Events.UnityAction,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  AbillityList:
+  - cardRef: {fileID: 11400000, guid: e85c3caa20a9fa746894892e3c38438e, type: 2}
+    cardFunc:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 804396542}
+          m_TargetAssemblyTypeName: BallAbillityManager, BrickDemo
+          m_MethodName: AddDamage
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   openPanelEvent: {fileID: 11400000, guid: a53645bd89378fa44a05d6e6ae9f7a05, type: 2}
   canvasGroup: {fileID: 804396544}
-  allBallBuffCardUI: []
+  allBallBuffCardUI:
+  - {fileID: 527373588}
   allSkillSO: []
 --- !u!225 &804396544
 CanvasGroup:
@@ -5796,14 +5833,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593661145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1472743633}
   - {fileID: 1866765352}
-  m_Father: {fileID: 1916891983}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1593661147
 MonoBehaviour:
@@ -6698,7 +6735,6 @@ RectTransform:
   - {fileID: 1324639786}
   - {fileID: 320824586}
   - {fileID: 1407147070}
-  - {fileID: 1593661146}
   - {fileID: 804396541}
   m_Father: {fileID: 0}
   m_RootOrder: 0

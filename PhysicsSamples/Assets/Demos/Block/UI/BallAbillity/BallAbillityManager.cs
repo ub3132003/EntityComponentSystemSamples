@@ -1,16 +1,33 @@
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BallAbillityManager : MonoBehaviour
+public class BallAbillityManager : SerializedMonoBehaviour
 {
     List<Entity> gunEnties;
+    [System.Serializable]
+    class BallAbillityMap
+    {
+        public BallBuffCardSO cardRef;
+        public UnityEvent<int> cardFunc;
+
+        public void CallFunc()
+        {
+            cardFunc?.Invoke(cardRef.Value);
+        }
+    }
+    [TableList(ShowIndexLabels = true)]
+    [SerializeField] List<BallAbillityMap> AbillityList;
+
     [SerializeField] Dictionary<int, UnityAction> AbFunctionMap = new Dictionary<int, UnityAction>();
     void Start()
     {
+        Expand(false);
+
         //查找所有gun 实体
         var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
         EntityQueryDesc description = new EntityQueryDesc
@@ -70,7 +87,7 @@ public class BallAbillityManager : MonoBehaviour
     [SerializeField] CanvasGroup canvasGroup;
 
     [SerializeField] List<BallBuffCardUI> allBallBuffCardUI;
-    [SerializeField] List<RpgEffectSO> allSkillSO;
+    [SerializeField] List<BallBuffCardSO> allSkillSO;
     private void OnEnable()
     {
         openPanelEvent.OnEventRaised += open;
@@ -83,7 +100,7 @@ public class BallAbillityManager : MonoBehaviour
 
     void open(int t)
     {
-        Expand(true);
+        OpenPanel();
     }
 
     //Unity.Core.TimeData time = new Unity.Core.TimeData();
@@ -91,15 +108,22 @@ public class BallAbillityManager : MonoBehaviour
     public void OpenPanel()
     {
         Expand(true);
+
+        //填充卡片
+        foreach (var item in allBallBuffCardUI)
+        {
+            var cardRef = AbillityList[0].cardRef;
+            item.SetCard(cardRef.Description.GetLocalizedString(), cardRef.PreviewImage, 0);
+            item.SubmitAction = AbillityList[0].CallFunc;
+        }
     }
 
     //提交并关闭ui
     public void Submit(RpgEffectSO rpgEffectSO, int rank)
     {
-        PlayerEcsConnect.Instance.AddBuff(rpgEffectSO, rank);
     }
 
-    //显示ui
+    //显示ui     //收起ui
     public void Expand(bool opt)
     {
         if (opt)
@@ -107,7 +131,7 @@ public class BallAbillityManager : MonoBehaviour
             Time.timeScale = 0.05f;
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
-            //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 1, 0.5f).SetUpdate(true);
+            canvasGroup.blocksRaycasts = true;
             foreach (var item in allBallBuffCardUI)
             {
                 item.transform.DOScale(1, 0.3f).From(0.5f).SetEase(Ease.OutCubic).SetUpdate(true);
@@ -119,12 +143,8 @@ public class BallAbillityManager : MonoBehaviour
 
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
             //DOTween.To(() => canvasGroup.alpha, x => canvasGroup.alpha = x, 0, 0.5f);
         }
-    }
-
-    //收起ui
-    public void Fold()
-    {
     }
 }
