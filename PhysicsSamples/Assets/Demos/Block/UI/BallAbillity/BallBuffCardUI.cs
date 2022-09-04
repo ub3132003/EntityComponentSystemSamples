@@ -26,7 +26,7 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         List<Color> BG_COLOR = new List<Color>(3);
         Color c;
-        ColorUtility.TryParseHtmlString("#BDC3C7", out c);
+        ColorUtility.TryParseHtmlString("#E3E3E3", out c);
         BG_COLOR.Add(c);
         ColorUtility.TryParseHtmlString("#2980B9", out c);
         BG_COLOR.Add(c);
@@ -54,14 +54,16 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         SubmitAction.Invoke();
     }
 
+    Tweener tweener;
     public void OnPointerEnter(PointerEventData eventData)
     {
         //transform.DOScale(1.1f, 0.2f).SetUpdate(true);
-        transform.localScale = Vector3.one * 1.1f;
+        transform.localScale = Vector3.one * 1.2f;
+        tweener?.Kill();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.DOScale(1.0f, 0.5f).SetUpdate(true);
+        tweener = transform.DOScale(1.0f, 0.5f).SetUpdate(true);
     }
 }

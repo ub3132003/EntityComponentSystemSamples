@@ -128,7 +128,6 @@ public class BallAbillityManager : SerializedMonoBehaviour
     {
         if (opt)
         {
-            Time.timeScale = 0.05f;
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
@@ -139,8 +138,6 @@ public class BallAbillityManager : SerializedMonoBehaviour
         }
         else
         {
-            Time.timeScale = 1;
-
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
