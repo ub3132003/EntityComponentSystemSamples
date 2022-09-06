@@ -802,7 +802,7 @@ MonoBehaviour:
   count: 5
   randomType: 1
   SpawnRate: 300
-  DeathRate: 0
+  DeathRate: 300
 --- !u!1 &134599906
 GameObject:
   m_ObjectHideFlags: 3
@@ -1825,6 +1825,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5505157973118836275, guid: a0a14e72e5778664bae476091f149d45,
         type: 3}
+    - target: {fileID: 8457553160714599119, guid: ffca9f4107e52ad4a87f3dd7cca48658,
+        type: 3}
+      propertyPath: Capacity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8457553160714599154, guid: ffca9f4107e52ad4a87f3dd7cca48658,
         type: 3}
       propertyPath: m_Name

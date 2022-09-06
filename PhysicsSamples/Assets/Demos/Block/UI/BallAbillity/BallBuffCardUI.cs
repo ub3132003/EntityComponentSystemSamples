@@ -15,12 +15,17 @@ using DG.Tweening;
 public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Button CardButton;
+    //整卡背景
+    [SerializeField] Image BG;
     [SerializeField] Image Icon;
+    //图标背景,职业
     [SerializeField] Image IconBGI;
-    [SerializeField] TextMeshProUGUI Title;
+    //稀有度
+    [SerializeField] Image RaceImage;
+    [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI description;
 
-    public int CallFuncId;
+    public int CardId;
 
     public Color GetColor(int i)
     {
@@ -36,11 +41,17 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         return BG_COLOR[i];
     }
 
-    public void SetCard(string text, Sprite icon, int rank)
+    public void SetCard(string title, string detail, Sprite icon, int rank)
     {
-        description.text = text;
+        this.title.text = title;
+        description.text = detail;
         Icon.sprite = icon;
-        IconBGI.color = GetColor(rank);
+        RaceImage.color = GetColor(rank);
+    }
+
+    public void SetBackGroudColor(Color color)
+    {
+        BG.color = color;
     }
 
     public UnityAction SubmitAction;

@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Locale/Table/Game/RpgGame Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 8a8456a44868fe34ea7ca769de9ea284
+    m_Address: Assets/Locale/Table/wordDescribe/wordDescribe Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 38eb063b5b34eb74085f8fe466d14375, type: 2}
   m_SchemaSet:

@@ -19,6 +19,10 @@ public struct CharacterGun : IComponentData
 
     public float SensitivityYAxis;
     public int Capacity;
+    /// <summary>
+    /// 子弹容量上限
+    /// </summary>
+    public int MaxCapcity;
 }
 
 public struct CharacterGunInput : IComponentData
@@ -38,6 +42,7 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
     /// 子弹容量
     /// </summary>
     public int Capacity = 10;
+    public int MaxCapcity = 10;
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
     public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
     {
@@ -58,6 +63,7 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
                 IsFiring = 0,
                 SensitivityYAxis = SensitivityYAxis,
                 Capacity = Capacity,
+                MaxCapcity = MaxCapcity,
             });
     }
 }
@@ -119,6 +125,10 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                             Linear = gunTransform.Forward * gun.Strength,
                             Angular = float3.zero
                         };
+
+                        var compositeScale = GetComponent<CompositeScale>(gun.Bullet);
+                        Debug.Log($"{position.Value.y } {compositeScale.Value.c1.y}");
+                        position.Value.y *= compositeScale.Value.c1.y;//防止发射高度碰到地板
 
                         commandBuffer.SetComponent(entityInQueryIndex, e, position);
                         commandBuffer.SetComponent(entityInQueryIndex, e, rotation);

@@ -6,6 +6,7 @@ using TMPro;
 public class UIDynamicIconNum : MonoBehaviour
 {
     [SerializeField] Image Icon;
+    [SerializeField] TextMeshProUGUI Name;
     [SerializeField] TextMeshProUGUI num;
 
     //[SerializeField] IconNumChannelSO ItemEvent;
@@ -23,6 +24,12 @@ public class UIDynamicIconNum : MonoBehaviour
     public void SetItem(Sprite icon, int amount)
     {
         Icon.sprite = icon;
+        num.text = amount.ToString();
+    }
+
+    public void SetItem(string name, int amount)
+    {
+        Name.text = name;
         num.text = amount.ToString();
     }
 }

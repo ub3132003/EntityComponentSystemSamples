@@ -15,7 +15,8 @@ public class GameBaseInfoHud : MonoBehaviour
 
     [SerializeField] IntEventChannelSO blockNumEvent;
     [SerializeField] IntEventChannelSO bulletNumEvent;
-    [SerializeField] IntEventChannelSO bulletNumNoShootEvent;
+    [SerializeField] Vector2IntEventChannelSO bulletCapacityInfoEvent;
+
     private void Start()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -60,8 +61,9 @@ public class GameBaseInfoHud : MonoBehaviour
         var length = guns.Length;
         for (int i = 0; i < length; i++)
         {
-            var cap = entityManager.GetComponentData<CharacterGun>(guns[i]).Capacity;
-            bulletNumNoShootEvent.RaiseEvent(cap);
+            var gun = entityManager.GetComponentData<CharacterGun>(guns[i]);
+            var cap =   gun.Capacity;
+            bulletCapacityInfoEvent.RaiseEvent(new Vector2Int(cap, gun.MaxCapcity));
         }
         guns.Dispose();
     }

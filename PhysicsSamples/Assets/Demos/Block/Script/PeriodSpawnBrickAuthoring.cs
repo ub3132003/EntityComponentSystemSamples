@@ -50,10 +50,6 @@ class PeriodBrickSpawnSystem : PeriodicalySpawnRandomObjectsSystem<PeriodicSpawn
         queryOldBrickGroup = GetEntityQuery(queryDescription);
     }
 
-    protected override void OnBeforeInstantiatePrefab(ref PeriodicSpawnBrickSettings spawnSettings)
-    {
-    }
-
     protected override void InitTransform(float3 center, quaternion orientation, float3 range, ref NativeArray<float3> positions, ref NativeArray<quaternion> rotations, int seed = 1)
     {
         var random = new Unity.Mathematics.Random((uint)seed + 1);
