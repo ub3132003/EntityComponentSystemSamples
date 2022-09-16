@@ -128,7 +128,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
 
                         var compositeScale = GetComponent<CompositeScale>(gun.Bullet);
                         Debug.Log($"{position.Value.y } {compositeScale.Value.c1.y}");
-                        position.Value.y *= compositeScale.Value.c1.y;//防止发射高度碰到地板
+                        position.Value.y += (compositeScale.Value.c1.y - 0.5f) * 0.5f;//防止发射高度碰到地板,默认值是0.5，超过0.5的需要缩放
 
                         commandBuffer.SetComponent(entityInQueryIndex, e, position);
                         commandBuffer.SetComponent(entityInQueryIndex, e, rotation);

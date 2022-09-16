@@ -41,10 +41,30 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     [SerializeField]
     public List<BallAbillityMap> AbillityList;
 
-
+    List<Entity> gunEnties;
     void Start()
     {
         em = PlayerEcsConnect.Instance.EntityManager;
+        //查找所有gun 实体
+        var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
+        EntityQueryDesc description = new EntityQueryDesc
+        {
+            All = new ComponentType[]
+            {
+                typeof(CharacterGun),
+            }
+        };
+        var queryBuilder = new EntityQueryDescBuilder(Unity.Collections.Allocator.Temp);
+        queryBuilder.AddAll(typeof(CharacterGun));
+        queryBuilder.FinalizeQuery();
+
+        EntityQuery gunGroup = gunSystem.GetEntityQuery(queryBuilder);
+
+        var guns = gunGroup.ToEntityArray(Unity.Collections.Allocator.Temp);
+        gunEnties = new List<Entity>(guns);
+
+        queryBuilder.Dispose();
+        guns.Dispose();
     }
 
     #region Func
@@ -104,6 +124,38 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     //球之间不再碰撞.
     public void Boson(int val)
     {
+    }
+
+    /// <summary>
+    /// 执行能力到实体
+    /// </summary>
+    public void ApplyCardAb(BallAbillityMap card)
+    {
+        foreach (var item in gunEnties)
+        {
+            var gun = em.GetComponentData<CharacterGun>(item);
+            if (gun.ID != card.CategoryId)
+            { continue; }
+
+            //添加到对应球
+            card.CallFunc(item);
+        }
+    }
+
+    #endregion
+
+
+    #region UI
+    /// <summary>
+    /// 用ab map字段填充卡牌ui
+    /// </summary>
+    /// <param name=""></param>
+    public void FillAbCard(BallBuffCardUI item , int cardId)
+    {
+        var abCard = AbillityList[cardId];
+        //item.SetBackGroudColor(BgColor);
+        item.SetCard(abCard.cardRef.Name.GetLocalizedString(), abCard.cardRef.Description.GetLocalizedString(), abCard.cardRef.PreviewImage, 0);
+        item.CardId = cardId;
     }
 
     #endregion

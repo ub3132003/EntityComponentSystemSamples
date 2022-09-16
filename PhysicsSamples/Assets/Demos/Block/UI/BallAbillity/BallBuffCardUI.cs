@@ -24,7 +24,7 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] Image RaceImage;
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI description;
-
+    [SerializeField] Image disableCover;
     public int CardId;
 
     public Color GetColor(int i)
@@ -49,11 +49,28 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         RaceImage.color = GetColor(rank);
     }
 
+    public void SetIntactionable(bool opt)
+    {
+        CardButton.interactable = opt;
+        disableCover.enabled = !opt;
+    }
+
+    public void SetNull(bool opt)
+    {
+        title.enabled = opt;
+        description.enabled = opt;
+        Icon.enabled = opt;
+        RaceImage.enabled = opt;
+    }
+
     public void SetBackGroudColor(Color color)
     {
         BG.color = color;
     }
 
+    /// <summary>
+    /// 点击卡牌时执行
+    /// </summary>
     public UnityAction SubmitAction;
     private void Awake()
     {
@@ -62,7 +79,7 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnClick()
     {
-        SubmitAction.Invoke();
+        SubmitAction?.Invoke();
     }
 
     Tweener tweener;

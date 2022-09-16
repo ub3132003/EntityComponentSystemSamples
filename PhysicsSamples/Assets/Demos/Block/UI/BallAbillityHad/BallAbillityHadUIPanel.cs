@@ -22,6 +22,8 @@ public class BallAbillityHadUIPanel : MonoBehaviour
         }
     }
 
+    //buff得数值
+    [SerializeField] IntEventChannelSO BuffValueEvent;
     [SerializeField] GameObject HadAbillityUIPrefab;
     List<UIDynamicIconNum> uIIcons = new List<UIDynamicIconNum>();
 
