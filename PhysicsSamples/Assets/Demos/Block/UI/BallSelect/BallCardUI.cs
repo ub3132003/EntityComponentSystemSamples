@@ -75,16 +75,20 @@ public class BallCardUI : MonoBehaviour, IPointerClickHandler, ICardUI
     public void OnPointerClick(PointerEventData eventData)
     {
         bool opt = CardToggle.isOn;
+        if (currentTargetPositionId > 3 && opt == true)
+        {
+            CardToggle.isOn = false;
+            return;
+        }
 
-        currentTargetPositionId += opt.ToDiff();
-        if (currentTargetPositionId > 4) return;
-        if (currentTargetPositionId == 4 && opt == true) return;
 
         var goPos = opt ? TargetPositionList[currentTargetPositionId].position : transform.position;
         var speed = 0.1f;
         //选择是移动到选择栏
         if (opt == true)
         {
+            BallAbillityManager.Instance.BallSelectedContent.GetComponent<HorizontalLayoutGroup>().enabled = false;
+
             var sbling = transform.GetSiblingIndex();
             disableCanvas.alpha = 0.6f;
             tempAnimaObj = Instantiate(this.gameObject, transform.parent); disableCanvas.alpha = 1f;
@@ -92,11 +96,14 @@ public class BallCardUI : MonoBehaviour, IPointerClickHandler, ICardUI
             Destroy(tempAnimaObj.GetComponent<BallCardUI>());
             //TempAnimaObj.GetComponent<RectTransform>().sizeDelta = GetComponent<RectTransform>().sizeDelta;
             //TempAnimaObj.transform.position = transform.position;
-            transform.SetParent(BallAbillityManager.Instance.BallAnimaCanves);
+            transform.SetParent(BallAbillityManager.Instance.BallSelectedContent);
+
             var tween = transform.DOMove(goPos, speed);
         }
         else
         {
+            BallAbillityManager.Instance.BallSelectedContent.GetComponent<HorizontalLayoutGroup>().enabled = true;
+
             var sibling = tempAnimaObj.transform.GetSiblingIndex();
             var tween = transform.DOMove(tempAnimaObj.transform.position, speed);
             tween.OnComplete(() =>
@@ -106,6 +113,8 @@ public class BallCardUI : MonoBehaviour, IPointerClickHandler, ICardUI
                 Destroy(tempAnimaObj);
             });
         }
+
+        currentTargetPositionId += opt.ToDiff();
     }
 
     public void SetCard(string title, string detail, Sprite icon, int rank)

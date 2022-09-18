@@ -22,14 +22,22 @@ public class PanelFreeSelectLib : MonoBehaviour
             var cardUIObj = Instantiate(cardPrefab, libCardContent.transform);
             var cardUI = cardUIObj.GetComponent<ICardUI>();
             BallAbillityManager.Instance.FillBallCard(cardUI , i);
-
+            cardUI.CardId = i;
             cardUIObj.GetComponent<BallCardUI>().OnValueChanged = SelectCard;
         }
+
+        SumbitButton.onClick.AddListener(Submit);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Submit()
     {
+        var selectedCards = BallAbillityManager.Instance.BallSelectedContent.GetComponentsInChildren<ICardUI>();
+
+        for (int i = 0; i < selectedCards.Length; i++)
+        {
+            var card = selectedCards[i];
+            cardPool[card.CardId].BallUI.Prefab;
+        }
     }
 
     List<BallAbillityMap> selectedCardList;

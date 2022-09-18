@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 363cbd04bb584ca4e94ce9d78d3dce3d, type: 3}
-  m_Name: BallRock
+  m_Name: BallNormal 2
   m_EditorClassIdentifier: 
-  _guid: cc8c422d463d68342a37c17f448ae712
+  _guid: c7cd56af805b7284d94e9758f1c66cf6
   _name:
     m_TableReference:
       m_TableCollectionName: 
@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _previewImage: {fileID: 21300000, guid: cf95cdcd11c975547908ab55f5f435d5, type: 3}
+  _previewImage: {fileID: 21300000, guid: fb40407386fe343489dfd286a4ddd452, type: 3}
   _description:
     m_TableReference:
       m_TableCollectionName: 
@@ -32,7 +32,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _prefab: {fileID: 5505157973118836275, guid: a0a14e72e5778664bae476091f149d45, type: 3}
+  _prefab: {fileID: 5505157973118836275, guid: e2d8f6c3b0c496143b0522dc8348d1da, type: 3}
   references:
     version: 2
     RefIds: []

@@ -64,7 +64,7 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     /// 动画终点位置
     /// </summary>
     public List<Transform> TargetPositionList;
-    public Transform BallAnimaCanves;
+    public Transform BallSelectedContent;
     void Start()
     {
         em = PlayerEcsConnect.Instance.EntityManager;
