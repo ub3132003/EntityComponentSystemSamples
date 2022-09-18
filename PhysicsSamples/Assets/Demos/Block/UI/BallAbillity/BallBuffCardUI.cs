@@ -7,6 +7,7 @@ using Unity.Assertions;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// 对自己释放技能
@@ -55,10 +56,11 @@ public class BallBuffCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         disableCover.enabled = !opt;
     }
 
+    [Button]
     public void SetNull(bool opt)
     {
-        title.enabled = opt;
-        description.enabled = opt;
+        if (title != null) title.enabled = opt;
+        if (description != null) description.enabled = opt;
         Icon.enabled = opt;
         RaceImage.enabled = opt;
     }

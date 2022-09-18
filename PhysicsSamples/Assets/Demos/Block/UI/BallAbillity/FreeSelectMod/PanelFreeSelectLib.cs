@@ -1,29 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelFreeSelectLib : MonoBehaviour
 {
-    List<BallAbillityMap> cardPool;
-    [SerializeField] BallBuffCardUI cardPrefab;
+    List<BallData> cardPool;
+    [SerializeField] GameObject cardPrefab;
     /// <summary>
     /// 备选的所有卡片父对象
     /// </summary>
     [SerializeField] GameObject libCardContent;
+
+    [SerializeField] Button SumbitButton;
     void Start()
     {
-        cardPool = new List<BallAbillityMap>(BallAbillityManager.Instance.AbillityList);
+        cardPool = new List<BallData>(BallAbillityManager.Instance.BallDataList);
 
         for (int i = 0; i < cardPool.Count; i++)
         {
-            var cardUI = Instantiate(cardPrefab, libCardContent.transform);
-            BallAbillityManager.Instance.FillAbCard(cardUI, i);
-            cardUI.SubmitAction = () => cardUI.SetIntactionable(false);
+            var cardUIObj = Instantiate(cardPrefab, libCardContent.transform);
+            var cardUI = cardUIObj.GetComponent<ICardUI>();
+            BallAbillityManager.Instance.FillBallCard(cardUI , i);
+
+            cardUIObj.GetComponent<BallCardUI>().OnValueChanged = SelectCard;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    List<BallAbillityMap> selectedCardList;
+    public int selectedCount = 0;
+    //选取卡片备战，注册到toggle上
+    public void SelectCard(bool isOn)
+    {
+        if (isOn)
+        {
+            selectedCount++;
+        }
+        else
+        {
+            selectedCount--;
+        }
+
+        var isFullCardSolt = selectedCount >= 4;
+
+        //选满才能提交
+        SumbitButton.interactable = isFullCardSolt;
     }
 }

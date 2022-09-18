@@ -29,5 +29,14 @@ namespace Unity.Mathematics
         {
             return num.x == true && num.y == true && num.z == true ? true : false;
         }
+
+        /// <summary>
+        /// bool 转 +1 -1;
+        /// </summary>
+        /// <returns></returns>
+        public static int ToDiff(this bool opt)
+        {
+            return opt ? 1 : -1;
+        }
     }
 }

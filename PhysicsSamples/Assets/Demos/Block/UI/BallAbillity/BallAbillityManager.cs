@@ -7,7 +7,9 @@ using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.Events;
-
+/// <summary>
+/// 附加能力到球上
+/// </summary>
 [System.Serializable]
 public class BallAbillityMap
 {
@@ -27,21 +29,42 @@ public class BallAbillityMap
         cardFunc?.Invoke(gun, cardRef.Value);
     }
 }
+/// <summary>
+/// 球的信息
+/// </summary>
+[System.Serializable]
+public class BallData
+{
+    public ThingSO BallUI;
+    //单个球花费
+    public int Price;
+}
 
 /// <summary>
 /// 球能力管理器
 /// </summary>
 public class BallAbillityManager : Singleton<BallAbillityManager>
 {
+    [TabGroup("BallAb")]
     [AssetsOnly]
     public List<GameObject> BallPrefabs;
 
-
+    [TabGroup("BallAb")]
     [TableList(ShowIndexLabels = true)]
     [SerializeField]
     public List<BallAbillityMap> AbillityList;
 
+    [TabGroup("BallData")]
+    [TableList(ShowIndexLabels = true)]
+    public List<BallData> BallDataList;
+
     List<Entity> gunEnties;
+
+    /// <summary>
+    /// 动画终点位置
+    /// </summary>
+    public List<Transform> TargetPositionList;
+    public Transform BallAnimaCanves;
     void Start()
     {
         em = PlayerEcsConnect.Instance.EntityManager;
@@ -150,13 +173,33 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     /// 用ab map字段填充卡牌ui
     /// </summary>
     /// <param name=""></param>
-    public void FillAbCard(BallBuffCardUI item , int cardId)
+    public void FillAbCard(ICardUI item , int cardId)
     {
         var abCard = AbillityList[cardId];
         //item.SetBackGroudColor(BgColor);
+
+        //set buff card
         item.SetCard(abCard.cardRef.Name.GetLocalizedString(), abCard.cardRef.Description.GetLocalizedString(), abCard.cardRef.PreviewImage, 0);
         item.CardId = cardId;
     }
 
+    public void FillBallCard(ICardUI item , int ballId)
+    {
+        var ballData = BallDataList[ballId];
+
+        item.SetCard(ballData.BallUI.PreviewImage, ballData.Price);
+    }
+
     #endregion
+}
+
+public interface ICardUI
+{
+    public void SetCard(string title, string detail, Sprite icon, int rank);
+    public void SetCard(Sprite icon, int num);
+    public void SetIntactionable(bool opt);
+    public void SetSelected(bool opt);
+    public int CardId { get; set; }
+
+    public UnityAction SubmitAction { get; set; }
 }
