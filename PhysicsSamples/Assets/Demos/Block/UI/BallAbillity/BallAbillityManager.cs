@@ -58,6 +58,7 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     [TableList(ShowIndexLabels = true)]
     public List<BallData> BallDataList;
 
+
     List<Entity> gunEnties;
 
     /// <summary>
@@ -67,6 +68,10 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     public Transform BallSelectedContent;
     void Start()
     {
+        //ui
+        InitSelectedBallPanel();
+
+
         em = PlayerEcsConnect.Instance.EntityManager;
         //查找所有gun 实体
         var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
@@ -89,6 +94,21 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         queryBuilder.Dispose();
         guns.Dispose();
     }
+
+    #region ui 逻辑
+    [SerializeField] PanelBallSelect panelBallSelect;
+    [SerializeField] PanelFreeSelectLib panelFreeSelectLib;
+
+    public void InitSelectedBallPanel()
+    {
+        //选择球界面提交到切换球面板
+        panelFreeSelectLib.SubmitAction = (balls) => { panelBallSelect.SetSoltList(balls); panelBallSelect.SetBallChangeUI(); };
+
+        //选球槽数量
+        panelFreeSelectLib.MaxSelectNum = panelBallSelect.SoltMaxNum;
+    }
+
+    #endregion
 
     #region Func
     EntityManager em;

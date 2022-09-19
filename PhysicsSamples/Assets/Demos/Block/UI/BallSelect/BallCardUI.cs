@@ -46,6 +46,11 @@ public class BallCardUI : MonoBehaviour, IPointerClickHandler, ICardUI
     //显示灰色+动画
     public void SetSelected(bool opt)
     {
+        if (currentTargetPositionId > 4 && opt == true)//超过上限的卡
+        {
+            CardToggle.isOn = false;
+            return;
+        }
     }
 
     public void SetNull(bool opt)
@@ -64,20 +69,19 @@ public class BallCardUI : MonoBehaviour, IPointerClickHandler, ICardUI
     /// </summary>
     public UnityAction SubmitAction { get; set; }
 
-    public int CardId { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public int CardId { get; set; }
 
     private void Awake()
     {
         //CardButton.onClick.AddListener(OnClick);
     }
 
-    //显示灰色+动画
+    //显示灰色+动画 在valuechange 之前调用
     public void OnPointerClick(PointerEventData eventData)
     {
-        bool opt = CardToggle.isOn;
+        bool opt = !CardToggle.isOn; //点击后的状态
         if (currentTargetPositionId > 3 && opt == true)
         {
-            CardToggle.isOn = false;
             return;
         }
 

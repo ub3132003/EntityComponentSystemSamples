@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PanelFreeSelectLib : MonoBehaviour
@@ -13,6 +15,10 @@ public class PanelFreeSelectLib : MonoBehaviour
     [SerializeField] GameObject libCardContent;
 
     [SerializeField] Button SumbitButton;
+    /// <summary>
+    /// 可选择球的数量
+    /// </summary>
+    public int MaxSelectNum = 0;
     void Start()
     {
         cardPool = new List<BallData>(BallAbillityManager.Instance.BallDataList);
@@ -29,19 +35,21 @@ public class PanelFreeSelectLib : MonoBehaviour
         SumbitButton.onClick.AddListener(Submit);
     }
 
+    public UnityAction<List<ThingSO>> SubmitAction;
     public void Submit()
     {
         var selectedCards = BallAbillityManager.Instance.BallSelectedContent.GetComponentsInChildren<ICardUI>();
 
-        for (int i = 0; i < selectedCards.Length; i++)
-        {
-            var card = selectedCards[i];
-            cardPool[card.CardId].BallUI.Prefab;
-        }
+        //for (int i = 0; i < selectedCards.Length; i++)
+        //{
+        //    var card = selectedCards[i];
+
+        //}
+        var ballInfos = selectedCards.Select(card => cardPool[card.CardId].BallUI).ToList();
+        SubmitAction?.Invoke(ballInfos);
     }
 
-    List<BallAbillityMap> selectedCardList;
-    public int selectedCount = 0;
+    private int selectedCount = 0;
     //选取卡片备战，注册到toggle上
     public void SelectCard(bool isOn)
     {
@@ -54,9 +62,24 @@ public class PanelFreeSelectLib : MonoBehaviour
             selectedCount--;
         }
 
-        var isFullCardSolt = selectedCount >= 4;
-
+        var isFullCardSolt = selectedCount == MaxSelectNum;
         //选满才能提交
         SumbitButton.interactable = isFullCardSolt;
+
+        var toggles = libCardContent.GetComponentsInChildren<Toggle>();
+        if (isFullCardSolt)
+        {
+            foreach (var item in toggles)
+            {
+                item.interactable = false;
+            }
+        }
+        else
+        {
+            foreach (var item in toggles)
+            {
+                item.interactable = true;
+            }
+        }
     }
 }

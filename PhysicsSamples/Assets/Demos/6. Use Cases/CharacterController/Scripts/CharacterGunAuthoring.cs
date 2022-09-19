@@ -8,6 +8,9 @@ using UnityEngine.EventSystems;
 
 public struct CharacterGun : IComponentData
 {
+    /// <summary>
+    /// 子弹预制体id
+    /// </summary>
     public int ID;
     public Entity Bullet;
     public float Strength;
