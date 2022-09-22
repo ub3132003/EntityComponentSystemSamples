@@ -102,7 +102,11 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     public void InitSelectedBallPanel()
     {
         //选择球界面提交到切换球面板
-        panelFreeSelectLib.SubmitAction = (balls) => { panelBallSelect.SetSoltList(balls); panelBallSelect.SetBallChangeUI(); };
+        panelFreeSelectLib.SubmitAction = (balls) => {
+            panelBallSelect.SetSoltList(balls);
+            panelBallSelect.LoadGunParis();
+            panelBallSelect.SetBallChangeUI();
+        };
 
         //选球槽数量
         panelFreeSelectLib.MaxSelectNum = panelBallSelect.SoltMaxNum;

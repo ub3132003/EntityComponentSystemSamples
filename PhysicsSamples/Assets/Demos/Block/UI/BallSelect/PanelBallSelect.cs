@@ -39,7 +39,7 @@ public class PanelBallSelect : MonoBehaviour
         queryBuilder.Dispose();
         guns.Dispose();
 
-        SetBallChangeUI();
+        //SetBallChangeUI();
 
         //激活默认的球
         //对应asset 和 实体map

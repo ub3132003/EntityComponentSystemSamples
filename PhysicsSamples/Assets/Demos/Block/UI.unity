@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.014165472, g: 0.34264582, b: 0.34512937, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1452,16 +1452,16 @@ MonoBehaviour:
   - {fileID: 1646876941}
   - {fileID: 1006018116}
   soltParis:
-  - SoltId: 1
+  - SoltId: 0
     BulletUI: {fileID: 11400000, guid: c7cd56af805b7284d94e9758f1c66cf6, type: 2}
     IsActive: 1
-  - SoltId: 2
+  - SoltId: 1
     BulletUI: {fileID: 11400000, guid: cc8c422d463d68342a37c17f448ae712, type: 2}
     IsActive: 0
-  - SoltId: 3
+  - SoltId: 2
     BulletUI: {fileID: 11400000, guid: 7bb4587405b5e2c44aa01fba0a3651d8, type: 2}
     IsActive: 0
-  - SoltId: 4
+  - SoltId: 3
     BulletUI: {fileID: 11400000, guid: 9c5d12e746bf1e9448e0756aa89d5bf9, type: 2}
     IsActive: 0
 --- !u!114 &320824592

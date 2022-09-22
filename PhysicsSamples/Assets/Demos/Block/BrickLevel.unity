@@ -1845,7 +1845,7 @@ PrefabInstance:
     - target: {fileID: 8457553160714599154, guid: ffca9f4107e52ad4a87f3dd7cca48658,
         type: 3}
       propertyPath: m_Name
-      value: GUn (1)
+      value: GunRock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffca9f4107e52ad4a87f3dd7cca48658, type: 3}
@@ -3107,7 +3107,7 @@ PrefabInstance:
     - target: {fileID: 8457553160714599154, guid: ffca9f4107e52ad4a87f3dd7cca48658,
         type: 3}
       propertyPath: m_Name
-      value: GUn
+      value: GunNormal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffca9f4107e52ad4a87f3dd7cca48658, type: 3}
@@ -3362,7 +3362,7 @@ PrefabInstance:
     - target: {fileID: 8457553160714599154, guid: ffca9f4107e52ad4a87f3dd7cca48658,
         type: 3}
       propertyPath: m_Name
-      value: GUn (2)
+      value: GunFire
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffca9f4107e52ad4a87f3dd7cca48658, type: 3}
@@ -3737,7 +3737,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791757437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ce4b658f26b99554f8c5704e10690f37, type: 3}
   m_Name: 
@@ -3745,7 +3745,7 @@ MonoBehaviour:
   killRange: 10
   effectStrength: 15
   FollowStartAliveTime: 10
-  useJobSystem: 1
+  useJobSystem: 0
   target: {fileID: 929100934}
 --- !u!198 &1791757441
 ParticleSystem:
