@@ -11,6 +11,10 @@ public class LevelScenePanel : MonoBehaviour
     [SerializeField] IntEventChannelSO levelChangeEvent;
 
     [SerializeField] GameObject sigleLevelButton;
+    int currentLevelIdx;
+
+    public int CurrentLevelIdx { get => currentLevelIdx; }
+
     void Start()
     {
         levelButtons = new List<Button>(gridSelectContent.GetComponentsInChildren<Button>());
@@ -18,8 +22,18 @@ public class LevelScenePanel : MonoBehaviour
         {
             var button = levelButtons[i];
             var id = i;
-            button.onClick.AddListener(() => levelChangeEvent.RaiseEvent(id));
+            button.onClick.AddListener(() =>
+            {
+                levelChangeEvent.RaiseEvent(id);
+                currentLevelIdx = id;
+            });
         }
+    }
+
+    public void NextScene()
+    {
+        currentLevelIdx++;
+        levelChangeEvent.RaiseEvent(currentLevelIdx);
     }
 
     public void SetSigleLevel()

@@ -40,6 +40,10 @@ public class PanelBallSelect : MonoBehaviour
         guns.Dispose();
 
         SetBallChangeUI();
+
+        //激活默认的球
+        //对应asset 和 实体map
+        LoadGunParis();
     }
 
     [System.Serializable]
@@ -61,9 +65,6 @@ public class PanelBallSelect : MonoBehaviour
 
     public void SetBallChangeUI()
     {
-        //对应asset 和 实体map
-        LoadGunParis();
-
         //初始化选项UI
 
         ballToggles = new List<UIBallToggle>(GetComponentsInChildren<UIBallToggle>());
@@ -71,6 +72,7 @@ public class PanelBallSelect : MonoBehaviour
         for (int i = 0; i < ballToggles.Count; i++)
         {
             var item = ballToggles[i];
+            //设置选项序号
             item.Init(i);
             soltParis[i].SoltId = i;
             item.SetToggleEvent(ActiveBall);
@@ -86,6 +88,10 @@ public class PanelBallSelect : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 把球的信息填到预设的空槽上
+    /// </summary>
+    /// <param name="bullet"></param>
     public void SetSoltList(List<ThingSO> bullet)
     {
         Assert.Equals(bullet.Count, soltParis.Count);
@@ -95,6 +101,9 @@ public class PanelBallSelect : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 增加一个空球槽
+    /// </summary>
     public void AddOneSolt()
     {
         var t = new SoltPari();
@@ -102,6 +111,9 @@ public class PanelBallSelect : MonoBehaviour
         soltParis.Add(t);
     }
 
+    /// <summary>
+    /// 更新那些球被激活
+    /// </summary>
     public void LoadGunParis()
     {
         foreach (var item in soltParis)
@@ -138,7 +150,7 @@ public class PanelBallSelect : MonoBehaviour
     /// 激活gun 实体
     /// </summary>
     /// <param name="opt"></param>
-    /// <param name="option"></param>
+    /// <param name="option">序号</param>
     void ActiveBall(bool opt , int option)
     {
         var gunSolt = soltParis.Find(x => x.SoltId == option);

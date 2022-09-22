@@ -13,7 +13,7 @@ public class GameBaseInfoHud : MonoBehaviour
     EntityQuery gunGroup;
 
 
-    [SerializeField] IntEventChannelSO blockNumEvent;
+    [SerializeField] IntEventChannelSO blockNumEvent;//改变时触发
     [SerializeField] IntEventChannelSO bulletNumEvent;
     [SerializeField] Vector2IntEventChannelSO bulletCapacityInfoEvent;
 
@@ -49,13 +49,26 @@ public class GameBaseInfoHud : MonoBehaviour
                     typeof(CharacterGun)
                 }
             });
+
+        oldBoxNum = blockGroup.CalculateEntityCount();
+        oldBallNum = bulletGroup.CalculateEntityCount();
     }
 
-    // Update is called once per frame
+    int oldBoxNum = 0;
+    int oldBallNum = 0;
     void Update()
     {
-        blockNumEvent.RaiseEvent(blockGroup.CalculateEntityCount());
-        bulletNumEvent.RaiseEvent(bulletGroup.CalculateEntityCount());
+        var currentBoxNum = blockGroup.CalculateEntityCount();
+        var currentBallNum = bulletGroup.CalculateEntityCount();//存在的球数量
+        if (currentBoxNum != oldBoxNum)
+        {
+            blockNumEvent.RaiseEvent(currentBoxNum);
+        }
+        if (oldBallNum != currentBallNum)
+        {
+            bulletNumEvent.RaiseEvent(currentBallNum);
+        }
+
 
         var guns = gunGroup.ToEntityArray(Allocator.TempJob);
         var length = guns.Length;

@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +38,19 @@ public class PanelFreeSelectLib : MonoBehaviour
     }
 
     public UnityAction<List<ThingSO>> SubmitAction;
+
+    [SerializeField] Transform libPanel;
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="opt">ture ui 进入</param>
+    [Button]
+    public void Expand(bool opt)
+    {
+        var offset = opt ? 1500 : -1500;
+        libPanel.transform.DOMoveY(offset, 0.2f).SetRelative();
+    }
+
     public void Submit()
     {
         var selectedCards = BallAbillityManager.Instance.BallSelectedContent.GetComponentsInChildren<ICardUI>();
