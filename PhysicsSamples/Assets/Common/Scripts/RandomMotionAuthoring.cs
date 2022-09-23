@@ -22,7 +22,7 @@ public struct RandomMotion : IComponentData
 public class RandomMotionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     public float3 Range = new float3(1);
-
+    public float Speed = 1;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         var length = math.length(Range);
@@ -30,10 +30,10 @@ public class RandomMotionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         {
             InitialPosition = transform.position,
             DesiredPosition = transform.position,
-            Speed = length * 0.001f,
+            Speed = Speed,
             Tolerance = length * 0.1f,
             Range = Range,
-        });
+        });;
     }
 }
 
@@ -66,7 +66,7 @@ public partial class RandomMotionSystem : SystemBase
             {
                 motion.CurrentTime += deltaTime;
 
-                random.InitState((uint)(motion.CurrentTime * 1000));
+                random.InitState((uint)(motion.CurrentTime * 1000 + motion.InitialPosition.x + motion.InitialPosition.y + motion.InitialPosition.z));
                 var currentOffset = position.Value - motion.InitialPosition;
                 var desiredOffset = motion.DesiredPosition - motion.InitialPosition;
                 // If we are close enough to the destination pick a new destination

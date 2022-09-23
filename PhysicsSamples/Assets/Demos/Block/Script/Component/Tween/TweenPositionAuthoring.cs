@@ -28,8 +28,6 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
 
 class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEntity
 {
-    public float4 Start;
-    public float4 End;
     public float  Lifetime;
     public Ease   ease;
     public bool   isReset;
@@ -44,8 +42,8 @@ class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEn
     {
         dstManager.AddComponentData(entity, new TweenPositionComponent
         {
-            Start = Start,
-            End = End,
+            Start = new float4(transform.position.x, transform.position.y, transform.position.z, 0),
+
             Lifetime = Lifetime,
             ease = ease,
             isReset = isReset,

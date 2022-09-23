@@ -33,7 +33,8 @@ public class HealthAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         });
     }
 }
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+//[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+//[UpdateAfter(typeof(StatefulCollisionEventBufferSystem))]
 partial class HealthSystem : SystemBase
 {
     EntityQueryMask damagerCollionMask;
@@ -68,7 +69,7 @@ partial class HealthSystem : SystemBase
 
         //碰撞触发的伤害 投射技能
         Entities
-            .ForEach((Entity e , ref DynamicBuffer<StatefulCollisionEvent> collisonEvents, ref Health health , ref DynamicBuffer<BuffEffectComponent> buffEffects) =>
+            .ForEach((Entity e , ref Health health , ref DynamicBuffer<BuffEffectComponent> buffEffects, in DynamicBuffer<StatefulCollisionEvent> collisonEvents) =>
         {
             var length = collisonEvents.Length;
             for (int i = 0; i < length; i++)
