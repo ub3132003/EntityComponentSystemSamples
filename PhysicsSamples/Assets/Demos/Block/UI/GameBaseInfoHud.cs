@@ -62,10 +62,12 @@ public class GameBaseInfoHud : MonoBehaviour
         var currentBallNum = bulletGroup.CalculateEntityCount();//存在的球数量
         if (currentBoxNum != oldBoxNum)
         {
+            oldBoxNum = currentBallNum;
             blockNumEvent.RaiseEvent(currentBoxNum);
         }
         if (oldBallNum != currentBallNum)
         {
+            oldBallNum = currentBallNum;
             bulletNumEvent.RaiseEvent(currentBallNum);
         }
 

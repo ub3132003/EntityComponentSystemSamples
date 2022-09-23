@@ -753,7 +753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &104149457
 Transform:
   m_ObjectHideFlags: 0
@@ -1367,6 +1367,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletFireBall
       objectReference: {fileID: 0}
+    - target: {fileID: 5505157973118836275, guid: d811b06f33f12824ba4268413a1021e2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5505157973118836425, guid: d811b06f33f12824ba4268413a1021e2,
         type: 3}
       propertyPath: m_RootOrder
@@ -1567,6 +1572,10 @@ PrefabInstance:
     - target: {fileID: 1314051614399548, guid: 9259201ae5721154aa3b4c24370a5540, type: 3}
       propertyPath: m_Name
       value: FireballSoftMissileFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314051614399548, guid: 9259201ae5721154aa3b4c24370a5540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4842074055798502, guid: 9259201ae5721154aa3b4c24370a5540, type: 3}
       propertyPath: m_RootOrder
@@ -2712,6 +2721,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrickBase Variant 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7699382154791289547, guid: 569d51406ba323944b658d032b3060fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 569d51406ba323944b658d032b3060fd, type: 3}
 --- !u!4 &1134376764 stripped
@@ -3177,6 +3191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BrickBase3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7699382154791289547, guid: 96e9d8cf810ce404faf1a944308b7583,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96e9d8cf810ce404faf1a944308b7583, type: 3}
@@ -13428,8 +13447,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subScenes:
-  - {fileID: 768803032}
-  - {fileID: 607108414}
+  - {fileID: 756648938}
+  - {fileID: 1533671502}
   - {fileID: 1179340491}
   LevelCompleteEvent: {fileID: 11400000, guid: 170727d0def89a642b67ee66ba901c23, type: 2}
   ChangeLevelSceneEvent: {fileID: 11400000, guid: 170727d0def89a642b67ee66ba901c23,
