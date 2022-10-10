@@ -92,6 +92,11 @@ PrefabInstance:
       propertyPath: m_PrimitiveSize.z
       value: 2.0000005
       objectReference: {fileID: 0}
+    - target: {fileID: 6750154304470086249, guid: 050e739541277bc4d8d3d2a874c7cf01,
+        type: 3}
+      propertyPath: m_Material.m_Restitution.m_Value.CombineMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9100434000987592188, guid: 050e739541277bc4d8d3d2a874c7cf01,
         type: 3}
       propertyPath: m_InitialLinearVelocity.x
@@ -100,7 +105,7 @@ PrefabInstance:
     - target: {fileID: 9100434000987592188, guid: 050e739541277bc4d8d3d2a874c7cf01,
         type: 3}
       propertyPath: m_InitialLinearVelocity.y
-      value: 15
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 050e739541277bc4d8d3d2a874c7cf01, type: 3}

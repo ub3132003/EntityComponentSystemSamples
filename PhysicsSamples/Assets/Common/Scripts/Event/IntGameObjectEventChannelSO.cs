@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
@@ -7,10 +7,10 @@ using UnityEngine.Events;
 
 public class IntGameObjectEventChannelSO : DescriptionBaseSO
 {
-	public UnityAction<int ,GameObject > OnEventRaised;
-	private void RaiseEvent( int typeKey,GameObject obj)
-	{
-		if (OnEventRaised != null)
-			OnEventRaised.Invoke(typeKey, obj);
-	}
+    public UnityAction<int , GameObject> OnEventRaised;
+    public void RaiseEvent(int typeKey, GameObject obj)
+    {
+        if (OnEventRaised != null)
+            OnEventRaised.Invoke(typeKey, obj);
+    }
 }

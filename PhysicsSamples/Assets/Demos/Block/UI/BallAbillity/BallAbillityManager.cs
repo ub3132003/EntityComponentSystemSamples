@@ -41,7 +41,7 @@ public class BallData
 }
 
 /// <summary>
-/// 球能力管理器
+/// 球能力管理器，杂项ui 管理器，经济系统玩家交互管理器
 /// </summary>
 public class BallAbillityManager : Singleton<BallAbillityManager>
 {
@@ -54,13 +54,25 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     [SerializeField]
     public List<BallAbillityMap> AbillityList;
 
+
+    [TabGroup("BallData")]
+    [SerializeField] int sunCoinNum;
+    [TabGroup("BallData")]
+    [SerializeField] IntEventChannelSO sunCoinEvent;
+
     [TabGroup("BallData")]
     [TableList(ShowIndexLabels = true)]
     public List<BallData> BallDataList;
 
-
+    //所有gun 提前放到场景种
     List<Entity> gunEnties;
+    public int SunCoinNum
+    {
+        get => sunCoinNum;
+        set { sunCoinNum = value; sunCoinEvent?.RaiseEvent(SunCoinNum); }
+    }
 
+    EntityManager em;
     /// <summary>
     /// 动画终点位置
     /// </summary>
@@ -95,7 +107,157 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         guns.Dispose();
     }
 
+    #region 工具方法,游戏逻辑
+    class GoodsItem
+    {
+        public ThingSO itemSO;//id?
+        public float Price = 1;
+        public int Amount = 1;
+        public int StatckMax = 99;
+    }
+    [System.Serializable]
+    class Store
+    {
+        List<GoodsItem> goods;
+
+        //补充全部球的价格
+        public int BuyAllBallPrice = 200;
+        /// <summary>
+        /// 交换第一个商品一次
+        /// </summary>
+        /// <returns></returns>
+        public int Buyball(ref int coin)
+        {
+            var item = goods[0];
+            return 0;
+        }
+
+        /// <summary>
+        /// 购买num 个ball 类型的球
+        /// </summary>
+        /// <param name="ball"></param>
+        /// <param name="num"></param>
+        /// <returns>失败 0 成功 >0 </returns>
+        ///
+        public int BuyBall(ThingSO ball, int num, ref int coin)
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// 购买第idx个位置的物品， 扣除计算扣除后的价格coin。
+        /// </summary>
+        /// <param name="goodsIdx"></param>
+        /// <param name="num"></param>
+        /// <param name="coin"></param>
+        /// <returns>0成功 其他 错误代码</returns>
+        public int BuyBall(int goodsIdx , int num , ref int coin , out ThingSO ballSO)
+        {
+            var item = goods[goodsIdx];
+            ballSO = item.itemSO;
+            return 0;
+        }
+    }
+
+    [SerializeField]
+    Store BallStore = new Store();
+
+    public void BuyBall(ThingSO ballSO , int amount = 1)
+    {
+        int coin = SunCoinNum;
+        switch (BallStore.BuyBall(ballSO, amount, ref coin))
+        {
+            case 0:
+                //购买成功
+                AddBall(FindGun(ballSO) , amount);
+                break;
+            default:
+                Debug.Log("购买失败");
+                return;
+        }
+
+        SunCoinNum = coin;
+    }
+
+    public void AddBall(Entity gunEntity , int num)
+    {
+        var gun = em.GetComponentData<CharacterGun>(gunEntity);
+        gun.Capacity += num;
+        em.SetComponentData<CharacterGun>(gunEntity, gun);
+    }
+
+    public void BuyAllBullet(int amount = 1)
+    {
+        if (SunCoinNum < BallStore.BuyAllBallPrice)
+        {
+            Debug.Log("买球金币不足");
+            return;
+        }
+        SunCoinNum -= BallStore.BuyAllBallPrice;
+        var length = gunEnties.Count;
+
+        for (int i = 0; i < length; i++)
+        {
+            var gun = em.GetComponentData<CharacterGun>(gunEnties[i]);
+            gun.Capacity += amount;
+            em.SetComponentData<CharacterGun>(gunEnties[i], gun);
+        }
+    }
+
+    /// <summary>
+    /// 查找gun实体,通过instanceID
+    /// </summary>
+    private Entity FindGun(int instanceId)
+    {
+        Entity gunEnity = gunEnties.Find(x =>
+            em.GetComponentData<CharacterGun>(x).ID == instanceId);
+        //todo 没找到时处理
+        return gunEnity;
+    }
+
+    private Entity FindGun(ThingSO ballSO)
+    {
+        var instanceId = ballSO.Prefab.GetInstanceID();
+        return FindGun(instanceId);
+    }
+
+    /// <summary>
+    /// 通过球的so 切换激活的球,并禁用其他的球
+    /// </summary>
+    /// <param name="ballSO"></param>
+    /// <returns></returns>
+    public int ChangeGun(ThingSO ballSO)
+    {
+        foreach (var item in gunEnties)
+        {
+            ActiveBallEntity(item, false);
+        }
+        ActiveBallEntity(FindGun(ballSO), true);
+        return 0;
+    }
+
+    /// <summary>
+    /// 切换当前可用的球
+    /// </summary>
+    /// <param name="gun"></param>
+    /// <param name="opt"></param>
+    public void ActiveBallEntity(Entity gun, bool opt)
+    {
+        if (opt)
+        {
+            em.RemoveComponent<DisableTag>(gun);
+            var id = em.GetComponentData<CharacterGun>(gun).ID;
+            activeBallEvent.RaiseEvent(id);
+        }
+        else
+        {
+            PlayerEcsConnect.Instance.EntityManager.AddComponent<DisableTag>(gun);
+        }
+    }
+
+    #endregion
     #region ui 逻辑
+
     [SerializeField] PanelBallSelect panelBallSelect;
     [SerializeField] PanelFreeSelectLib panelFreeSelectLib;
 
@@ -112,10 +274,13 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         panelFreeSelectLib.MaxSelectNum = panelBallSelect.SoltMaxNum;
     }
 
+    [SerializeField] IntEventChannelSO activeBallEvent;
+
+
     #endregion
 
-    #region Func
-    EntityManager em;
+    #region Func，球的额外能力
+
     // 通用类型所有球可用,专用类型指定球可用.
 
     public void AddDamage(Entity gunEntity, int val)
@@ -212,6 +377,23 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         var ballData = BallDataList[ballId];
 
         item.SetCard(ballData.BallUI.PreviewImage, ballData.Price);
+    }
+
+    #endregion
+
+    #region debug 非正式功能
+    /// <summary>
+    /// 所有球数量加100
+    /// </summary>
+    public void Add100Bullet()
+    {
+        var length = gunEnties.Count;
+        for (int i = 0; i < length; i++)
+        {
+            var gun = em.GetComponentData<CharacterGun>(gunEnties[i]);
+            gun.Capacity += 100;
+            em.SetComponentData<CharacterGun>(gunEnties[i], gun);
+        }
     }
 
     #endregion

@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 2601965430266422937}
   - component: {fileID: 2601965430266422941}
   - component: {fileID: 2601965430266422942}
-  - component: {fileID: 5259481535663310134}
+  - component: {fileID: 2230723318395548587}
   m_Layer: 0
   m_Name: UIIconNumBase
   m_TagString: Untagged
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5259481535663310134
+--- !u!114 &2230723318395548587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

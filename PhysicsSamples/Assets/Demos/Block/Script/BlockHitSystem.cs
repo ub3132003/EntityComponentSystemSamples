@@ -13,9 +13,8 @@ using Unity.Collections;
 using Unity.Physics.Stateful;
 using Unity.Physics.Extensions;
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateAfter(typeof(Unity.Physics.Extensions.MousePickSystem)) , UpdateAfter(typeof(HealthSystem))]
-[UpdateBefore(typeof(EndFramePhysicsSystem))]
+
+[UpdateAfter(typeof(HealthSystem))]
 public partial class BlockHitSystem : SystemBase
 {
     EntityQuery blockGroup;

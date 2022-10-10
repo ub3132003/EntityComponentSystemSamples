@@ -18,8 +18,28 @@ public class FollowEnetityObj : MonoBehaviour, IReceiveEntity
         m_DisplayEntity = entity;
     }
 
-    void Start()
+    //listening in
+    [SerializeField] IntEventChannelSO activeBallEvent;
+    public void OnEnable()
     {
+        activeBallEvent.OnEventRaised += ChangeBallView;
+    }
+
+    public void OnDisable()
+    {
+        activeBallEvent.OnEventRaised -= ChangeBallView;
+    }
+
+    Transform currentView;
+    void ChangeBallView(int ballId)
+    {
+        if (currentView != null)
+        {
+            Destroy(currentView.gameObject);
+        }
+        var ballPerfab = BallAbillityManager.Instance.BallDataList.Find(x => x.BallUI.Prefab.GetInstanceID() == ballId).BallUI.Prefab;
+
+        currentView = Instantiate(ballPerfab.transform.GetChild(0) , transform);//外观
     }
 
     // Update is called once per frame

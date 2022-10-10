@@ -21,6 +21,7 @@ public struct CharacterGun : IComponentData
     public int IsFiring;
 
     public float SensitivityYAxis;
+    public float Price;
     public int Capacity;
     /// <summary>
     /// 子弹容量上限
@@ -41,6 +42,10 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
     public float Strength = 10;
     public float Rate = 1;
     public float SensitivityYAxis = 0;
+    /// <summary>
+    /// 生成子弹需要的花费
+    /// </summary>
+    public float Price = 1f;
     /// <summary>
     /// 子弹容量
     /// </summary>
@@ -93,7 +98,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
         var input = GetSingleton<CharacterGunInput>();
         float dt = Time.DeltaTime;
-
+        float comsumeSunCoin = 0f;
         Entities
             .WithName("CharacterControllerGunToManyInputJob")
             .WithBurst()
@@ -106,7 +111,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                     gunRotation.Value = math.mul(gunRotation.Value, quaternion.Euler(math.radians(a), 0, 0));
                     gun.IsFiring = input.Firing > 0f ? 1 : 0;
                 }
-
+                //长按计时
                 if (gun.IsFiring == 0)
                 {
                     gun.Duration = 0;
@@ -121,6 +126,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                     {
                         var e = commandBuffer.Instantiate(entityInQueryIndex, gun.Bullet);
                         gun.Capacity--;
+                        comsumeSunCoin += gun.Price;
                         Translation position = new Translation { Value = gunTransform.Position + gunTransform.Forward };
                         Rotation rotation = new Rotation { Value = gunRotation.Value };
                         PhysicsVelocity velocity = new PhysicsVelocity

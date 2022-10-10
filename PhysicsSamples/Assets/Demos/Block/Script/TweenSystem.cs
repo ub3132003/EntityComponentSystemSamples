@@ -33,6 +33,9 @@ public interface ITweenComponent
 
     public Ease ease { get; set; }
     public bool isReset { get; set; }//完成时重置到form
+    /// <summary>
+    ///     增量
+    /// </summary>
     public bool isRelative { get; set; }
 
     public bool isLoop { get; set; }
@@ -54,7 +57,7 @@ public interface ITweenComponent
     /// <param name="isReset"></param>
     /// <param name="start"></param>
     /// <param name="isRelative"> 是否增量</param>
-    public static void CreateTween(Entity tweenTarget, float4 to, float lifetime, Ease ease, bool isReset = false, float4 start = default, bool isRelative = false, bool autoKill = false)
+    public static void CreateHDRColorTween(Entity tweenTarget, float4 to, float lifetime, Ease ease, bool isReset = false, float4 start = default, bool isRelative = false, bool autoKill = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -101,7 +104,7 @@ public interface ITweenComponent
         }
         else
         {
-            entityManager.AddComponentData(tweenTarget, new TweenHDRColorComponent
+            var tweener = new TweenHDRColorComponent
             {
                 Lifetime = lifetime,
                 PassTime = 0,
@@ -112,16 +115,21 @@ public interface ITweenComponent
 
                 From = from,
                 To = to,
-            });
+            };
+            if ((start == default).IsTure())
+            {
+                var color = entityManager.GetComponentData<URPMaterialPropertyEmissionColor>(tweenTarget);
+                tweener.Start = color.Value;
+            }
+            entityManager.AddComponentData(tweenTarget, tweener);
         }
     }
 
-    public static void CreateMoveTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false , bool autoKill = false)
+    public static ITweenComponent CreateMoveTween(Entity tweenTarget, float3 to, float lifetime, Ease ease, bool isReset = default, float3 start = default , bool isRelative = false , bool autoKill = false)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-
-        entityManager.AddComponentData(tweenTarget, new TweenPositionComponent
+        var tweener = new TweenPositionComponent
         {
             Lifetime = lifetime,
             PassTime = 0,
@@ -132,8 +140,17 @@ public interface ITweenComponent
             AutoKill = autoKill,
 
             To = to,
-        });
+        };
+        if ((start == default).IsTure())
+        {
+            var translation = entityManager.GetComponentData<Translation>(tweenTarget);
+            tweener.Start = new float4(translation.Value, 0);
+        }
+        entityManager.AddComponentData(tweenTarget, tweener);
+        return tweener;
     }
+
+    public void SetDelay(Entity tweenTarget, float delay);
 }
 #region 动画组件对象
 public enum LoopMode
@@ -168,6 +185,13 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
     public bool IsComplete
     {
         get { return PassTime > Lifetime; }
+    }
+    public void SetDelay(Entity tweenTarget, float delay)
+    {
+        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var tweener = entityManager.GetComponentData<TweenHDRColorComponent>(tweenTarget);
+        tweener.PassTime -= delay;
+        entityManager.SetComponentData(tweenTarget, tweener);
     }
 }
 #endregion
@@ -247,14 +271,9 @@ public partial class TweenSystem : SystemBase
             .WithoutBurst()
             .ForEach((ref Translation translation, ref TweenPositionComponent tweenPosition) =>
             {
-                if (tweenPosition.PassTime == 0)
+                tweenPosition.PassTime += datleTime;
+                if (tweenPosition.Lifetime > 0 && tweenPosition.PassTime >= 0)
                 {
-                    tweenPosition.Start = new float4(translation.Value, 0);
-                }
-                if (tweenPosition.Lifetime > 0)
-                {
-                    tweenPosition.PassTime += datleTime;
-
                     var v = EaseManager.Evaluate(tweenPosition.ease, null, tweenPosition.PassTime, tweenPosition.Lifetime, 0, 0);
                     var from = tweenPosition.From.IsZero() ? tweenPosition.Start.xyz : tweenPosition.From;
                     var to = tweenPosition.isRelative ? tweenPosition.Start.xyz + tweenPosition.To : tweenPosition.To;

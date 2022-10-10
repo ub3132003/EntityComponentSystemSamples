@@ -50,25 +50,32 @@ public class GameBaseInfoHud : MonoBehaviour
                 }
             });
 
-        oldBoxNum = blockGroup.CalculateEntityCount();
-        oldBallNum = bulletGroup.CalculateEntityCount();
+        OldBoxNum = blockGroup.CalculateEntityCount();
+        OldBallNum = bulletGroup.CalculateEntityCount();
     }
 
     int oldBoxNum = 0;
     int oldBallNum = 0;
+
+    public int OldBoxNum
+    {
+        get => oldBoxNum;
+        set { oldBoxNum = value; blockNumEvent.RaiseEvent(oldBoxNum); }
+    }
+
+    public int OldBallNum { get => oldBallNum; set { oldBallNum = value; bulletNumEvent.RaiseEvent(oldBallNum); } }
+
     void Update()
     {
         var currentBoxNum = blockGroup.CalculateEntityCount();
         var currentBallNum = bulletGroup.CalculateEntityCount();//存在的球数量
-        if (currentBoxNum != oldBoxNum)
+        if (currentBoxNum != OldBoxNum)
         {
-            oldBoxNum = currentBoxNum;
-            blockNumEvent.RaiseEvent(currentBoxNum);
+            OldBoxNum = currentBoxNum;
         }
-        if (oldBallNum != currentBallNum)
+        if (OldBallNum != currentBallNum)
         {
-            oldBallNum = currentBallNum;
-            bulletNumEvent.RaiseEvent(currentBallNum);
+            OldBallNum = currentBallNum;
         }
 
 
@@ -80,21 +87,6 @@ public class GameBaseInfoHud : MonoBehaviour
             var cap =   gun.Capacity;
             bulletCapacityInfoEvent.RaiseEvent(new Vector2Int(cap, gun.MaxCapcity));
         }
-        guns.Dispose();
-    }
-
-    public void Add100Bullet()
-    {
-        var guns = gunGroup.ToEntityArray(Allocator.TempJob);
-        var length = guns.Length;
-        for (int i = 0; i < length; i++)
-        {
-            var gun = entityManager.GetComponentData<CharacterGun>(guns[i]);
-            gun.Capacity += 100;
-            entityManager.SetComponentData<CharacterGun>(guns[i], gun);
-        }
-
-
         guns.Dispose();
     }
 }

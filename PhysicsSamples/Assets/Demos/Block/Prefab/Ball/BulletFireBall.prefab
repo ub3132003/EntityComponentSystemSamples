@@ -347,6 +347,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198323803415115746, guid: 9259201ae5721154aa3b4c24370a5540,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198746223770895982, guid: 9259201ae5721154aa3b4c24370a5540,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198783479105742166, guid: 9259201ae5721154aa3b4c24370a5540,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4854825025123668354, guid: 9259201ae5721154aa3b4c24370a5540, type: 3}
     - {fileID: 108086559583997342, guid: 9259201ae5721154aa3b4c24370a5540, type: 3}

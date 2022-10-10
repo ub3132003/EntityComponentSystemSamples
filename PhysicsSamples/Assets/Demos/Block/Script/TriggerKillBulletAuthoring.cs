@@ -174,6 +174,13 @@ public partial class TriggerKillBulletSystem : SystemBase
 
         for (int i = 0; i < length; i++)
         {
+            var ball = deadBullets[i];
+            //收集阳光
+            if (HasComponent<SunCoinComponent>(ball))
+            {
+                var sunCoin = GetComponent<SunCoinComponent>(ball);
+                BallAbillityManager.Instance.SunCoinNum += sunCoin.Value;
+            }
             EntityManager.DestroyEntity(deadBullets[i]);
         }
         deadBullets.Dispose();

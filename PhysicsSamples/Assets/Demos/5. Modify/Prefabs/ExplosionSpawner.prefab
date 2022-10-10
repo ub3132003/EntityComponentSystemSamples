@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 9019979733640190286, guid: b58133b914c853f43aaf1cd8cb3333a7, type: 3}
-  Count: 200
+  Count: 10
   Countdown: 100
   Force: 1000
 --- !u!114 &7414927642867552314

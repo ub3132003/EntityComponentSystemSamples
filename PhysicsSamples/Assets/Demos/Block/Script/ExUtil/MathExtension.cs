@@ -30,6 +30,11 @@ namespace Unity.Mathematics
             return num.x == true && num.y == true && num.z == true ? true : false;
         }
 
+        public static bool IsTure(this bool4 num)
+        {
+            return num.x == true && num.y == true && num.z == true && num.w == true ? true : false;
+        }
+
         /// <summary>
         /// bool 转 +1 -1;
         /// </summary>

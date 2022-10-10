@@ -58,8 +58,11 @@ public partial class MouseMoveInput : SystemBase
     {
         //跟随鼠标 没有y轴
 
-        var dx = Input.GetAxis("Mouse X");
-        var dy = Input.GetAxis("Mouse Y");
+        //var dx = Input.GetAxis("Mouse X");
+        //var dy = Input.GetAxis("Mouse Y");
+        var input = GetSingleton<CharacterGunInput>();
+        var dx = input.Looking.x;
+        var dy = input.Looking.y;
         var deltaTime = Time.DeltaTime;
         //Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 

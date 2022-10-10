@@ -63,6 +63,9 @@ public class PanelBallSelect : MonoBehaviour
 
     public int SoltMaxNum => soltParis.Count;
 
+    /// <summary>
+    /// 设置切球面板
+    /// </summary>
     public void SetBallChangeUI()
     {
         //初始化选项UI
@@ -112,7 +115,7 @@ public class PanelBallSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// 更新那些球被激活
+    /// 更新那些球被激活，提交慢面板
     /// </summary>
     public void LoadGunParis()
     {
@@ -124,19 +127,12 @@ public class PanelBallSelect : MonoBehaviour
 
 
             item.GunEntity = gunEnity;
-            if (item.IsActive)
-            {
-                PlayerEcsConnect.Instance.EntityManager.RemoveComponent<DisableTag>(gunEnity);
-            }
-            else
-            {
-                PlayerEcsConnect.Instance.EntityManager.AddComponent<DisableTag>(gunEnity);
-            }
+            BallAbillityManager.Instance.ActiveBallEntity(gunEnity, item.IsActive);
         }
     }
 
     /// <summary>
-    /// 更换选项
+    /// 配置槽对应的gun
     /// </summary>
     /// <param name="soltId"></param>
     /// <param name="entity"></param>
@@ -147,7 +143,7 @@ public class PanelBallSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// 激活gun 实体
+    /// 激活gun 实体 ui,通过槽序号找到gun
     /// </summary>
     /// <param name="opt"></param>
     /// <param name="option">序号</param>
@@ -157,14 +153,7 @@ public class PanelBallSelect : MonoBehaviour
         Entity gun = gunSolt.GunEntity;
         if (gun == Entity.Null) return;
         gunSolt.IsActive = opt;
-        if (opt)
-        {
-            PlayerEcsConnect.Instance.EntityManager.RemoveComponent<DisableTag>(gun);
-        }
-        else
-        {
-            PlayerEcsConnect.Instance.EntityManager.AddComponent<DisableTag>(gun);
-        }
+        BallAbillityManager.Instance.ActiveBallEntity(gun, opt);
     }
 
     private void Update()

@@ -24,6 +24,14 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
     public float3 To { get; set; }
 
     public bool IsComplete => PassTime > Lifetime;
+
+    public void SetDelay(Entity tweenTarget, float delay)
+    {
+        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        var tweener = entityManager.GetComponentData<TweenPositionComponent>(tweenTarget);
+        tweener.PassTime -= delay;
+        entityManager.SetComponentData(tweenTarget, tweener);
+    }
 }
 
 class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEntity

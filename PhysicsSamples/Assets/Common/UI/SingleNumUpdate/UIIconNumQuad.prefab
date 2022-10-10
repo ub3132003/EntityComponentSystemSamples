@@ -222,6 +222,16 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7398744387579275079, guid: 88b15eb3fcb98714b97d7d24053a8b77,
+        type: 3}
+      propertyPath: num
+      value: 
+      objectReference: {fileID: 3962268378212468846}
+    - target: {fileID: 7398744387579275079, guid: 88b15eb3fcb98714b97d7d24053a8b77,
+        type: 3}
+      propertyPath: Icon
+      value: 
+      objectReference: {fileID: 3962268377852282597}
     - target: {fileID: 8883650377859121295, guid: 88b15eb3fcb98714b97d7d24053a8b77,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -271,7 +281,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1360306841358456479}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6960865059108671044
+--- !u!114 &9002039277552380081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
