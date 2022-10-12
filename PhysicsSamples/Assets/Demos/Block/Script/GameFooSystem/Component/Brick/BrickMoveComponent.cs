@@ -10,5 +10,5 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct BrickMoveComponent : IComponentData
 {
-    public float3 Dirction;
+    public float3 Velocity;
 }

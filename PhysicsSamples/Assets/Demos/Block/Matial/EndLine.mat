@@ -90,7 +90,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DotLength: 0.33
+    - _DotLength: 0.08
     - _DstBlend: 10
     - _ElilipseSize: 0.349
     - _EnvironmentReflections: 1
@@ -115,9 +115,9 @@ Material:
     - _Color: {r: 1, g: 0, b: 0, a: 0.76862746}
     - _EmissionColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
     - _HDR: {r: 33.89676, g: 0, b: 0, a: 1}
-    - _Size: {r: 0.35, g: 0.27, b: 0, a: 0}
+    - _Size: {r: 0.05, g: 0.09, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Speed2: {r: 0.1, g: 11.19, b: 0, a: 0}
+    - _Speed2: {r: 0.1, g: 0, b: 0, a: 0}
     - _TImeOffset: {r: 0.1, g: 0.91, b: 0, a: 0}
     - _Tilling: {r: 58.67, g: 1, b: 0, a: 0}
     - _Vector2: {r: 84.35, g: 1, b: 0, a: 0}

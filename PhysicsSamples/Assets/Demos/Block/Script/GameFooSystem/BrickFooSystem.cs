@@ -105,13 +105,12 @@ partial class SpecialBrickSystem : SystemBase
     //private NativeParallelMultiHashMap<int, Entity> ChainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8,Allocator.Persistent);
 
     //最后一行砖块z位置
-    int lastBrickZ = -9;
+    //int lastBrickZ = -9;
     int frameIdx = 0;
-    Random random = new Random(444);
-
     protected override void OnUpdate()
     {
         EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
+
 
         //连锁方块1
         NativeParallelMultiHashMap<int, Entity> chainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8, Allocator.TempJob);
@@ -170,31 +169,18 @@ partial class SpecialBrickSystem : SystemBase
             r.Value = quaternion.LookRotation(dir, math.up());
         }).Schedule();
 
-        //第一层方块移动
+        //第一层方块移动允许移动
         var delteTime = Time.DeltaTime;
         Entities
-            .ForEach((ref Translation t, in BrickMoveComponent brickMove) =>
+            .ForEach((ref PhysicsVelocity pv, in BrickMoveComponent brickMove) =>
         {
-            if (t.Value.y <= 1)
+            if (pv.Linear.y <= 1)
             {
-                t.Value += brickMove.Dirction * delteTime;
+                pv.Linear = brickMove.Velocity;
             }
         }).Schedule();
 
 
         frameIdx++;
-        //地面掉落
-        Entities
-            .WithoutBurst()
-            .WithStructuralChanges()
-            .ForEach((Entity e, in Translation translation, in BrickFloorComponent floor) =>
-            {
-                if (translation.Value.z <= lastBrickZ)
-                {
-                    ITweenComponent.CreateMoveTween(e, new float3(0, -10, 0), 3, DG.Tweening.Ease.InCubic, isRelative: true).SetDelay(e, random.NextFloat() * 5);
-                    em.RemoveComponent<BrickFloorComponent>(e);
-                    em.AddComponentData(e, new LifeTime { Value = 300 });
-                }
-            }).Run();
     }
 }

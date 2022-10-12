@@ -145,6 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillVfxPrefab: {fileID: 140474, guid: 2cc02a61e7d9fc64eb50c937690ce6d8, type: 3}
+  KillTriggerPrefab: {fileID: 4827772331923993179, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
+    type: 3}
 --- !u!114 &2694810962641903181
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -782,7 +782,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &88551314 stripped
 GameObject:
@@ -887,7 +887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &104149457
 Transform:
   m_ObjectHideFlags: 0
@@ -14356,7 +14356,7 @@ PrefabInstance:
     - target: {fileID: 7637622578390812325, guid: 61fc58c32605a9443896380c413d3875,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7637622578390812325, guid: 61fc58c32605a9443896380c413d3875,
         type: 3}

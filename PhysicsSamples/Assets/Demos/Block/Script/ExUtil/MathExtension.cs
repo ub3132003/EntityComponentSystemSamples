@@ -25,6 +25,11 @@ namespace Unity.Mathematics
             return math.normalize(math.mul(rotation.Value, math.forward()));
         }
 
+        public static bool IsTure(this bool2 num)
+        {
+            return num.x == true && num.y == true  ? true : false;
+        }
+
         public static bool IsTure(this bool3 num)
         {
             return num.x == true && num.y == true && num.z == true ? true : false;

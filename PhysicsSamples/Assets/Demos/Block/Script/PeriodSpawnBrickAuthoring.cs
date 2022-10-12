@@ -58,7 +58,7 @@ class PeriodBrickSpawnSystem : PeriodicalySpawnRandomObjectsSystem<PeriodicSpawn
         for (int i = 0; i < positions.Length; i++)
         {
             positions[i] = center + random.NextInt3(-(int3)range, (int3)range);
-
+            rotations[i] = quaternion.identity;
             for (int j = 0; j < 3; j++)
             {
                 for (int k = 0; k < oldBriks.Length; k++)

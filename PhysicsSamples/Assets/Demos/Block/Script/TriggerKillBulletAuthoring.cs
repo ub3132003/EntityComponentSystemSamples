@@ -10,9 +10,13 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics.Stateful;
 
+/// <summary>
+/// 终点线，代表弹球游戏的界外区域。
+/// </summary>
 public struct TriggerKillBullet : IComponentData
 {
     public Entity Prefab { get; set; }
+    public Entity KillBrickPrefab { get; set; }
     //kill的数量
     public int Count { get; set; }
 }
@@ -24,6 +28,7 @@ public class TriggerKillBulletAuthoring : MonoBehaviour, IConvertGameObjectToEnt
     /// </summary>
     public GameObject KillVfxPrefab;
 
+
     void IConvertGameObjectToEntity.Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new TriggerKillBullet
@@ -32,7 +37,10 @@ public class TriggerKillBulletAuthoring : MonoBehaviour, IConvertGameObjectToEnt
         });
     }
 
-    public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs) => referencedPrefabs.Add(KillVfxPrefab);
+    public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
+    {
+        referencedPrefabs.Add(KillVfxPrefab);
+    }
 }
 
 
@@ -48,6 +56,7 @@ public partial class TriggerKillBulletSystem : SystemBase
     EntityQuery triggerKillBulletQuery;
     EntityQuery bulletQuery;
     private EntityQueryMask bulletMask;
+    private EntityQueryMask brickMask;
     protected override void OnCreate()
     {
         m_StepPhysicsWorldSystem = World.GetOrCreateSystem<StepPhysicsWorld>();
@@ -78,6 +87,15 @@ public partial class TriggerKillBulletSystem : SystemBase
                 None = new ComponentType[]
                 {
                     typeof(StatefulTriggerEvent)
+                }
+            })
+        );
+        brickMask = EntityManager.GetEntityQueryMask(
+            GetEntityQuery(new EntityQueryDesc
+            {
+                All = new ComponentType[]
+                {
+                    typeof(BrickEndGame),
                 }
             })
         );
@@ -130,6 +148,7 @@ public partial class TriggerKillBulletSystem : SystemBase
         var cap = bulletQuery.CalculateEntityCount() / 2;
 
         NativeList<Entity> deadBullets = new NativeList<Entity>(cap, Allocator.TempJob);
+
         //Dependency = new TriggerKillBulletJob
         //{
         //    BulletGroup = GetComponentDataFromEntity<BulletComponent>(true),
@@ -139,7 +158,8 @@ public partial class TriggerKillBulletSystem : SystemBase
 
         NativeList<float3> deadPositions = new NativeList<float3>(cap, Allocator.TempJob);
         var bulletMask = this.bulletMask;
-
+        var brickMask = this.brickMask;
+        //进如trigger的物体分类添加到数组中
         JobHandle triggerJob = Entities
             .WithName("TriggerKillBullet")
             .WithoutBurst()
@@ -152,26 +172,31 @@ public partial class TriggerKillBulletSystem : SystemBase
 
                     var bulletEntity = triggerEvent.GetOtherEntity(e);
                     //  进去 且是 bullet
-                    if (triggerEvent.State == StatefulEventState.Enter && bulletMask.Matches(bulletEntity))
+                    if (triggerEvent.State == StatefulEventState.Enter)
                     {
-                        killBullet.Count++;
-                        var deadPosition = GetComponent<Translation>(bulletEntity).Value;
-                        deadPositions.Add(deadPosition);
-                        deadBullets.Add(bulletEntity);
+                        if (bulletMask.Matches(bulletEntity))
+                        {
+                            killBullet.Count++;
+                            var deadPosition = GetComponent<Translation>(bulletEntity).Value;
+                            deadPositions.Add(deadPosition);
+                            deadBullets.Add(bulletEntity);
+                        }
                     }
                 }
             }).Schedule(Dependency);
         triggerJob.Complete();
+
         //删除子弹, 死亡记录位置
 
-        var length = deadBullets.Length;
-        if (length == 0)
+
+        if (deadBullets.Length <= 0)
         {
             deadBullets.Dispose();
             deadPositions.Dispose();
+
             return;
         }
-
+        var length = deadBullets.Length;
         for (int i = 0; i < length; i++)
         {
             var ball = deadBullets[i];
@@ -183,7 +208,7 @@ public partial class TriggerKillBulletSystem : SystemBase
             }
             EntityManager.DestroyEntity(deadBullets[i]);
         }
-        deadBullets.Dispose();
+
 
         //生成死亡特效 TODO, 使用DynamicBuffer 不同触发不同效果
         using (var entities = GetEntityQuery(new ComponentType[] { typeof(TriggerKillBullet) }).ToEntityArray(Allocator.TempJob))
@@ -200,10 +225,9 @@ public partial class TriggerKillBulletSystem : SystemBase
 #else
                 var count = spawnSettings.Count;
 #endif
-
+                if (count <= 0) continue;
                 var instances = new NativeArray<Entity>(count, Allocator.Temp);
                 EntityManager.Instantiate(spawnSettings.Prefab, instances);
-
                 for (int i = 0; i < count; i++)
                 {
                     var instance = instances[i];
@@ -212,6 +236,75 @@ public partial class TriggerKillBulletSystem : SystemBase
                 deadIndex += count;
             }
         }
+        //查找到达界外的方块
+        NativeList<Entity> deadBricks = new NativeList<Entity>(3, Allocator.TempJob);
+        Entities
+            .ForEach((Entity e, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer, in BrickOutBoundsArea outBoundsArea) =>
+        {
+            for (int i = 0; i < triggerEventBuffer.Length; i++)
+            {
+                Debug.Log(" Into");
+                var triggerEvent = triggerEventBuffer[i];
+                var brickEntity = triggerEvent.GetOtherEntity(e);
+                if (triggerEvent.State == StatefulEventState.Enter)
+                {
+                    if (brickMask.Matches(e))
+                    {
+                        deadBricks.Add(brickEntity);
+                        Debug.Log("Brick Into");
+                    }
+                }
+            }
+        }).Schedule(Dependency).Complete();
+
+        //死局方块,进入时生成新的局外区域前进
+
+        length = deadBricks.Length;
+        if (length > 0)
+        {
+            NativeList<float3> fallPosition = new NativeList<float3>(length, Allocator.TempJob);
+            for (int i = 0; i < length; i++)
+            {
+                var e = deadBricks[i];
+                var pos = EntityManager.GetComponentData<Translation>(e);
+                pos.Value.z = math.floor((pos.Value.z + 1));
+                fallPosition.Add(pos.Value);
+                //EntityManager.DestroyEntity(deadBricks[i]);
+
+                Debug.Log($"死方块 {pos.Value}");
+            }
+            Unity.Mathematics.Random random = new Unity.Mathematics.Random(444);
+            //地面掉落
+            float fallTime = 2f;
+            Entities
+                .WithoutBurst()
+                .WithStructuralChanges()
+                .ForEach((Entity e, in Translation translation, in BrickFloorComponent floor) =>
+                {
+                    for (int i = 0; i < fallPosition.Length; i++)
+                    {
+                        if ((translation.Value.xz == fallPosition[i].xz).IsTure())
+                        {
+                            ITweenComponent.CreateMoveTween(e, new float3(0, -10, 0), fallTime, DG.Tweening.Ease.InCubic, isRelative: true).SetDelay(e, random.NextFloat() * 5);
+                            EntityManager.RemoveComponent<BrickFloorComponent>(e);
+                            EntityManager.AddComponentData(e, new LifeTime { Value = 300 });
+                        }
+                    }
+                }).Run();
+            fallPosition.Dispose();
+        }
+
+
+        deadBricks.Dispose();
+        deadBullets.Dispose();
         deadPositions.Dispose();
+    }
+
+    public void TryRemoveComponent<T>(Entity e)
+    {
+        if (EntityManager.HasComponent<T>(e))
+        {
+            EntityManager.RemoveComponent<T>(e);
+        }
     }
 }
