@@ -152,6 +152,17 @@ public interface ITweenComponent
 
     public void SetDelay(Entity tweenTarget, float delay);
 }
+class TweenerFactorty<T> where T : struct, IComponentData
+{
+    private T tween;
+    private Entity tweenTarget;
+    public EntityCommandBuffer TweenEcb { get; set; }
+
+    public void CreateTween()
+    {
+        TweenEcb.AddComponent(tweenTarget , tween);
+    }
+}
 #region 动画组件对象
 public enum LoopMode
 {
@@ -160,40 +171,7 @@ public enum LoopMode
     Incremental,//叠加模式
 }
 
-public struct TweenHDRColorComponent : IComponentData, ITweenComponent
-{
-    /// <summary>
-    /// 已经过去的时间
-    /// </summary>
-    public float PassTime { get; set; }
-    public Entity TweenEntity { get; set; }
 
-    public float4 Start { get; set; }
-    public float4 End { get; set; }
-    public float Lifetime { get; set; }
-    public Ease ease { get; set; }
-    public bool isReset { get; set; }//完成时重置到for
-    public bool isRelative { get; set; }
-
-    public bool AutoKill { get; set; }
-    public bool isLoop { get; set; }
-    public LoopMode loopMode { get; set; }
-
-    public float4 From { get; set; }
-    public float4 To { get; set; }
-
-    public bool IsComplete
-    {
-        get { return PassTime > Lifetime; }
-    }
-    public void SetDelay(Entity tweenTarget, float delay)
-    {
-        var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        var tweener = entityManager.GetComponentData<TweenHDRColorComponent>(tweenTarget);
-        tweener.PassTime -= delay;
-        entityManager.SetComponentData(tweenTarget, tweener);
-    }
-}
 #endregion
 public partial class TweenSystem : SystemBase
 {

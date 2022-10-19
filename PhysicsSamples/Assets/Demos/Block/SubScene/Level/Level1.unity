@@ -5540,12 +5540,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 329570801}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &332381974 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 155737798000307782, guid: d363d71375abda84db5a1036dfbf3d1b,
-    type: 3}
-  m_PrefabInstance: {fileID: 583166959}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &334983322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8500,57 +8494,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 583166959}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &583166966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 332381974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MotionType: 0
-  m_Smoothing: 0
-  m_Mass: 1
-  m_LinearDamping: 0.01
-  m_AngularDamping: 0.05
-  m_InitialLinearVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_InitialAngularVelocity:
-    x: 0
-    y: 0
-    z: 0
-  m_GravityFactor: 1
-  m_OverrideDefaultMassDistribution: 0
-  m_CenterOfMass:
-    x: 0
-    y: 0
-    z: 0
-  m_Orientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_InertiaTensor:
-    x: 0.4
-    y: 0.4
-    z: 0.4
-  m_WorldIndex: 0
-  m_CustomTags:
-    Tag00: 0
-    Tag01: 0
-    Tag02: 0
-    Tag03: 0
-    Tag04: 0
-    Tag05: 0
-    Tag06: 0
-    Tag07: 0
 --- !u!1001 &585817948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10918,6 +10861,12 @@ Transform:
   m_Father: {fileID: 2088606657}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727767191 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4827772331923993179, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1817591861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &729614541
 GameObject:
   m_ObjectHideFlags: 0
@@ -13639,7 +13588,7 @@ PrefabInstance:
     - target: {fileID: 153888925473357286, guid: d363d71375abda84db5a1036dfbf3d1b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 267
+      value: 266
       objectReference: {fileID: 0}
     - target: {fileID: 153888925473357286, guid: d363d71375abda84db5a1036dfbf3d1b,
         type: 3}
@@ -14199,7 +14148,7 @@ PrefabInstance:
     - target: {fileID: 7697286030928204139, guid: 569d51406ba323944b658d032b3060fd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7697286030928204139, guid: 569d51406ba323944b658d032b3060fd,
         type: 3}
@@ -20484,7 +20433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillVfxPrefab: {fileID: 140474, guid: 2cc02a61e7d9fc64eb50c937690ce6d8, type: 3}
-  KillTriggerPrefab: {fileID: 0}
 --- !u!114 &1395123295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22089,6 +22037,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 83083705}
     m_Modifications:
+    - target: {fileID: -4308581791316863535, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
+        type: 3}
+      propertyPath: m_MotionType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 741134988066327095, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
         type: 3}
       propertyPath: KillVfxPrefab
@@ -26557,6 +26510,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1817591861}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817591871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727767191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4271a8c08632e14396c42aed2ab2a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1820030802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29950,6 +29915,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 83083705}
     m_Modifications:
+    - target: {fileID: -4308581791316863535, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
+        type: 3}
+      propertyPath: m_MotionType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 741134988066327095, guid: b3e0986cdd3ed7947a56e293b05e1ce3,
         type: 3}
       propertyPath: KillVfxPrefab

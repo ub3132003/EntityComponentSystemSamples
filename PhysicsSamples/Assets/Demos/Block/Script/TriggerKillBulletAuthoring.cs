@@ -144,7 +144,7 @@ public partial class TriggerKillBulletSystem : SystemBase
         {
             return;
         }
-
+        var length = 0;
         var cap = bulletQuery.CalculateEntityCount() / 2;
 
         NativeList<Entity> deadBullets = new NativeList<Entity>(cap, Allocator.TempJob);
@@ -157,15 +157,17 @@ public partial class TriggerKillBulletSystem : SystemBase
         //}.Schedule(m_StepPhysicsWorldSystem.Simulation, Dependency);
 
         NativeList<float3> deadPositions = new NativeList<float3>(cap, Allocator.TempJob);
+        //查找到达界外的方块
+        NativeList<Entity> deadBricks = new NativeList<Entity>(3, Allocator.TempJob);
+
         var bulletMask = this.bulletMask;
         var brickMask = this.brickMask;
         //进如trigger的物体分类添加到数组中
         JobHandle triggerJob = Entities
             .WithName("TriggerKillBullet")
-            .WithoutBurst()
-            .ForEach((Entity e, ref DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer, ref TriggerKillBullet killBullet) =>
+            .ForEach((Entity e, ref TriggerKillBullet triggerKillBullet, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer) =>
             {
-                killBullet.Count = 0;
+                triggerKillBullet.Count = 0;
                 for (int i = 0; i < triggerEventBuffer.Length; i++)
                 {
                     var triggerEvent = triggerEventBuffer[i];
@@ -176,7 +178,7 @@ public partial class TriggerKillBulletSystem : SystemBase
                     {
                         if (bulletMask.Matches(bulletEntity))
                         {
-                            killBullet.Count++;
+                            triggerKillBullet.Count++;
                             var deadPosition = GetComponent<Translation>(bulletEntity).Value;
                             deadPositions.Add(deadPosition);
                             deadBullets.Add(bulletEntity);
@@ -189,90 +191,81 @@ public partial class TriggerKillBulletSystem : SystemBase
         //删除子弹, 死亡记录位置
 
 
-        if (deadBullets.Length <= 0)
+        if (deadBullets.Length > 0)//生成死亡特效 TODO, 使用DynamicBuffer 不同触发不同效果
         {
-            deadBullets.Dispose();
-            deadPositions.Dispose();
-
-            return;
-        }
-        var length = deadBullets.Length;
-        for (int i = 0; i < length; i++)
-        {
-            var ball = deadBullets[i];
-            //收集阳光
-            if (HasComponent<SunCoinComponent>(ball))
+            using (var entities = GetEntityQuery(new ComponentType[] { typeof(TriggerKillBullet) }).ToEntityArray(Allocator.TempJob))
             {
-                var sunCoin = GetComponent<SunCoinComponent>(ball);
-                BallAbillityManager.Instance.SunCoinNum += sunCoin.Value;
-            }
-            EntityManager.DestroyEntity(deadBullets[i]);
-        }
-
-
-        //生成死亡特效 TODO, 使用DynamicBuffer 不同触发不同效果
-        using (var entities = GetEntityQuery(new ComponentType[] { typeof(TriggerKillBullet) }).ToEntityArray(Allocator.TempJob))
-        {
-            var deadIndex = 0;
-            for (int j = 0; j < entities.Length; j++)
-            {
-                var entity = entities[j];
-                var spawnSettings = EntityManager.GetComponentData<TriggerKillBullet>(entity);
+                var deadIndex = 0;
+                for (int j = 0; j < entities.Length; j++)
+                {
+                    var entity = entities[j];
+                    var spawnSettings = EntityManager.GetComponentData<TriggerKillBullet>(entity);
 
 #if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-                // Limit the number of bodies on platforms with potentially low-end devices
-                var count = math.min(spawnSettings.Count, 500);
+                    // Limit the number of bodies on platforms with potentially low-end devices
+                    var count = math.min(spawnSettings.Count, 500);
 #else
-                var count = spawnSettings.Count;
+                    var count = spawnSettings.Count;
 #endif
-                if (count <= 0) continue;
-                var instances = new NativeArray<Entity>(count, Allocator.Temp);
-                EntityManager.Instantiate(spawnSettings.Prefab, instances);
-                for (int i = 0; i < count; i++)
-                {
-                    var instance = instances[i];
-                    EntityManager.SetComponentData(instance, new Translation { Value = deadPositions[deadIndex + i] });
+                    if (count <= 0) continue;
+                    var instances = new NativeArray<Entity>(count, Allocator.Temp);
+                    EntityManager.Instantiate(spawnSettings.Prefab, instances);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var instance = instances[i];
+                        EntityManager.SetComponentData(instance, new Translation { Value = deadPositions[deadIndex + i] });
+                    }
+                    deadIndex += count;
                 }
-                deadIndex += count;
+            }
+
+            length = deadBullets.Length;
+            for (int i = 0; i < length; i++)
+            {
+                var ball = deadBullets[i];
+                //收集阳光
+                if (HasComponent<SunCoinComponent>(ball))
+                {
+                    var sunCoin = GetComponent<SunCoinComponent>(ball);
+                    BallAbillityManager.Instance.SunCoinNum += sunCoin.Value;
+                }
+                EntityManager.DestroyEntity(deadBullets[i]);
             }
         }
-        //查找到达界外的方块
-        NativeList<Entity> deadBricks = new NativeList<Entity>(3, Allocator.TempJob);
+
+        NativeList<float3> fallPosition = new NativeList<float3>(length, Allocator.TempJob);
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
         Entities
-            .ForEach((Entity e, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer, in BrickOutBoundsArea outBoundsArea) =>
-        {
-            for (int i = 0; i < triggerEventBuffer.Length; i++)
+            .WithoutBurst()
+            .WithAll<BrickOutBoundsArea>()
+            .ForEach((Entity e, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer) =>
             {
-                Debug.Log(" Into");
-                var triggerEvent = triggerEventBuffer[i];
-                var brickEntity = triggerEvent.GetOtherEntity(e);
-                if (triggerEvent.State == StatefulEventState.Enter)
+                for (int i = 0; i < triggerEventBuffer.Length; i++)
                 {
-                    if (brickMask.Matches(e))
+                    var triggerEvent = triggerEventBuffer[i];
+
+                    var enterEntity = triggerEvent.GetOtherEntity(e);
+                    //  进去 且是 endGame
+                    if (triggerEvent.State == StatefulEventState.Enter)
                     {
-                        deadBricks.Add(brickEntity);
-                        Debug.Log("Brick Into");
+                        if (brickMask.Matches(enterEntity))
+                        {
+                            deadBricks.Add(enterEntity);
+                            var pos = EntityManager.GetComponentData<Translation>(enterEntity);
+                            pos.Value.x = math.floor(pos.Value.x);
+                            pos.Value.z = math.floor((pos.Value.z + 1));
+                            fallPosition.Add(pos.Value);
+                            //EntityManager.DestroyEntity(deadBricks[i]);
+                            ITweenComponent.CreateMoveTween(e, pos.Value, 2f, DG.Tweening.Ease.InCubic, isRelative: true);
+                            Debug.Log($"死方块 {pos.Value}");
+                        }
                     }
                 }
-            }
-        }).Schedule(Dependency).Complete();
-
-        //死局方块,进入时生成新的局外区域前进
+            }).Run();
 
         length = deadBricks.Length;
         if (length > 0)
         {
-            NativeList<float3> fallPosition = new NativeList<float3>(length, Allocator.TempJob);
-            for (int i = 0; i < length; i++)
-            {
-                var e = deadBricks[i];
-                var pos = EntityManager.GetComponentData<Translation>(e);
-                pos.Value.z = math.floor((pos.Value.z + 1));
-                fallPosition.Add(pos.Value);
-                //EntityManager.DestroyEntity(deadBricks[i]);
-
-                Debug.Log($"死方块 {pos.Value}");
-            }
             Unity.Mathematics.Random random = new Unity.Mathematics.Random(444);
             //地面掉落
             float fallTime = 2f;
@@ -291,10 +284,9 @@ public partial class TriggerKillBulletSystem : SystemBase
                         }
                     }
                 }).Run();
-            fallPosition.Dispose();
         }
 
-
+        fallPosition.Dispose();
         deadBricks.Dispose();
         deadBullets.Dispose();
         deadPositions.Dispose();

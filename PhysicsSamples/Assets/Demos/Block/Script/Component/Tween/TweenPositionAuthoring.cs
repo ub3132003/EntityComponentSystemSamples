@@ -25,6 +25,7 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
 
     public bool IsComplete => PassTime > Lifetime;
 
+
     public void SetDelay(Entity tweenTarget, float delay)
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;

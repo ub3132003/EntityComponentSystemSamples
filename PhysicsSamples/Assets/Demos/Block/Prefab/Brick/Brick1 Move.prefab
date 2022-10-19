@@ -60,6 +60,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 959eccfeb940d0e4b9bff9d7d3841c5a, type: 2}
+    - target: {fileID: 1385120698392098123, guid: 72ed9871ccf992c4fbcb7250c50b8805,
+        type: 3}
+      propertyPath: m_MotionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385120698392098123, guid: 72ed9871ccf992c4fbcb7250c50b8805,
+        type: 3}
+      propertyPath: m_InitialLinearVelocity.z
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 3902839512095237529, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Mesh
@@ -449,12 +459,12 @@ MonoBehaviour:
   m_InitialLinearVelocity:
     x: 0
     y: 0
-    z: 0
+    z: -5
   m_InitialAngularVelocity:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 0
+  m_GravityFactor: 1
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
@@ -480,22 +490,6 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
---- !u!114 &-5719470108076940274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7699382154791289547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e551bb6cec7c5ac4b8acd749895ae023, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Velocity:
-    x: 0
-    y: 0
-    z: -5
 --- !u!114 &-5048834705247497812
 MonoBehaviour:
   m_ObjectHideFlags: 0
