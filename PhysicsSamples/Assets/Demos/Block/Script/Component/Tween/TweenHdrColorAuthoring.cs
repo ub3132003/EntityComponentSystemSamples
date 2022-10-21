@@ -36,4 +36,14 @@ public struct TweenHDRColorComponent : IComponentData, ITweenComponent
         tweener.PassTime -= delay;
         entityManager.SetComponentData(tweenTarget, tweener);
     }
+
+    public void SetToValue(float3 to)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SetToValue(float4 to)
+    {
+        throw new System.NotImplementedException();
+    }
 }

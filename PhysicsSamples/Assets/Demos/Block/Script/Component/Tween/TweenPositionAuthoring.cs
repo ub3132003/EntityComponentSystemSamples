@@ -33,6 +33,16 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
         tweener.PassTime -= delay;
         entityManager.SetComponentData(tweenTarget, tweener);
     }
+
+    public void SetToValue(float3 to)
+    {
+        To = to;
+    }
+
+    public void SetToValue(float4 to)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEntity

@@ -18,7 +18,7 @@ public interface ITweenComponent
     //    Color,
     //    HdrColor,
     //}
-    /// <summary>
+
     /// 已经过去的时间
     /// </summary>
     public float PassTime { get; set; }
@@ -46,6 +46,10 @@ public interface ITweenComponent
     public bool AutoKill { get; set; }
 
     public bool IsComplete { get; }
+
+    public void SetToValue(float3 to);
+    public void SetToValue(float4 to);
+
     //TODO 重复触发问题, 在动画进行时再次触发了该动作该如何处理
     /// <summary>
     ///
@@ -150,18 +154,78 @@ public interface ITweenComponent
         return tweener;
     }
 
+    public static TweenPositionComponent CreateMoveTween(Entity tweenTarget, float3 to, float lifetime)
+    {
+        var tweener = new TweenPositionComponent
+        {
+            Lifetime = lifetime,
+            PassTime = 0,
+            ease = DOTween.defaultEaseType,
+            isReset = false,
+            Start = new float4(),
+            isRelative = false,
+            AutoKill = DOTween.defaultAutoKill,
+
+            To = to,
+        };
+        return tweener;
+    }
+
+    public static T CreateTween<T>(Entity tweenTarget, float3 to, float lifetime) where T :  struct , ITweenComponent
+    {
+        var tweener = new T
+        {
+            Lifetime = lifetime,
+            PassTime = 0,
+            ease = DOTween.defaultEaseType,
+            isReset = false,
+            Start = new float4(),
+            isRelative = false,
+            AutoKill = DOTween.defaultAutoKill,
+        };
+        tweener.SetToValue(to);
+        return tweener;
+    }
+
     public void SetDelay(Entity tweenTarget, float delay);
 }
 class TweenerFactorty<T> where T : struct, IComponentData
 {
-    private T tween;
-    private Entity tweenTarget;
+    protected T tween;
+    protected Entity tweenTarget;
+
+    public TweenerFactorty()
+    {
+    }
+
+    public TweenerFactorty(Entity tweenTarget, EntityCommandBuffer tweenEcb)
+    {
+        this.tweenTarget = tweenTarget;
+        TweenEcb = tweenEcb;
+    }
+
     public EntityCommandBuffer TweenEcb { get; set; }
 
-    public void CreateTween()
+    public void To(TweenPositionComponent tweenPosition)
     {
+        TweenEcb.AddComponent(tweenTarget, tweenPosition);
+    }
+
+    public void CreateTween<T1, T2>()
+    {
+        //DOTween.Do
+
         TweenEcb.AddComponent(tweenTarget , tween);
     }
+}
+class MoveTweenerFactorty : TweenerFactorty<TweenPositionComponent>
+{
+    public MoveTweenerFactorty(Entity tweenTarget, EntityCommandBuffer tweenEcb) : base(tweenTarget, tweenEcb)
+    {
+    }
+}
+class HdrColorTweenerFactorty : TweenerFactorty<TweenHDRColorComponent>
+{
 }
 #region 动画组件对象
 public enum LoopMode

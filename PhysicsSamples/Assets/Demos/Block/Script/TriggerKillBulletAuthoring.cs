@@ -9,6 +9,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics.Stateful;
+using Tween;
 
 /// <summary>
 /// 终点线，代表弹球游戏的界外区域。
@@ -234,11 +235,14 @@ public partial class TriggerKillBulletSystem : SystemBase
         }
 
         NativeList<float3> fallPosition = new NativeList<float3>(length, Allocator.TempJob);
-        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+        EntityCommandBufferSystem sys =
+            this.World.GetExistingSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+        EntityCommandBuffer ecb = sys.CreateCommandBuffer();
+        //触发局外方块
         Entities
             .WithoutBurst()
             .WithAll<BrickOutBoundsArea>()
-            .ForEach((Entity e, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer) =>
+            .ForEach((Entity e, in DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer , in Translation translation) =>
             {
                 for (int i = 0; i < triggerEventBuffer.Length; i++)
                 {
@@ -256,13 +260,15 @@ public partial class TriggerKillBulletSystem : SystemBase
                             pos.Value.z = math.floor((pos.Value.z + 1));
                             fallPosition.Add(pos.Value);
                             //EntityManager.DestroyEntity(deadBricks[i]);
-                            ITweenComponent.CreateMoveTween(e, pos.Value, 2f, DG.Tweening.Ease.InCubic, isRelative: true);
+                            //向前移動
+                            //ITweenComponent.CreateMoveTween(e, pos.Value, 2f, DG.Tweening.Ease.InCubic, isRelative: true);
+                            translation.DOMove(e, ecb, pos.Value, 2f);
                             Debug.Log($"死方块 {pos.Value}");
                         }
                     }
                 }
             }).Run();
-
+        sys.AddJobHandleForProducer(this.Dependency);
         length = deadBricks.Length;
         if (length > 0)
         {
