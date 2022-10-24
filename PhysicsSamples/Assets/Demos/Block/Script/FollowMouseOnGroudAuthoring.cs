@@ -5,6 +5,8 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Physics.GraphicsIntegration;
+using Unity.Physics.Systems;
 /// <summary>
 /// 角色基础信息 属性
 /// </summary>
@@ -18,6 +20,8 @@ public struct FollowMouseOnGroud : IComponentData
 
     //y加速强度
     public float3 HitForce;
+    //跟随位置偏移，
+    public float3 Offset;
 }
 
 public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEntity
@@ -27,6 +31,8 @@ public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEn
     public float MoveSpeed;
 
     public float3 HitForce;
+
+    public float3 Offset;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new FollowMouseOnGroud
@@ -34,6 +40,7 @@ public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEn
             MaxSpeed = MaxSpeed,
             MoveSpeed = MoveSpeed,
             HitForce = HitForce,
+            Offset = Offset
         });
         //dstManager.AddComponentData(entity, new NonUniformScale
         //{
@@ -65,25 +72,36 @@ public partial class MouseMoveInput : SystemBase
         var dy = input.Looking.y;
         var deltaTime = Time.DeltaTime;
         //Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        var physicsWorldSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Physics.Systems.BuildPhysicsWorld>();
+        var collisionWorld = physicsWorldSystem.PhysicsWorld.CollisionWorld;
+        Vector2 mousePosition = Input.mousePosition;
+        UnityEngine.Ray unityRay = Camera.main.ScreenPointToRay(mousePosition);
+        var rayInput = new RaycastInput
+        {
+            Start = unityRay.origin,
+            End = unityRay.origin + unityRay.direction * 100f,
+            Filter = new CollisionFilter
+            {
+                BelongsTo = ~0u,
+                CollidesWith = 1u << 11,
+                GroupIndex = 0
+            }
+        };
+        Unity.Physics.RaycastHit hit = new Unity.Physics.RaycastHit();
+        bool haveHit = collisionWorld.CastRay(rayInput, out hit);
+        if (haveHit)
+        {
+        }
 
         Entities.ForEach((ref PhysicsVelocity pv, ref Translation t, in FollowMouseOnGroud followMouse) =>
         {
-            //t.Value = new float3(hit.Position.x, 0, hit.Position.z) + followMouse.offset;
+            //dx = hit.Position.x - t.Value.x;
+            //dy = hit.Position.y - t.Value.y;
+            t.Value = hit.Position + followMouse.Offset;
+            //var xspeed = math.clamp((dx * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.x, followMouse.MaxSpeed.x);
+            //var yspeed = math.clamp((dy * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.z, followMouse.MaxSpeed.z);
 
-            //if (math.distance(hit.Position + followMouse.offset, t.Value) < followMouse.StopDistance)
-            //{
-            //    pv.Linear = 0;
-            //}
-            //else
-            //{
-            //    pv.Linear = math.normalizesafe(hit.Position + followMouse.offset - t.Value) * followMouse.MaxSpeed;
-            //}
-
-
-            var xspeed = math.clamp((dx * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.x, followMouse.MaxSpeed.x);
-            var yspeed = math.clamp((dy * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.z, followMouse.MaxSpeed.z);
-
-            pv.Linear = new float3(xspeed, 0, yspeed);
+            //pv.Linear = new float3(xspeed, 0, yspeed);
             //t.Value += new float3(xspeed, 0, yspeed);
         }).Schedule();
     }

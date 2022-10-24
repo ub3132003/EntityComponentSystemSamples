@@ -315,6 +315,11 @@ PrefabInstance:
       propertyPath: ConversionMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1385120698392098123, guid: 72ed9871ccf992c4fbcb7250c50b8805,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7159071560948202830, guid: 72ed9871ccf992c4fbcb7250c50b8805,
         type: 3}
       propertyPath: m_Capsule.Axis
@@ -619,14 +624,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed:
-    x: 20
+    x: 2000
     y: 0
-    z: 10
-  MoveSpeed: 1000
+    z: 1000
+  MoveSpeed: 2000
   HitForce:
     x: 0.1
     y: 0
     z: 0.1
+  Offset:
+    x: 0
+    y: 0.5
+    z: 0
 --- !u!114 &66565442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,7 +877,7 @@ Transform:
   m_Children:
   - {fileID: 1191076452}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &104149455
 GameObject:
@@ -933,7 +942,7 @@ MonoBehaviour:
     x: 6
     y: 1
     z: 7
-  count: 5
+  count: 3
   randomType: 1
   SpawnRate: 300
   DeathRate: 500
@@ -14590,7 +14599,7 @@ PrefabInstance:
     - target: {fileID: 7637622578390812325, guid: 61fc58c32605a9443896380c413d3875,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7637622578390812325, guid: 61fc58c32605a9443896380c413d3875,
         type: 3}

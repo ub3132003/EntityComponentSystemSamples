@@ -70,3 +70,6 @@ PhysicsSamples/Assets/skyboxes/
 PhysicsSamples/Assets/Demos/Block/UI/Modern & Clean GUI/
 PhysicsSamples/Assets/Polyquest_guidelines.pdf
 PhysicsSamples/Assets/Polyquest_guidelines.pdf.meta
+*.pdf
+PhysicsSamples/Assets/Rival/
+PhysicsSamples/Assets/Rival_StandardCharacters/
