@@ -66,25 +66,7 @@ public partial class HealthEventSystem : SystemBase
 
         var commandBuffer = m_CommandBufferSystem.CreateCommandBuffer();
 
-        Entities
-            .WithName("HealthEventJOb")
-            .WithBurst()
-            .WithChangeFilter<Health>()
-            .ForEach((DynamicBuffer<HealthEvent> healthEventBuffers) =>
-            {
-                for (int i = 0; i < healthEventBuffers.Length; i++)
-                {
-                    int a = (int)healthEventBuffers[i].state;
-                    Debug.Log($"state: {a}");
-                }
-                //var statefulEvents = new NativeList<Health>(currentEvents.Length, Allocator.Temp);
 
-                //StatVitalityEventBuffers<Health>.GetStatefulEvents(previousEvents, currentEvents, statefulEvents);
-
-                //for (int i = 0; i < statefulEvents.Length; i++)
-                //{
-                //}
-            }).Schedule();
         //低血量材质提示
         Entities
             .WithName("ChangeMaterialOnHealthLessJob")
