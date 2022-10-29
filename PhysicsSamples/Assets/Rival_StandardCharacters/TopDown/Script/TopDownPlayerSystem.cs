@@ -31,13 +31,8 @@ public partial class TopDownPlayerSystem : SystemBase
         moveInput.x += Input.GetKey(KeyCode.D) ? 1f : 0f;
         moveInput.x += Input.GetKey(KeyCode.A) ? -1f : 0f;
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
-        float2 cameraLookInput = new float2();
-        if (Input.GetMouseButtonDown(1))
-        {
-        }
-        cameraLookInput = new float2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        float cameraZoomInput = -Input.mouseScrollDelta.y;
 
+        quaternion cameraRotation = Camera.main.transform.rotation;
         Entities
             .ForEach((ref TopDownPlayer player) =>
         {
@@ -45,7 +40,11 @@ public partial class TopDownPlayerSystem : SystemBase
             {
                 TopDownCharacterInputs characterInputs = GetComponent<TopDownCharacterInputs>(player.ControlledCharacter);
 
-                quaternion cameraRotation = GetComponent<Rotation>(player.ControlledCamera).Value;
+                //面朝方向移动的方式
+                //var playerTransform = GetComponent<LocalToWorld>(player.ControlledCharacter);
+
+                //向看到的绝对方向移动，与操作输入一致
+
                 float3 cameraForwardOnUpPlane = math.normalizesafe(Rival.MathUtilities.ProjectOnPlane(Rival.MathUtilities.GetForwardFromRotation(cameraRotation), math.up()));
                 float3 cameraRight = Rival.MathUtilities.GetRightFromRotation(cameraRotation);
 
@@ -68,15 +67,6 @@ public partial class TopDownPlayerSystem : SystemBase
                 SetComponent(player.ControlledCharacter, characterInputs);
             }
 
-            // Camera control
-            if (HasComponent<OrbitCameraInputs>(player.ControlledCamera))
-            {
-                OrbitCameraInputs cameraInputs = GetComponent<OrbitCameraInputs>(player.ControlledCamera);
-                cameraInputs.Look = cameraLookInput;
-                cameraInputs.Zoom = cameraZoomInput;
-
-                SetComponent(player.ControlledCamera, cameraInputs);
-            }
 
             player.LastInputsProcessingTick = fixedTick;
         }).Schedule();

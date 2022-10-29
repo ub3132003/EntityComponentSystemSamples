@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 俯视角相机
+/// </summary>
 public class CameraControl : MonoBehaviour
 {
     public float lookSpeedH = 2f;

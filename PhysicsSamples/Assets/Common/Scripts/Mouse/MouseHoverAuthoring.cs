@@ -22,7 +22,7 @@ namespace Unity.Physics.Extensions
         public Entity CurrentEntity;
         public UnityEngine.Material HoverMaterial;
         public UnityEngine.Material OriginalMaterial;
-
+        public RaycastHit HitData;
         public bool Equals(MouseHover other) =>
             Equals(PreviousEntity, other.PreviousEntity)
             && Equals(CurrentEntity, other.CurrentEntity)
@@ -287,6 +287,7 @@ namespace Unity.Physics.Extensions
                 };
                 rcj.Run();
                 hit = raycastHitRef.Value;
+                mouseHover.HitData = hit;
             }
 
             var graphicsEntity = FindGraphicsEntityFromPhysics(hit.Entity, hit.ColliderKey);
