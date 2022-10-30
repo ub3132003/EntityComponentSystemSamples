@@ -90,7 +90,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current == null || EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }

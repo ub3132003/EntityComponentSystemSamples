@@ -24,6 +24,7 @@ public class PositionConstraint : MonoBehaviour, IConvertGameObjectToEntity
         {
             PositionOffset = PositionOffset,
             FreezePositionAxes = FreezePositionAxes,
+            Sources = conversionSystem.GetPrimaryEntity(Sources),
         });
     }
 }
@@ -32,11 +33,21 @@ partial class PositionConstraintSystem : SystemBase
 {
     protected override void OnUpdate()
     {
+        var sys = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+        var ecb = sys.CreateCommandBuffer();
+
         Entities
             .WithName("PositionConstraint")
             .WithAll<Translation>()
             .WithoutBurst()
-            .ForEach((Entity entity, ref Translation t , in PositionConstraint pc) => {
+            .ForEach((Entity entity, in Translation t, in PositionConstraintComponent pc) => {
+                var targetPosition = GetComponent<Translation>(pc.Sources).Value + pc.PositionOffset;
+                ecb.SetComponent<Translation>(entity, new Translation
+                {
+                    Value = targetPosition
+                });
             }).Run();
+
+        sys.AddJobHandleForProducer(this.Dependency);
     }
 }

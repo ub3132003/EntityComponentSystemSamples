@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9080053319169351800}
   - component: {fileID: 9080053319169351803}
   - component: {fileID: 9080053319169351802}
-  - component: {fileID: 9095261818494657767}
+  - component: {fileID: -5195455135531353981}
   m_Layer: 0
   m_Name: TriggerVolume
   m_TagString: Untagged
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccea9ea98e38942e0b0938c27ed1903e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MotionType: 2
+  m_MotionType: 1
   m_Smoothing: 0
   m_Mass: 1
   m_LinearDamping: 0.01
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
---- !u!114 &9095261818494657767
+--- !u!114 &-5195455135531353981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range:
-    x: 5
+    x: 1
     y: 1
-    z: 5
+    z: 1
+  Speed: 5

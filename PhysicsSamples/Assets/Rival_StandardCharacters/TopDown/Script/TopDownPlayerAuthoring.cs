@@ -8,8 +8,6 @@ using Unity.Mathematics;
 public struct TopDownPlayer : IComponentData
 {
     public Entity ControlledCharacter;
-    public Entity ControlledCamera;
-
     [NonSerialized]
     public uint LastInputsProcessingTick;
 }
