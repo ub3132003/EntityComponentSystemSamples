@@ -41,7 +41,7 @@ partial class PositionConstraintSystem : SystemBase
             .WithAll<Translation>()
             .WithoutBurst()
             .ForEach((Entity entity, in Translation t, in PositionConstraintComponent pc) => {
-                var targetPosition = GetComponent<Translation>(pc.Sources).Value + pc.PositionOffset;
+                var targetPosition = GetComponent<LocalToWorld>(pc.Sources).Position + pc.PositionOffset;
                 ecb.SetComponent<Translation>(entity, new Translation
                 {
                     Value = targetPosition
