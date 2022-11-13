@@ -38,10 +38,10 @@ namespace Rival.Samples.Platformer
             // Reset gravities
             Dependency = Entities
                 .ForEach((Entity entity, ref CustomGravity customGravity) =>
-                {
-                    customGravity.LastZoneEntity = customGravity.CurrentZoneEntity;
-                    customGravity.TouchedByNonGlobalGravity = false;
-                }).Schedule(Dependency);
+            {
+                customGravity.LastZoneEntity = customGravity.CurrentZoneEntity;
+                customGravity.TouchedByNonGlobalGravity = false;
+            }).Schedule(Dependency);
 
             // Spherical gravity zone
             Dependency = Entities
@@ -56,7 +56,7 @@ namespace Rival.Samples.Platformer
                         for (int i = 0; i < triggerEventsBuffer.Length; i++)
                         {
                             StatefulTriggerEvent triggerEvent = triggerEventsBuffer[i];
-                            if (triggerEvent.State == EventOverlapState.Stay)
+                            if (triggerEvent.State == StatefulEventState.Stay)
                             {
                                 Entity otherEntity = triggerEvent.GetOtherEntity(entity);
 
@@ -68,7 +68,7 @@ namespace Rival.Samples.Platformer
                                 {
                                     CustomGravity customGravity = customGravityFromEntity[otherEntity];
                                     customGravity.Gravity = gravityToApply * customGravity.GravityMultiplier;
-                                    customGravity.TouchedByNonGlobalGravity = true; 
+                                    customGravity.TouchedByNonGlobalGravity = true;
                                     customGravity.CurrentZoneEntity = entity;
                                     customGravityFromEntity[otherEntity] = customGravity;
                                 }
@@ -83,24 +83,24 @@ namespace Rival.Samples.Platformer
                 float3 globalGravity = GetSingleton<GlobalGravityZone>().Gravity;
                 Dependency = Entities
                     .ForEach((Entity entity, ref CustomGravity customGravity) =>
+                {
+                    if (!customGravity.TouchedByNonGlobalGravity)
                     {
-                        if (!customGravity.TouchedByNonGlobalGravity)
-                        {
-                            customGravity.Gravity = globalGravity * customGravity.GravityMultiplier;
-                            customGravity.CurrentZoneEntity = Entity.Null;
-                        }
-                    }).Schedule(Dependency);
+                        customGravity.Gravity = globalGravity * customGravity.GravityMultiplier;
+                        customGravity.CurrentZoneEntity = Entity.Null;
+                    }
+                }).Schedule(Dependency);
             }
 
             // Apply gravity to physics bodies
             Dependency = Entities
                 .ForEach((Entity entity, ref PhysicsVelocity physicsVelocity, in PhysicsMass physicsMass, in CustomGravity customGravity) =>
+            {
+                if (physicsMass.InverseMass > 0f)
                 {
-                    if (physicsMass.InverseMass > 0f)
-                    {
-                        CharacterControlUtilities.AccelerateVelocity(ref physicsVelocity.Linear, customGravity.Gravity, deltaTime);
-                    }
-                }).Schedule(Dependency);
+                    CharacterControlUtilities.AccelerateVelocity(ref physicsVelocity.Linear, customGravity.Gravity, deltaTime);
+                }
+            }).Schedule(Dependency);
         }
     }
 }

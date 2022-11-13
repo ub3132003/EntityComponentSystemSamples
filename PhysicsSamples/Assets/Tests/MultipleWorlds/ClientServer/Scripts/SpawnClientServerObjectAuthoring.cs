@@ -37,7 +37,7 @@ struct ClientServerObjectSpawnSettings : IComponentData, ISpawnSettings
 
 class SpawnClientServerObjectSystem : SpawnRandomObjectsSystemBase<ClientServerObjectSpawnSettings>
 {
-    internal override int GetRandomSeed(ClientServerObjectSpawnSettings spawnSettings)
+    protected override int GetRandomSeed(ClientServerObjectSpawnSettings spawnSettings)
     {
         var seed = base.GetRandomSeed(spawnSettings);
         seed = (seed * 397) ^ spawnSettings.ClientPrefab.GetHashCode();

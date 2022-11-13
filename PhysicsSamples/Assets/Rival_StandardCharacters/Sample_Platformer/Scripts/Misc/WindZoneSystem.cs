@@ -11,7 +11,7 @@ using Unity.Transforms;
 namespace Rival.Samples.Platformer
 {
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    [UpdateAfter(typeof(TriggerEventConversionSystem))]
+    [UpdateAfter(typeof(StatefulTriggerEventBufferSystem))]
     [UpdateAfter(typeof(ExportPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
     [UpdateAfter(typeof(KinematicCharacterUpdateGroup))]
@@ -23,40 +23,40 @@ namespace Rival.Samples.Platformer
 
             Dependency = Entities
                 .ForEach((Entity entity, in WindZone windZone, in DynamicBuffer<StatefulTriggerEvent> triggerEventsBuffer) =>
+            {
+                for (int i = 0; i < triggerEventsBuffer.Length; i++)
                 {
-                    for (int i = 0; i < triggerEventsBuffer.Length; i++)
+                    StatefulTriggerEvent triggerEvent = triggerEventsBuffer[i];
+                    Entity otherEntity = triggerEvent.GetOtherEntity(entity);
+
+                    if (triggerEvent.State == StatefulEventState.Stay)
                     {
-                        StatefulTriggerEvent triggerEvent = triggerEventsBuffer[i];
-                        Entity otherEntity = triggerEvent.GetOtherEntity(entity);
-
-                        if (triggerEvent.State == EventOverlapState.Stay)
+                        // Characters
+                        if (HasComponent<KinematicCharacterBody>(otherEntity) && HasComponent<PlatformerCharacterStateMachine>(otherEntity))
                         {
-                            // Characters
-                            if(HasComponent<KinematicCharacterBody>(otherEntity) && HasComponent<PlatformerCharacterStateMachine>(otherEntity))
-                            {
-                                PlatformerCharacterStateMachine platformerCharacterStateMachine = GetComponent<PlatformerCharacterStateMachine>(otherEntity);
+                            PlatformerCharacterStateMachine platformerCharacterStateMachine = GetComponent<PlatformerCharacterStateMachine>(otherEntity);
 
-                                if(PlatformerCharacterUtilities.CanBeAffectedByWindZone(platformerCharacterStateMachine.CurrentCharacterState))
-                                {
-                                    KinematicCharacterBody characterBody = GetComponent<KinematicCharacterBody>(otherEntity);
-                                    characterBody.RelativeVelocity += windZone.WindForce * deltaTime;
-                                    SetComponent(otherEntity, characterBody);
-                                }
-                            }
-                            // Dynamic physics bodies
-                            else if (HasComponent<PhysicsVelocity>(otherEntity) && HasComponent<PhysicsMass>(otherEntity))
+                            if (PlatformerCharacterUtilities.CanBeAffectedByWindZone(platformerCharacterStateMachine.CurrentCharacterState))
                             {
-                                PhysicsMass physicsMass = GetComponent<PhysicsMass>(otherEntity);
-                                if (physicsMass.InverseMass > 0f)
-                                {
-                                    PhysicsVelocity physicsVelocity = GetComponent<PhysicsVelocity>(otherEntity);
-                                    physicsVelocity.Linear += windZone.WindForce * deltaTime;
-                                    SetComponent(otherEntity, physicsVelocity);
-                                }
+                                KinematicCharacterBody characterBody = GetComponent<KinematicCharacterBody>(otherEntity);
+                                characterBody.RelativeVelocity += windZone.WindForce * deltaTime;
+                                SetComponent(otherEntity, characterBody);
+                            }
+                        }
+                        // Dynamic physics bodies
+                        else if (HasComponent<PhysicsVelocity>(otherEntity) && HasComponent<PhysicsMass>(otherEntity))
+                        {
+                            PhysicsMass physicsMass = GetComponent<PhysicsMass>(otherEntity);
+                            if (physicsMass.InverseMass > 0f)
+                            {
+                                PhysicsVelocity physicsVelocity = GetComponent<PhysicsVelocity>(otherEntity);
+                                physicsVelocity.Linear += windZone.WindForce * deltaTime;
+                                SetComponent(otherEntity, physicsVelocity);
                             }
                         }
                     }
-                }).Schedule(Dependency);
+                }
+            }).Schedule(Dependency);
         }
     }
 }

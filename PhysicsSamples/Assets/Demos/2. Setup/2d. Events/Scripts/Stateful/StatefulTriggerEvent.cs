@@ -6,22 +6,56 @@ namespace Unity.Physics.Stateful
     // Trigger Event that can be stored inside a DynamicBuffer
     public struct StatefulTriggerEvent : IBufferElementData, IStatefulSimulationEvent<StatefulTriggerEvent>
     {
-        public Entity EntityA { get; set; }
-        public Entity EntityB { get; set; }
-        public int BodyIndexA { get; set; }
-        public int BodyIndexB { get; set; }
-        public ColliderKey ColliderKeyA { get; set; }
-        public ColliderKey ColliderKeyB { get; set; }
+        internal EntityPair Entities;
+        internal BodyIndexPair BodyIndices;
+        internal ColliderKeyPair ColliderKeys;
+
         public StatefulEventState State { get; set; }
+        public Entity EntityA => Entities.EntityA;
+        public Entity EntityB => Entities.EntityB;
+        public int BodyIndexA => BodyIndices.BodyIndexA;
+        public int BodyIndexB => BodyIndices.BodyIndexB;
+        public ColliderKey ColliderKeyA => ColliderKeys.ColliderKeyA;
+        public ColliderKey ColliderKeyB => ColliderKeys.ColliderKeyB;
+
+        public StatefulTriggerEvent(Entity entityA, Entity entityB, int bodyIndexA, int bodyIndexB,
+                                    ColliderKey colliderKeyA, ColliderKey colliderKeyB)
+        {
+            Entities = new EntityPair
+            {
+                EntityA = entityA,
+                EntityB = entityB
+            };
+            BodyIndices = new BodyIndexPair
+            {
+                BodyIndexA = bodyIndexA,
+                BodyIndexB = bodyIndexB
+            };
+            ColliderKeys = new ColliderKeyPair
+            {
+                ColliderKeyA = colliderKeyA,
+                ColliderKeyB = colliderKeyB
+            };
+            State = default;
+        }
 
         public StatefulTriggerEvent(TriggerEvent triggerEvent)
         {
-            EntityA = triggerEvent.EntityA;
-            EntityB = triggerEvent.EntityB;
-            BodyIndexA = triggerEvent.BodyIndexA;
-            BodyIndexB = triggerEvent.BodyIndexB;
-            ColliderKeyA = triggerEvent.ColliderKeyA;
-            ColliderKeyB = triggerEvent.ColliderKeyB;
+            Entities = new EntityPair
+            {
+                EntityA = triggerEvent.EntityA,
+                EntityB = triggerEvent.EntityB
+            };
+            BodyIndices = new BodyIndexPair
+            {
+                BodyIndexA = triggerEvent.BodyIndexA,
+                BodyIndexB = triggerEvent.BodyIndexB
+            };
+            ColliderKeys = new ColliderKeyPair
+            {
+                ColliderKeyA = triggerEvent.ColliderKeyA,
+                ColliderKeyB = triggerEvent.ColliderKeyB
+            };
             State = default;
         }
 

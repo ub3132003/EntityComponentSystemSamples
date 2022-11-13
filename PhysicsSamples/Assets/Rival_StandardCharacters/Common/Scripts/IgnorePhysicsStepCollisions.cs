@@ -12,7 +12,7 @@ namespace Rival.Samples
     [Serializable]
     [GenerateAuthoringComponent]
     public struct IgnorePhysicsStepCollisions : IComponentData
-    { }
+    {}
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateBefore(typeof(StepPhysicsWorld))]
@@ -53,7 +53,7 @@ namespace Rival.Samples
         }
 
         [BurstCompile]
-        struct IgnorePhysicsStepCollisionsJob : IBodyPairsJob
+        struct IgnorePhysicsStepCollisionsJob : Unity.Physics.IBodyPairsJobBase
         {
             [ReadOnly]
             public ComponentDataFromEntity<IgnorePhysicsStepCollisions> IgnorePhysicsStepCollisionsFromEntity;

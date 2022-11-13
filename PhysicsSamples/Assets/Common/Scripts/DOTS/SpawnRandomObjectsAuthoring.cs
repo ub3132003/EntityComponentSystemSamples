@@ -101,7 +101,7 @@ class SpawnRandomObjectsSystem : SpawnRandomObjectsSystemBase<SpawnSettings>
 [UpdateBefore(typeof(BuildPhysicsWorld))]
 public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where T : struct, IComponentData, ISpawnSettings
 {
-    internal virtual int GetRandomSeed(T spawnSettings)
+    protected virtual int GetRandomSeed(T spawnSettings)
     {
         var seed = 0;
         seed = (seed * 397) ^ spawnSettings.Count;

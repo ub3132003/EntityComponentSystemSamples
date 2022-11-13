@@ -41,7 +41,7 @@ public class CameraSmoothTrack : MonoBehaviour, IConvertGameObjectToEntity
     }
 }
 
-struct CameraSmoothTrackSettings : IComponentData
+public struct CameraSmoothTrackSettings : IComponentData
 {
     public Entity Target;
     public Entity LookTo;

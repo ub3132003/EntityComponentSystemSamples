@@ -232,16 +232,15 @@ public static class CharacterControllerUtilities
                     // Add supporting planes to collision events
                     if (collisionEvents.IsCreated)
                     {
-                        var collisionEvent = new StatefulCollisionEvent()
-                        {
-                            EntityA = stepInput.World.Bodies[stepInput.RigidBodyIndex].Entity,
-                            EntityB = stepInput.World.Bodies[constraint.RigidBodyIndex].Entity,
-                            BodyIndexA = stepInput.RigidBodyIndex,
-                            BodyIndexB = constraint.RigidBodyIndex,
-                            ColliderKeyA = ColliderKey.Empty,
-                            ColliderKeyB = constraint.ColliderKey,
-                            Normal = constraint.Plane.Normal
-                        };
+                        var collisionEvent = new StatefulCollisionEvent(
+                            stepInput.World.Bodies[stepInput.RigidBodyIndex].Entity,
+                            stepInput.World.Bodies[constraint.RigidBodyIndex].Entity,
+                            stepInput.RigidBodyIndex,
+                            constraint.RigidBodyIndex,
+                            ColliderKey.Empty,
+                            constraint.ColliderKey,
+                            constraint.Plane.Normal
+                        );
                         collisionEvent.CollisionDetails = new StatefulCollisionEvent.Details(1, 0, constraint.HitPosition);
                         collisionEvents.Add(collisionEvent);
                     }
@@ -647,16 +646,16 @@ public static class CharacterControllerUtilities
 
             if (collisionEvents.IsCreated && constraint.Touched && !constraint.IsMaxSlope)
             {
-                var collisionEvent = new StatefulCollisionEvent()
-                {
-                    EntityA = world.Bodies[stepInput.RigidBodyIndex].Entity,
-                    EntityB = world.Bodies[rigidBodyIndex].Entity,
-                    BodyIndexA = stepInput.RigidBodyIndex,
-                    BodyIndexB = rigidBodyIndex,
-                    ColliderKeyA = ColliderKey.Empty,
-                    ColliderKeyB = constraint.ColliderKey,
-                    Normal = constraint.Plane.Normal
-                };
+                var collisionEvent = new StatefulCollisionEvent(
+
+                    world.Bodies[stepInput.RigidBodyIndex].Entity,
+                    world.Bodies[rigidBodyIndex].Entity,
+                    stepInput.RigidBodyIndex,
+                    rigidBodyIndex,
+                    ColliderKey.Empty,
+                    constraint.ColliderKey,
+                    constraint.Plane.Normal
+                );
                 collisionEvent.CollisionDetails = new StatefulCollisionEvent.Details(
                     1, math.dot(impulse, collisionEvent.Normal), constraint.HitPosition);
 
@@ -708,15 +707,14 @@ public static class CharacterControllerUtilities
             }
             if (!found)
             {
-                currentFrameTriggerEvents.Add(new StatefulTriggerEvent()
-                {
-                    EntityA = world.Bodies[stepInput.RigidBodyIndex].Entity,
-                    EntityB = hit.Entity,
-                    BodyIndexA = stepInput.RigidBodyIndex,
-                    BodyIndexB = hit.RigidBodyIndex,
-                    ColliderKeyA = ColliderKey.Empty,
-                    ColliderKeyB = hit.ColliderKey
-                });
+                currentFrameTriggerEvents.Add(
+                    new StatefulTriggerEvent(
+                        world.Bodies[stepInput.RigidBodyIndex].Entity,
+                        hit.Entity,
+                        stepInput.RigidBodyIndex,
+                        hit.RigidBodyIndex,
+                        ColliderKey.Empty,
+                        hit.ColliderKey));
             }
         }
     }

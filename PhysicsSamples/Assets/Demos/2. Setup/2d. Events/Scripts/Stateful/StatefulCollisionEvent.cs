@@ -7,27 +7,67 @@ namespace Unity.Physics.Stateful
     // Collision Event that can be stored inside a DynamicBuffer
     public struct StatefulCollisionEvent : IBufferElementData, IStatefulSimulationEvent<StatefulCollisionEvent>
     {
-        public Entity EntityA { get; set; }
-        public Entity EntityB { get; set; }
-        public int BodyIndexA { get; set; }
-        public int BodyIndexB { get; set; }
-        public ColliderKey ColliderKeyA { get; set; }
-        public ColliderKey ColliderKeyB { get; set; }
-        public StatefulEventState State { get; set; }
-        public float3 Normal;
+        internal BodyIndexPair BodyIndices;
+        internal EntityPair Entities;
+        internal ColliderKeyPair ColliderKeys;
 
         // Only if CalculateDetails is checked on PhysicsCollisionEventBuffer of selected entity,
         // this field will have valid value, otherwise it will be zero initialized
-        internal Details CollisionDetails;
+        public Details CollisionDetails;
+
+        public StatefulEventState State { get; set; }
+
+        // Normal is pointing from EntityB to EntityA
+        public float3 Normal;
+
+        public StatefulCollisionEvent(Entity entityA, Entity entityB, int bodyIndexA, int bodyIndexB,
+                                      ColliderKey colliderKeyA, ColliderKey colliderKeyB, float3 normal)
+        {
+            Entities = new EntityPair
+            {
+                EntityA = entityA,
+                EntityB = entityB
+            };
+            BodyIndices = new BodyIndexPair
+            {
+                BodyIndexA = bodyIndexA,
+                BodyIndexB = bodyIndexB
+            };
+            ColliderKeys = new ColliderKeyPair
+            {
+                ColliderKeyA = colliderKeyA,
+                ColliderKeyB = colliderKeyB
+            };
+            Normal = normal;
+            State = default;
+            CollisionDetails = default;
+        }
+
+        public Entity EntityA => Entities.EntityA;
+        public Entity EntityB => Entities.EntityB;
+        public ColliderKey ColliderKeyA => ColliderKeys.ColliderKeyA;
+        public ColliderKey ColliderKeyB => ColliderKeys.ColliderKeyB;
+        public int BodyIndexA => BodyIndices.BodyIndexA;
+        public int BodyIndexB => BodyIndices.BodyIndexB;
 
         public StatefulCollisionEvent(CollisionEvent collisionEvent)
         {
-            EntityA = collisionEvent.EntityA;
-            EntityB = collisionEvent.EntityB;
-            BodyIndexA = collisionEvent.BodyIndexA;
-            BodyIndexB = collisionEvent.BodyIndexB;
-            ColliderKeyA = collisionEvent.ColliderKeyA;
-            ColliderKeyB = collisionEvent.ColliderKeyB;
+            Entities = new EntityPair
+            {
+                EntityA = collisionEvent.EntityA,
+                EntityB = collisionEvent.EntityB
+            };
+            BodyIndices = new BodyIndexPair
+            {
+                BodyIndexA = collisionEvent.BodyIndexA,
+                BodyIndexB = collisionEvent.BodyIndexB
+            };
+            ColliderKeys = new ColliderKeyPair
+            {
+                ColliderKeyA = collisionEvent.ColliderKeyA,
+                ColliderKeyB = collisionEvent.ColliderKeyB
+            };
+
             State = default;
             Normal = collisionEvent.Normal;
             CollisionDetails = default;
@@ -36,7 +76,7 @@ namespace Unity.Physics.Stateful
         // This struct describes additional, optional, details about collision of 2 bodies
         public struct Details
         {
-            internal bool IsValid;
+            public bool IsValid;
 
             // If 1, then it is a vertex collision
             // If 2, then it is an edge collision

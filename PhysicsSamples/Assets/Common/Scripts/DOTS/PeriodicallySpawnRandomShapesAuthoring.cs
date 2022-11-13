@@ -42,7 +42,7 @@ public abstract class PeriodicalySpawnRandomObjectsSystem<T> : SpawnRandomObject
 {
     public int FrameCount = 0;
 
-    internal override int GetRandomSeed(T spawnSettings)
+    protected override int GetRandomSeed(T spawnSettings)
     {
         int seed = base.GetRandomSeed(spawnSettings);
         seed = (seed * 397) ^ spawnSettings.Prefab.GetHashCode();

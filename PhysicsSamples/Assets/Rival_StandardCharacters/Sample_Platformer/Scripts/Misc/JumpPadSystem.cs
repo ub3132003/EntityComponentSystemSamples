@@ -11,7 +11,7 @@ using Unity.Transforms;
 namespace Rival.Samples.Platformer
 {
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    [UpdateAfter(typeof(TriggerEventConversionSystem))]
+    [UpdateAfter(typeof(StatefulTriggerEventBufferSystem))]
     [UpdateAfter(typeof(ExportPhysicsWorld))]
     [UpdateBefore(typeof(EndFramePhysicsSystem))]
     [UpdateBefore(typeof(KinematicCharacterUpdateGroup))]
@@ -22,30 +22,30 @@ namespace Rival.Samples.Platformer
             Entities
                 .WithoutBurst()
                 .ForEach((Entity entity, in Rotation rotation, in JumpPad jumpPad, in DynamicBuffer<StatefulTriggerEvent> triggerEventsBuffer) =>
-            {
-                for (int i = 0; i < triggerEventsBuffer.Length; i++)
                 {
-                    StatefulTriggerEvent triggerEvent = triggerEventsBuffer[i];
-                    Entity otherEntity = triggerEvent.GetOtherEntity(entity);
-
-                    // If a character has entered the trigger, add jumppad power to it
-                    if (triggerEvent.State == EventOverlapState.Enter && HasComponent<KinematicCharacterBody>(otherEntity))
+                    for (int i = 0; i < triggerEventsBuffer.Length; i++)
                     {
-                        KinematicCharacterBody characterBody = GetComponent<KinematicCharacterBody>(otherEntity);
+                        StatefulTriggerEvent triggerEvent = triggerEventsBuffer[i];
+                        Entity otherEntity = triggerEvent.GetOtherEntity(entity);
 
-                        float3 jumpVelocity = MathUtilities.GetForwardFromRotation(rotation.Value) * jumpPad.JumpPower;
-                        characterBody.RelativeVelocity = jumpVelocity;
-
-                        // Unground the character
-                        if (characterBody.IsGrounded && math.dot(math.normalizesafe(jumpVelocity), characterBody.GroundHit.Normal) > jumpPad.UngroundingDotThreshold)
+                        // If a character has entered the trigger, add jumppad power to it
+                        if (triggerEvent.State == StatefulEventState.Enter && HasComponent<KinematicCharacterBody>(otherEntity))
                         {
-                            characterBody.Unground();
-                        }
+                            KinematicCharacterBody characterBody = GetComponent<KinematicCharacterBody>(otherEntity);
 
-                        SetComponent(otherEntity, characterBody);
+                            float3 jumpVelocity = MathUtilities.GetForwardFromRotation(rotation.Value) * jumpPad.JumpPower;
+                            characterBody.RelativeVelocity = jumpVelocity;
+
+                            // Unground the character
+                            if (characterBody.IsGrounded && math.dot(math.normalizesafe(jumpVelocity), characterBody.GroundHit.Normal) > jumpPad.UngroundingDotThreshold)
+                            {
+                                characterBody.Unground();
+                            }
+
+                            SetComponent(otherEntity, characterBody);
+                        }
                     }
-                }
-            }).Run();
+                }).Run();
         }
     }
 }

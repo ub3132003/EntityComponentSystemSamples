@@ -30,7 +30,7 @@ class SpawnBouncyRandomShapesSystem : SpawnRandomObjectsSystemBase<BouncySpawnSe
 {
     private BlobAssetReference<Collider> TweakedCollider;
 
-    internal override int GetRandomSeed(BouncySpawnSettings spawnSettings)
+    protected override int GetRandomSeed(BouncySpawnSettings spawnSettings)
     {
         int seed = base.GetRandomSeed(spawnSettings);
         seed = (seed * 397) ^ (int)(spawnSettings.Restitution * 100);
