@@ -20,12 +20,18 @@ public class PositionConstraint : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new PositionConstraintComponent
+        var constact = new PositionConstraintComponent
         {
             PositionOffset = PositionOffset,
             FreezePositionAxes = FreezePositionAxes,
             Sources = conversionSystem.GetPrimaryEntity(Sources),
-        });
+        };
+        if (constact.Sources == Entity.Null)
+        {
+            Debug.LogWarning("No Entity Find");
+            return;
+        }
+        dstManager.AddComponentData(entity, constact);
     }
 }
 

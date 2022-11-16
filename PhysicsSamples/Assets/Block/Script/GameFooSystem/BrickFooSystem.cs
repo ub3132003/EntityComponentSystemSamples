@@ -60,7 +60,7 @@ partial class BrickMoveSytem : SystemBase
         public NativeList<Entity> FallEntities;
         [ReadOnly] public PhysicsWorld World;
 
-        public void Execute(Entity e, in Translation translation)
+        public void Execute(Entity e, in Translation translation , in BrickComponent brickComponent)
         {
             //第二层以上方块
             if (translation.Value.y > 1)

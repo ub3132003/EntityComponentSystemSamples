@@ -10411,6 +10411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1761326767}
   - component: {fileID: 1761326766}
+  - component: {fileID: 1761326768}
   m_Layer: 0
   m_Name: MouseManager
   m_TagString: Untagged
@@ -10446,6 +10447,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1761326768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761326765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bded9ba3b020143817eca956bd865c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorTextureOnUI: {fileID: 2800000, guid: fefed8016e2266d4fad5758b01b78965, type: 3}
+  cursorTextureOnPress: {fileID: 0}
+  cursorTexture3: {fileID: 0}
 --- !u!1001 &1790232619
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -47,7 +47,11 @@ namespace Rival.Samples.Platformer
 
                 _isInitialized = true;
             }
-
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
             float2 moveInput = Vector2.ClampMagnitude(_defaultActionsMap.Move.ReadValue<Vector2>(), 1f);
             float2 lookInput = _defaultActionsMap.LookDelta.ReadValue<Vector2>();
             if (math.lengthsq(_defaultActionsMap.LookConst.ReadValue<Vector2>()) > math.lengthsq(_defaultActionsMap.LookDelta.ReadValue<Vector2>()))
@@ -67,21 +71,20 @@ namespace Rival.Samples.Platformer
 
             Dependency = Entities
                 .ForEach((ref PlatformerInputs inputs) =>
-                {
-                    inputs.Move = moveInput;
-                    inputs.Look = lookInput;
-                    inputs.CameraZoom = cameraZoomInput;
+            {
+                inputs.Move = moveInput;
+                inputs.Look = lookInput;
+                inputs.CameraZoom = cameraZoomInput;
 
-                    inputs.JumpButton.UpdateWithValue(jumpInput, fixedTick);
-                    inputs.RollButton.UpdateWithValue(rollInput, fixedTick);
-                    inputs.SprintButton.UpdateWithValue(sprintInput, fixedTick);
-                    inputs.DashButton.UpdateWithValue(dashInput, fixedTick);
-                    inputs.CrouchButton.UpdateWithValue(crouchInput, fixedTick);
-                    inputs.RopeButton.UpdateWithValue(ropeInput, fixedTick);
-                    inputs.ClimbButton.UpdateWithValue(climbInput, fixedTick);
-                    inputs.FlyNoCollisionsButton.UpdateWithValue(flyNoCollisionsInput, fixedTick);
-
-                }).ScheduleParallel(Dependency);
+                inputs.JumpButton.UpdateWithValue(jumpInput, fixedTick);
+                inputs.RollButton.UpdateWithValue(rollInput, fixedTick);
+                inputs.SprintButton.UpdateWithValue(sprintInput, fixedTick);
+                inputs.DashButton.UpdateWithValue(dashInput, fixedTick);
+                inputs.CrouchButton.UpdateWithValue(crouchInput, fixedTick);
+                inputs.RopeButton.UpdateWithValue(ropeInput, fixedTick);
+                inputs.ClimbButton.UpdateWithValue(climbInput, fixedTick);
+                inputs.FlyNoCollisionsButton.UpdateWithValue(flyNoCollisionsInput, fixedTick);
+            }).ScheduleParallel(Dependency);
         }
     }
 }

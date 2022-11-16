@@ -72,7 +72,7 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         set { sunCoinNum = value; sunCoinEvent?.RaiseEvent(SunCoinNum); }
     }
 
-    EntityManager em;
+    EntityManager em => PlayerEcsConnect.Instance.EntityManager;
     /// <summary>
     /// 动画终点位置
     /// </summary>
@@ -83,8 +83,6 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         //ui
         InitSelectedBallPanel();
 
-
-        em = PlayerEcsConnect.Instance.EntityManager;
         //查找所有gun 实体
         var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
         EntityQueryDesc description = new EntityQueryDesc

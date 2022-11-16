@@ -708,7 +708,7 @@ PlayerSettings:
   scriptingBackend:
     Android: 0
     Server: 1
-    Standalone: 0
+    Standalone: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
@@ -725,7 +725,7 @@ PlayerSettings:
     Android: 6
     Nintendo Switch: 6
     PS5: 6
-    Standalone: 6
+    Standalone: 3
     Windows Store Apps: 6
     XboxOne: 6
     iPhone: 6

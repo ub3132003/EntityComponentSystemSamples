@@ -23,15 +23,7 @@ public partial class SunCoinSystem : SystemBase
         //阳光产出的掉落动画
         //碰到挡板时消失 ，增加阳光
 
-        Entities.ForEach((ref Translation translation, in Rotation rotation) => {
-            // Implement the work to perform for each entity here.
-            // You should only access data that is local or that is a
-            // field on this job. Note that the 'rotation' parameter is
-            // marked as 'in', which means it cannot be modified,
-            // but allows this job to run in parallel with other jobs
-            // that want to read Rotation component data.
-            // For example,
-            //     translation.Value += math.mul(rotation.Value, new float3(0, 0, 1)) * deltaTime;
+        Entities.ForEach((in SunCoinComponent sunCoinComponent) => {
         }).Schedule();
     }
 }

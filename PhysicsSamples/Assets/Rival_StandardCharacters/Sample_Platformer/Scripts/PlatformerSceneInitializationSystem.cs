@@ -14,9 +14,15 @@ namespace Rival.Samples.Platformer
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial class PlatformerSceneInitializationSystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            base.OnCreate();
+            Debug.Log("初始化角色");
+        }
+
         protected override void OnUpdate()
         {
-            if(HasSingleton<PlatformerSceneInitialization>())
+            if (HasSingleton<PlatformerSceneInitialization>())
             {
                 PlatformerSceneInitialization sceneInitializer = GetSingleton<PlatformerSceneInitialization>();
 

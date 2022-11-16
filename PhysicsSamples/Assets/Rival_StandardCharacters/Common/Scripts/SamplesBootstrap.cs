@@ -69,7 +69,7 @@ namespace Rival.Samples
                     break;
                 case WorldSystemsConfig.Default:
                 default:
-                    FilterOutSystemsOfAssembly(systems, new List<string> { _kBasicAssemblyName, _kPlatformerAssemblyName, _kOnlineFPSAssemblyName, _kStressTestAssemblyName });
+                    //FilterOutSystemsOfAssembly(systems, new List<string> { _kBasicAssemblyName, _kPlatformerAssemblyName, _kOnlineFPSAssemblyName, _kStressTestAssemblyName });
                     break;
             }
             GenerateSystemLists(systems);
