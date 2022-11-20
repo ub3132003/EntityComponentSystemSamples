@@ -34,7 +34,6 @@ public struct TopDownCharacterComponent : IComponentData
     [HideInInspector]
     public float3 GroundingUp;
 
-    public Entity WeaponSocketEntity;
     public static TopDownCharacterComponent GetDefault()
     {
         return new TopDownCharacterComponent

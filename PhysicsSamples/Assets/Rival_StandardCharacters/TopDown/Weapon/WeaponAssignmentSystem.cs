@@ -50,7 +50,7 @@ namespace Rival.Samples.OnlineFPS
                                 commandBuffer,
                                 parentFromEntity,
                                 localToParentFromEntity,
-                                onlineFPSCharacter.WeaponSocketEntity,
+                                activeWeapon.WeaponSocketEntity,
                                 activeWeapon.WeaponEntity,
                                 default,
                                 quaternion.identity);

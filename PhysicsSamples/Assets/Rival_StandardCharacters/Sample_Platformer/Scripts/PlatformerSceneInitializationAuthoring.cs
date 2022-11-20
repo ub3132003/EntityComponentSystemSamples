@@ -15,9 +15,11 @@ namespace Rival.Samples.Platformer
         public GameObject MainCharacterPrefab;
         public GameObject EntityCameraPrefab;
 
+
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            dstManager.AddComponentData(entity, new PlatformerSceneInitialization {
+            dstManager.AddComponentData(entity, new PlatformerSceneInitialization
+            {
                 FixedRate = FixedRate,
                 MainCharacterSpawnPoint = new RigidTransform(MainCharacterSpawnPoint.rotation, MainCharacterSpawnPoint.position),
                 MainCharacterPrefabEntity = conversionSystem.GetPrimaryEntity(MainCharacterPrefab),
@@ -43,4 +45,3 @@ namespace Rival.Samples.Platformer
         public float3 StartingCameraForward;
     }
 }
-

@@ -46,8 +46,6 @@ public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEn
         //{
         //    Value = new float3(2, 0, 0)
         //});
-
-        PlayerEcsConnect.Instance.RegistPlayer(entity);
     }
 }
 
@@ -56,6 +54,10 @@ public class FollowMouseOnGroudAuthoring : MonoBehaviour, IConvertGameObjectToEn
 /// </summary>
 public partial class MouseMoveInput : SystemBase
 {
+    private Unity.Physics.RaycastHit hit;
+
+    public Unity.Physics.RaycastHit MouseHit { get => hit; }
+
     protected override void OnCreate()
     {
         base.OnCreate();
@@ -67,9 +69,9 @@ public partial class MouseMoveInput : SystemBase
 
         //var dx = Input.GetAxis("Mouse X");
         //var dy = Input.GetAxis("Mouse Y");
-        var input = GetSingleton<CharacterGunInput>();
-        var dx = input.Looking.x;
-        var dy = input.Looking.y;
+        //var input = GetSingleton<CharacterGunInput>();
+        //var dx = input.Looking.x;
+        //var dy = input.Looking.y;
         var deltaTime = Time.DeltaTime;
         //Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
         var physicsWorldSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Physics.Systems.BuildPhysicsWorld>();
@@ -87,8 +89,8 @@ public partial class MouseMoveInput : SystemBase
                 GroupIndex = 0
             }
         };
-        Unity.Physics.RaycastHit hit = new Unity.Physics.RaycastHit();
         bool haveHit = collisionWorld.CastRay(rayInput, out hit);
+        var mousehit = hit;
         if (haveHit)
         {
         }
@@ -97,7 +99,7 @@ public partial class MouseMoveInput : SystemBase
         {
             //dx = hit.Position.x - t.Value.x;
             //dy = hit.Position.y - t.Value.y;
-            t.Value = hit.Position + followMouse.Offset;
+            t.Value = mousehit.Position + followMouse.Offset;
             //var xspeed = math.clamp((dx * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.x, followMouse.MaxSpeed.x);
             //var yspeed = math.clamp((dy * deltaTime) * followMouse.MoveSpeed, -followMouse.MaxSpeed.z, followMouse.MaxSpeed.z);
 

@@ -8,7 +8,7 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Physics;
 
-public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
+public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
 {
     /// <summary>
     /// 经验值,目前死亡方块数量
@@ -137,6 +137,11 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>
                 }
             }
         }
+    }
+
+    public void SetReceivedEntity(Entity entity)
+    {
+        RegistPlayer(entity);
     }
 }
 

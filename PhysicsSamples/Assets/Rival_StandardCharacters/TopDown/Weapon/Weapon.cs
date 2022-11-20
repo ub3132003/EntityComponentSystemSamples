@@ -21,6 +21,7 @@ namespace Rival.Samples.OnlineFPS
     {
         public Entity WeaponEntity;
         public Entity PreviousWeaponEntity;
+        public Entity WeaponSocketEntity;
     }
 
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
