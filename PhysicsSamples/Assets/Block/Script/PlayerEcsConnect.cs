@@ -14,6 +14,9 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
     /// 经验值,目前死亡方块数量
     /// </summary>
 
+    //辅助对象，跟随实体的位置
+    [SerializeField]
+    private FollowEnetityObj FollowEntityGameObject;
 
     [SerializeField]
     PlayerLevel playerLevel = new PlayerLevel();
@@ -44,6 +47,9 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
         set => playerNode = value;
     }
     public Entity Player { get => player; set => player = value; }
+
+    List<Entity> gunEnties;
+    public List<Entity> GunEnties => gunEnties;
     public EntityManager EntityManager { get => entityManager; set => entityManager = value; }
 
     [SerializeField] List<RpgStatSO> rpgStatSOs;
@@ -55,13 +61,34 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
 
     IEnumerator Start()
     {
-        //TOdo 等待player
+        //TOdo 等待player 生成
 
         playerNode.InitStats(rpgStatSOs);
         while (player == Entity.Null)
         {
             yield return 0;
         }
+        //查找所有gun 实体
+        var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
+        EntityQueryDesc description = new EntityQueryDesc
+        {
+            All = new ComponentType[]
+            {
+                typeof(CharacterGun),
+            }
+        };
+        var queryBuilder = new EntityQueryDescBuilder(Unity.Collections.Allocator.TempJob);
+        queryBuilder.AddAll(typeof(CharacterGun));
+        queryBuilder.FinalizeQuery();
+
+        EntityQuery gunGroup = gunSystem.GetEntityQuery(queryBuilder);
+
+        var guns = gunGroup.ToEntityArray(Unity.Collections.Allocator.TempJob);
+        gunEnties = new List<Entity>(guns);
+
+        queryBuilder.Dispose();
+        guns.Dispose();
+
         Debug.Log("Player Regist");
     }
 
@@ -78,11 +105,21 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
     public void RegistPlayer(Entity player)
     {
         this.player = player;
+        FollowEntityGameObject.SetReceivedEntity(player);
     }
 
-    public void SetEcsPlayer()
+    public void RotatePlayerTo(Vector3 dir)
     {
-        entityManager.GetComponentObject<FollowMouseOnGroud>(player);
+        quaternion rotation = quaternion.LookRotation(dir, math.up());
+        entityManager.SetComponentData<Rotation>(player, new Rotation
+        {
+            Value = rotation
+        });
+    }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return entityManager.GetComponentData<LocalToWorld>(player).Position;
     }
 
     public void AddBuff(RpgEffectSO rpgEffectSO, int rank)

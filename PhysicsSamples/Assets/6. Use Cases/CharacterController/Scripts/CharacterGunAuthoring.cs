@@ -106,12 +106,12 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
             .WithNone<DisableTag>()
             .ForEach((Entity entity, int entityInQueryIndex, ref Rotation gunRotation, ref CharacterGun gun, in LocalToWorld gunTransform) =>
             {
-                // Handle input
-                {
-                    float a = -input.Looking.y * gun.SensitivityYAxis;
-                    gunRotation.Value = math.mul(gunRotation.Value, quaternion.Euler(math.radians(a), 0, 0));
-                    gun.IsFiring = input.Firing > 0f ? 1 : 0;
-                }
+                //// Handle input , 输入控制发射球仰角
+                //{
+                //    float a = -input.Looking.y * gun.SensitivityYAxis;
+                //    gunRotation.Value = math.mul(gunRotation.Value, quaternion.Euler(math.radians(a), 0, 0));
+                //    gun.IsFiring = input.Firing > 0f ? 1 : 0;
+                //}
                 //长按计时
                 if (gun.IsFiring == 0)
                 {
@@ -119,7 +119,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                     gun.WasFiring = 0;
                     return;
                 }
-                if (gun.Capacity <= 0) return;
+                if (gun.Capacity <= 0) { gun.IsFiring = 0; return; }
                 gun.Duration += dt;
                 if ((gun.Duration > gun.Rate) || (gun.WasFiring == 0))
                 {

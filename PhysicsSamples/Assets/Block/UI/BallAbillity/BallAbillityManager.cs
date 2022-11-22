@@ -65,7 +65,7 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     public List<BallData> BallDataList;
 
     //所有gun 提前放到场景种
-    List<Entity> gunEnties;
+    List<Entity> gunEnties => PlayerEcsConnect.Instance.GunEnties;
     public int SunCoinNum
     {
         get => sunCoinNum;
@@ -82,27 +82,6 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
     {
         //ui
         InitSelectedBallPanel();
-
-        //查找所有gun 实体
-        var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
-        EntityQueryDesc description = new EntityQueryDesc
-        {
-            All = new ComponentType[]
-            {
-                typeof(CharacterGun),
-            }
-        };
-        var queryBuilder = new EntityQueryDescBuilder(Unity.Collections.Allocator.Temp);
-        queryBuilder.AddAll(typeof(CharacterGun));
-        queryBuilder.FinalizeQuery();
-
-        EntityQuery gunGroup = gunSystem.GetEntityQuery(queryBuilder);
-
-        var guns = gunGroup.ToEntityArray(Unity.Collections.Allocator.Temp);
-        gunEnties = new List<Entity>(guns);
-
-        queryBuilder.Dispose();
-        guns.Dispose();
     }
 
     #region 工具方法,游戏逻辑
@@ -177,6 +156,12 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         SunCoinNum = coin;
     }
 
+    //增加gun中的容量
+    public void AddBall(ThingSO ballSO, int amount)
+    {
+        AddBall(FindGun(ballSO), amount);
+    }
+
     public void AddBall(Entity gunEntity , int num)
     {
         var gun = em.GetComponentData<CharacterGun>(gunEntity);
@@ -232,6 +217,22 @@ public class BallAbillityManager : Singleton<BallAbillityManager>
         }
         ActiveBallEntity(FindGun(ballSO), true);
         return 0;
+    }
+
+    /// <summary>
+    /// 当前激活的gun 状态为fire
+    /// </summary>
+    /// <param name="ballSO"></param>
+    public void SetFireGun(ThingSO ballSO)
+    {
+        foreach (var item in gunEnties)
+        {
+            if (em.HasComponent<DisableTag>(item))
+                continue;
+            var gun = em.GetComponentData<CharacterGun>(item);
+            gun.IsFiring = 1;
+            em.SetComponentData(item, gun);
+        }
     }
 
     /// <summary>

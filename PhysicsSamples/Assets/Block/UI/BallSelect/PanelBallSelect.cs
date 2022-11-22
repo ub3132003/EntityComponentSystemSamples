@@ -16,29 +16,13 @@ public class PanelBallSelect : MonoBehaviour
     [SerializeField] List<UIBallToggle> ballToggles;
 
     [ShowInInspector] List<Entity> gunEnties;
-    void Start()
+    IEnumerator Start()
     {
-        //查找所有gun 实体
-        var gunSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<CharacterGunOneToManyInputSystem>();
-        EntityQueryDesc description = new EntityQueryDesc
+        while (PlayerEcsConnect.Instance.GunEnties == null || PlayerEcsConnect.Instance.GunEnties.Count <= 0)
         {
-            All = new ComponentType[]
-            {
-                typeof(CharacterGun),
-            }
-        };
-        var queryBuilder = new EntityQueryDescBuilder(Unity.Collections.Allocator.TempJob);
-        queryBuilder.AddAll(typeof(CharacterGun));
-        queryBuilder.FinalizeQuery();
-
-        EntityQuery gunGroup = gunSystem.GetEntityQuery(queryBuilder);
-
-        var guns = gunGroup.ToEntityArray(Unity.Collections.Allocator.TempJob);
-        gunEnties = new List<Entity>(guns);
-
-        queryBuilder.Dispose();
-        guns.Dispose();
-
+            yield return 0;
+        }
+        gunEnties = PlayerEcsConnect.Instance.GunEnties;
         //SetBallChangeUI();
 
         //激活默认的球
@@ -62,6 +46,10 @@ public class PanelBallSelect : MonoBehaviour
     [SerializeField] List<SoltPari> soltParis;
 
     public int SoltMaxNum => soltParis.Count;
+    public void SetGunEnties(List<Entity> guns)
+    {
+        gunEnties = guns;
+    }
 
     /// <summary>
     /// 设置切球面板
