@@ -12,9 +12,34 @@ public class LaunchBallCard : MonoBehaviour
     {
     }
 
+    private void OnEnable()
+    {
+        SetLaunchIndicator(true);
+    }
+
+    private void OnDisable()
+    {
+        SetLaunchIndicator(false);
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="viladArea">打牌区 </param>
+    /// <param name="launchIndicatorLine">指示方向 </param>
+    public void Init(RectTransform viladArea, LaunchIndicatorLine launchIndicatorLine)
+    {
+        var uiDrag = gameObject.GetComponent<UIDrag>();
+        uiDrag.validArea.Clear();
+        uiDrag.validArea.Add(viladArea);
+        this.launchIndicatorLine = launchIndicatorLine;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        bool haveHit;
+
         if (Input.GetMouseButton(0))
         {
             // 鼠标地面检测
@@ -34,40 +59,48 @@ public class LaunchBallCard : MonoBehaviour
                 }
             };
 
-            bool haveHit = collisionWorld.CastRay(rayInput, out var hit);
+            haveHit = collisionWorld.CastRay(rayInput, out var hit);
 
             if (haveHit)
             {
                 launchIndicatorLine.SetLineIndection(hit.Position);
                 SetLaunchDirction(hit.Position);
             }
-
-            SetLaunchIndicator(true);
+            else
+            {
+                launchDir = Vector3.zero;
+            }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && launchDir != Vector3.zero)
         {
-            CardAction();
+            LaunchBall(3);
+            Destroy(this.gameObject, 1f);
         }
     }
 
-    // 拖拽卡牌到激活区，
-    //提示弹道,
-    //松开鼠标确定弹道
-    //回合结束时发出球.
+    // 打出卡牌切换子弹类型，
+    //提示进入发射模式，引导发射操作
+    //松开鼠标确定弹道，发出球.
 
-    [SerializeField] launchIndicatorLine launchIndicatorLine;
+
+    [SerializeField] LaunchIndicatorLine launchIndicatorLine;
     //发射方向
-    public Vector3 LaunchDir = Vector3.zero;
+    private Vector3 launchDir = Vector3.zero;
     public ThingSO BallSO;
+
+    public Vector3 LaunchDir { get => launchDir;}
+
     public void SetLaunchDirction(Vector3 endPosition)
     {
         var playPosition = PlayerEcsConnect.Instance.GetPlayerPosition();
+        //不考虑仰角
+        endPosition.y = playPosition.y;
         var targetDir = endPosition - playPosition;
-        LaunchDir = targetDir;
+        launchDir = targetDir;
 
         //设置实体方向
-        PlayerEcsConnect.Instance.RotatePlayerTo(LaunchDir);
+        PlayerEcsConnect.Instance.RotatePlayerTo(launchDir);
     }
 
     //显示指示器hud
@@ -83,13 +116,18 @@ public class LaunchBallCard : MonoBehaviour
 
         //发射实体
 
-        BallAbillityManager.Instance.ChangeGun(BallSO);
-        BallAbillityManager.Instance.AddBall(BallSO, Amount);
+        //BallAbillityManager.Instance.AddBall(BallSO, Amount);
         BallAbillityManager.Instance.SetFireGun(BallSO);
     }
 
     public void CardAction()
     {
-        LaunchBall(3);
+        BallAbillityManager.Instance.ChangeGun(BallSO);
+    }
+
+    public static void LaunchBall(ThingSO ballSO, int amount)
+    {
+        BallAbillityManager.Instance.AddBall(ballSO, amount);
+        BallAbillityManager.Instance.SetFireGun(ballSO);
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 
 using UnityEngine;
-
-public class launchIndicatorLine : MonoBehaviour
+//指示轨迹方向
+public class LaunchIndicatorLine : MonoBehaviour
 {
     [SerializeField]
     LineRenderer line;

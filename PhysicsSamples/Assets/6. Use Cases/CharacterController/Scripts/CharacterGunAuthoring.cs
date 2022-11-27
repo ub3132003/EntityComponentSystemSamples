@@ -125,7 +125,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                 {
                     if (gun.Bullet != null)
                     {
-                        var e = commandBuffer.Instantiate(entityInQueryIndex, gun.Bullet);
+                        var bullet = commandBuffer.Instantiate(entityInQueryIndex, gun.Bullet);
                         gun.Capacity--;
                         comsumeSunCoin += gun.Price;
                         Translation position = new Translation { Value = gunTransform.Position + gunTransform.Forward };
@@ -140,9 +140,9 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                         Debug.Log($"bullet spwan {position.Value.y } {compositeScale.Value.c1.y}");
                         position.Value.y += (compositeScale.Value.c1.y - 0.5f) * 0.5f;//防止发射高度碰到地板,默认值是0.5，超过0.5的需要缩放
 
-                        commandBuffer.SetComponent(entityInQueryIndex, e, position);
-                        commandBuffer.SetComponent(entityInQueryIndex, e, rotation);
-                        commandBuffer.SetComponent(entityInQueryIndex, e, velocity);
+                        commandBuffer.SetComponent(entityInQueryIndex, bullet, position);
+                        commandBuffer.SetComponent(entityInQueryIndex, bullet, rotation);
+                        commandBuffer.SetComponent(entityInQueryIndex, bullet, velocity);
                     }
                     gun.Duration = 0;
                 }
