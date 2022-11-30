@@ -31,6 +31,7 @@ public class FollowEnetityObj : MonoBehaviour, IReceiveEntity
     }
 
     Transform currentView;
+//通过按键和序号切1234换外观.
     void ChangeBallView(int ballId)
     {
         if (currentView != null)

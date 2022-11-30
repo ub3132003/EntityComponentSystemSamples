@@ -113,13 +113,13 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                 //    gun.IsFiring = input.Firing > 0f ? 1 : 0;
                 //}
                 //长按计时
-                if (gun.IsFiring == 0)
-                {
-                    gun.Duration = 0;
-                    gun.WasFiring = 0;
-                    return;
-                }
-                if (gun.Capacity <= 0) { gun.IsFiring = 0; return; }
+                //if (gun.IsFiring == 0)
+                //{
+                //    gun.Duration = 0;
+                //    gun.WasFiring = 0;
+                //    return;
+                //}
+                //if (gun.Capacity <= 0) { gun.IsFiring = 0; return; }
                 gun.Duration += dt;
                 if ((gun.Duration > gun.Rate) || (gun.WasFiring == 0))
                 {

@@ -180,6 +180,17 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
     {
         RegistPlayer(entity);
     }
+
+    #region static
+    //有 bug
+    public static Entity CreateEntityFormObj(GameObject prefab)
+    {
+        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+        var entity  = GameObjectConversionUtility.ConvertGameObjectHierarchy(prefab, settings);
+        return World.DefaultGameObjectInjectionWorld.EntityManager.Instantiate(entity);
+    }
+
+    #endregion
 }
 
 [System.Serializable]
