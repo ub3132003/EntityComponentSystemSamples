@@ -2,7 +2,8 @@
     "name": "Common.Input",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:25ed5ab938a307f43a640c7be78db17e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

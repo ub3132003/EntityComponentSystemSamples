@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 partial class DemoInputGatheringSystem : SystemBase
 #if UNITY_INPUT_SYSTEM_EXISTS
     ,
-    InputActions.ICharacterControllerActions,
-    InputActions.IVehicleActions
+    GameInput.ICharacterControllerActions,
+    GameInput.IVehicleActions
 #endif
 {
     EntityQuery m_CharacterControllerInputQuery;
@@ -34,7 +34,7 @@ partial class DemoInputGatheringSystem : SystemBase
     protected override void OnCreate()
     {
 #if UNITY_INPUT_SYSTEM_EXISTS
-        m_InputActions = new InputActions();
+        m_InputActions = new GameInput();
         m_InputActions.CharacterController.SetCallbacks(this);
         m_InputActions.Vehicle.SetCallbacks(this);
 #endif
@@ -45,22 +45,22 @@ partial class DemoInputGatheringSystem : SystemBase
     }
 
 #if UNITY_INPUT_SYSTEM_EXISTS
-    InputActions m_InputActions;
+    GameInput m_InputActions;
 
     protected override void OnStartRunning() => m_InputActions.Enable();
 
     protected override void OnStopRunning() => m_InputActions.Disable();
 
-    void InputActions.ICharacterControllerActions.OnMove(InputAction.CallbackContext context) => m_CharacterMovement = context.ReadValue<Vector2>();
-    void InputActions.ICharacterControllerActions.OnLook(InputAction.CallbackContext context) => m_CharacterLooking = context.ReadValue<Vector2>();
-    void InputActions.ICharacterControllerActions.OnFire(InputAction.CallbackContext context) => m_CharacterFiring = context.ReadValue<float>();
-    void InputActions.ICharacterControllerActions.OnJump(InputAction.CallbackContext context) { if (context.started) m_CharacterJumped = true; }
+    void GameInput.ICharacterControllerActions.OnMove(InputAction.CallbackContext context) => m_CharacterMovement = context.ReadValue<Vector2>();
+    void GameInput.ICharacterControllerActions.OnLook(InputAction.CallbackContext context) => m_CharacterLooking = context.ReadValue<Vector2>();
+    void GameInput.ICharacterControllerActions.OnFire(InputAction.CallbackContext context) => m_CharacterFiring = context.ReadValue<float>();
+    void GameInput.ICharacterControllerActions.OnJump(InputAction.CallbackContext context) { if (context.started) m_CharacterJumped = true; }
 
-    void InputActions.IVehicleActions.OnLook(InputAction.CallbackContext context) => m_VehicleLooking = context.ReadValue<Vector2>();
-    void InputActions.IVehicleActions.OnSteering(InputAction.CallbackContext context) => m_VehicleSteering = context.ReadValue<Vector2>();
-    void InputActions.IVehicleActions.OnThrottle(InputAction.CallbackContext context) => m_VehicleThrottle = context.ReadValue<float>();
-    void InputActions.IVehicleActions.OnPrevious(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = -1; }
-    void InputActions.IVehicleActions.OnNext(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = 1; }
+    void GameInput.IVehicleActions.OnLook(InputAction.CallbackContext context) => m_VehicleLooking = context.ReadValue<Vector2>();
+    void GameInput.IVehicleActions.OnSteering(InputAction.CallbackContext context) => m_VehicleSteering = context.ReadValue<Vector2>();
+    void GameInput.IVehicleActions.OnThrottle(InputAction.CallbackContext context) => m_VehicleThrottle = context.ReadValue<float>();
+    void GameInput.IVehicleActions.OnPrevious(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = -1; }
+    void GameInput.IVehicleActions.OnNext(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = 1; }
 #endif
 
     protected override void OnUpdate()

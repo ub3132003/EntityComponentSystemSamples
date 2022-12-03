@@ -2,11 +2,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 namespace RectTransformExtensions
 {
-
-
     public static class RectTransformExtension
     {
         private static readonly Vector3[] s_Corners = new Vector3[4];
+        /// <summary>
+        /// ui 显示在world坐标上,overlay 模式
+        /// </summary>
+        public static Vector2 ConverToWorldPoint(this Transform self, RectTransform parent,  Vector2 offset)
+        {
+            var screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, self.position);
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, screenPoint, null, out var vector2))
+            {
+                return vector2 + offset;
+            }
+            return new Vector2();
+        }
 
         public static bool Contains(this RectTransform self, PointerEventData eventData)
         {
@@ -26,13 +36,13 @@ namespace RectTransformExtensions
             var selfBounds = GetBounds(self);
             var targetBounds = GetBounds(target);
             return selfBounds.Contains(new Vector3(targetBounds.min.x, targetBounds.min.y, 0f)) &&
-                   selfBounds.Contains(new Vector3(targetBounds.max.x, targetBounds.max.y, 0f)) &&
-                   selfBounds.Contains(new Vector3(targetBounds.min.x, targetBounds.max.y, 0f)) &&
-                   selfBounds.Contains(new Vector3(targetBounds.max.x, targetBounds.min.y, 0f));
+                selfBounds.Contains(new Vector3(targetBounds.max.x, targetBounds.max.y, 0f)) &&
+                selfBounds.Contains(new Vector3(targetBounds.min.x, targetBounds.max.y, 0f)) &&
+                selfBounds.Contains(new Vector3(targetBounds.max.x, targetBounds.min.y, 0f));
         }
 
         /// <summary>
-        /// Bounds��ȡ��
+        /// Bounds
         /// </summary>
         private static Bounds GetBounds(this RectTransform self)
         {

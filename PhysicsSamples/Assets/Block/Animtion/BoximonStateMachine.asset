@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4350630508909138444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf49d2668cb4e4e8a67a3039a2ecc63, type: 3}
+  m_Name: Walk
+  m_EditorClassIdentifier: 
+--- !u!114 &-3928777618858680728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a657166d644c459a151994885f8ecd, type: 3}
+  m_Name: walk
+  m_EditorClassIdentifier: 
+  Loop: 1
+  Speed: 1
+  OutTransitions: []
+  StateEditorData:
+    GraphPosition: {x: 1008.8, y: -105}
+    Guid: a266cc363aa23ea4c88a4a2c62f6658a
+  Clip: {fileID: 11400000, guid: a6b86e86b986f954a9d6f1406406ac85, type: 2}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22b96b7574545b7b931aa33424917be, type: 3}
+  m_Name: BoximonStateMachine
+  m_EditorClassIdentifier: 
+  DefaultState: {fileID: -3928777618858680728}
+  States:
+  - {fileID: -3928777618858680728}
+  Parameters:
+  - {fileID: -4350630508909138444}

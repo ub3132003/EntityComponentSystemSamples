@@ -15,10 +15,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public partial class @InputActions : IInputActionCollection2, IDisposable
+public partial class @GameInput : IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @InputActions()
+    public @GameInput()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""InputActions"",
@@ -935,8 +935,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterController_Jump;
     public struct CharacterControllerActions
     {
-        private @InputActions m_Wrapper;
-        public CharacterControllerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        private @GameInput m_Wrapper;
+        public CharacterControllerActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_CharacterController_Move;
         public InputAction @Look => m_Wrapper.m_CharacterController_Look;
         public InputAction @Fire => m_Wrapper.m_CharacterController_Fire;
@@ -996,8 +996,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     public struct UIActions
     {
-        private @InputActions m_Wrapper;
-        public UIActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        private @GameInput m_Wrapper;
+        public UIActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
@@ -1082,8 +1082,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Vehicle_Look;
     public struct VehicleActions
     {
-        private @InputActions m_Wrapper;
-        public VehicleActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        private @GameInput m_Wrapper;
+        public VehicleActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Steering => m_Wrapper.m_Vehicle_Steering;
         public InputAction @Throttle => m_Wrapper.m_Vehicle_Throttle;
         public InputAction @Previous => m_Wrapper.m_Vehicle_Previous;

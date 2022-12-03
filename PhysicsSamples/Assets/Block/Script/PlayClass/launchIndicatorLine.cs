@@ -20,4 +20,10 @@ public class LaunchIndicatorLine : MonoBehaviour
         SetPosition(0, transform.position);
         SetPosition(1, endPosition);
     }
+
+    public void SetLineIndection(Vector3 start, Vector3 end)
+    {
+        SetPosition(0, start);
+        SetPosition(1, end);
+    }
 }
