@@ -227,6 +227,7 @@ class MoveTweenerFactorty : TweenerFactorty<TweenPositionComponent>
 class HdrColorTweenerFactorty : TweenerFactorty<TweenHDRColorComponent>
 {
 }
+
 #region 动画组件对象
 public enum LoopMode
 {
@@ -282,6 +283,7 @@ public partial class TweenSystem : SystemBase
         //hdr 颜色
         Entities
             .WithName("TweenHdrColor")
+            .WithAll<TweenHDRColorComponent>()
             .WithAny<URPMaterialPropertyEmissionColor, EmissionVector4Override>()
             .WithoutBurst()
             .ForEach((Entity e , ref TweenHDRColorComponent tweenHdr) =>

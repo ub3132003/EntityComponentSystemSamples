@@ -83,6 +83,7 @@ public partial class TopDownCharacterRotationSystem : SystemBase
             in Translation translation) =>
             {
                 var dir = hitPos - translation.Value;
+                dir.y = 0;
                 characterRotation.Value = quaternion.LookRotation(dir, math.up());
 
 

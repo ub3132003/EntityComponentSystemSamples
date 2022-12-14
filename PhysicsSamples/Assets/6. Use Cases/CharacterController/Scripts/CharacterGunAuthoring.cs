@@ -91,10 +91,10 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
     protected override void OnUpdate()
     {
         //操作ui时不发射
-        if (EventSystem.current == null || EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
+        //if (EventSystem.current == null || EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    return;
+        //}
 
         var commandBuffer = m_EntityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
         var input = GetSingleton<CharacterGunInput>();
