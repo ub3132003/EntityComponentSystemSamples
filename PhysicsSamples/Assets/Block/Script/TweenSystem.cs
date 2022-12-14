@@ -8,6 +8,8 @@ using Unity.Transforms;
 
 using DG.Tweening.Core.Easing;
 using DG.Tweening;
+using System;
+
 public interface ITweenComponent
 {
     //public enum Type
@@ -171,6 +173,23 @@ public interface ITweenComponent
         return tweener;
     }
 
+    public static TweenData CreateTween(Entity tweenTarget, float4 to, float lifetime)
+    {
+        var tweener = new TweenData
+        {
+            To = to,
+            Duration = lifetime,
+            PassTime = 0,
+            ease = DOTween.defaultEaseType,
+            isReset = false,
+            Start = new float4(),
+            isRelative = false,
+            AutoKill = DOTween.defaultAutoKill,
+        };
+
+        return tweener;
+    }
+
     public static T CreateTween<T>(Entity tweenTarget, float3 to, float lifetime) where T :  struct , ITweenComponent
     {
         var tweener = new T
@@ -240,46 +259,74 @@ public enum LoopMode
 #endregion
 public partial class TweenSystem : SystemBase
 {
-    static float4 TweenHdrColor(float4 hdrColor , float datleTime, ref TweenHDRColorComponent tweenHdr)
+    static float4 TweenValueTo(ref TweenData value, float datleTime)
     {
-        if (tweenHdr.PassTime == 0)
+        float4 output = float4.zero;
+        value.PassTime += datleTime;
+        if (value.Duration > 0 && value.PassTime >= 0)// 校验条件不应该放在这里 TOdo
         {
-            tweenHdr.Start = hdrColor;
-        }
-        if (tweenHdr.Lifetime > 0)
-        {
-            tweenHdr.PassTime += datleTime;
-
-            var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
-                                                                                                           //默认从当前值开始
-            var from = tweenHdr.From.IsZero() ?
-                tweenHdr.Start : tweenHdr.From;
-
-            hdrColor = math.lerp(from, tweenHdr.To, v);
-
-            if (tweenHdr.PassTime >= tweenHdr.Lifetime)
+            var v = EaseManager.Evaluate(value.ease, null, value.PassTime, value.Duration, 0, 0);
+            var from = value.From.Equals(float4.zero) ? value.Start : value.From;
+            var to = value.isRelative ? value.Start + value.To : value.To;
+            output = math.lerp(from, to, v);
+            if (value.PassTime >= value.Duration)
             {
-                if (tweenHdr.isLoop)
+                if (value.isLoop)
                 {
-                    tweenHdr.PassTime = 0;
-                }
-                else
-                {
-                    tweenHdr.Lifetime = 0;
-                    if (tweenHdr.isReset)
+                    value.PassTime = 0;
+                    if (value.loopMode == LoopMode.Yoyo)
                     {
-                        hdrColor = tweenHdr.Start;
+                        value.To = value.Start;
                     }
                 }
             }
         }
-        return hdrColor;
+
+        return output;
     }
+
+    //static float4 TweenHdrColor(float4 hdrColor , float datleTime, ref TweenComponent<float4> tweenHdr)
+    //{
+    //    if (tweenHdr.PassTime == 0)
+    //    {
+    //        tweenHdr.Start = hdrColor;
+    //    }
+    //    if (tweenHdr.Lifetime > 0)
+    //    {
+    //        tweenHdr.PassTime += datleTime;
+
+    //        var v = EaseManager.Evaluate(tweenHdr.ease, null, tweenHdr.PassTime, tweenHdr.Lifetime, 0, 0); //类变量导致无法bust编译
+    //                                                                                                       //默认从当前值开始
+    //        var from = tweenHdr.From.IsZero() ?
+    //            tweenHdr.Start : tweenHdr.From;
+
+    //        hdrColor = math.lerp(from, tweenHdr.To, v);
+
+    //        if (tweenHdr.PassTime >= tweenHdr.Lifetime)
+    //        {
+    //            if (tweenHdr.isLoop)
+    //            {
+    //                tweenHdr.PassTime = 0;
+    //            }
+    //            else
+    //            {
+    //                tweenHdr.Lifetime = 0;
+    //                if (tweenHdr.isReset)
+    //                {
+    //                    hdrColor = tweenHdr.Start;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return hdrColor;
+    //}
 
     protected override void OnUpdate()
     {
         var datleTime = Time.DeltaTime;
         var em = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+
         //hdr 颜色
         Entities
             .WithName("TweenHdrColor")
@@ -298,7 +345,7 @@ public partial class TweenSystem : SystemBase
                     hdrColor = GetComponent<EmissionVector4Override>(e).Value;
                 }
 
-                hdrColor = TweenHdrColor(hdrColor , datleTime, ref tweenHdr);
+                hdrColor = TweenValueTo(ref tweenHdr.Value, datleTime);
 
                 if (HasComponent<URPMaterialPropertyEmissionColor>(e))
                 {
@@ -315,44 +362,53 @@ public partial class TweenSystem : SystemBase
             .WithoutBurst()
             .ForEach((ref Translation translation, ref TweenPositionComponent tweenPosition) =>
             {
-                tweenPosition.PassTime += datleTime;
-                if (tweenPosition.Lifetime > 0 && tweenPosition.PassTime >= 0)
+                if (tweenPosition.Value.IsComplete)
                 {
-                    var v = EaseManager.Evaluate(tweenPosition.ease, null, tweenPosition.PassTime, tweenPosition.Lifetime, 0, 0);
-                    var from = tweenPosition.From.IsZero() ? tweenPosition.Start.xyz : tweenPosition.From;
-                    var to = tweenPosition.isRelative ? tweenPosition.Start.xyz + tweenPosition.To : tweenPosition.To;
-                    translation.Value = math.lerp(from, to, v);
-                    if (tweenPosition.PassTime >= tweenPosition.Lifetime)
-                    {
-                        if (tweenPosition.isLoop)
-                        {
-                            tweenPosition.PassTime = 0;
-                            if (tweenPosition.loopMode == LoopMode.Yoyo)
-                            {
-                                tweenPosition.To = -tweenPosition.To;
-                            }
-                        }
-                        else
-                        {
-                            tweenPosition.Lifetime = 0;
-                        }
-                    }
+                    return;
                 }
+                var tweenData = tweenPosition.Value;
+                translation.Value = TweenValueTo(ref tweenData, datleTime).xyz;
+                tweenPosition.Value = tweenData;
+                //tweenPosition.PassTime += datleTime;
+                //if (tweenPosition.Lifetime > 0 && tweenPosition.PassTime >= 0)
+                //{
+                //    var v = EaseManager.Evaluate(tweenPosition.ease, null, tweenPosition.PassTime, tweenPosition.Lifetime, 0, 0);
+                //    var from = tweenPosition.From.IsZero() ? tweenPosition.Start.xyz : tweenPosition.From;
+                //    var to = tweenPosition.isRelative ? tweenPosition.Start.xyz + tweenPosition.To : tweenPosition.To;
+                //    translation.Value = math.lerp(from, to, v);
+                //    if (tweenPosition.PassTime >= tweenPosition.Lifetime)
+                //    {
+                //        if (tweenPosition.isLoop)
+                //        {
+                //            tweenPosition.PassTime = 0;
+                //            if (tweenPosition.loopMode == LoopMode.Yoyo)
+                //            {
+                //                tweenPosition.To = -tweenPosition.To;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            tweenPosition.Lifetime = 0;
+                //        }
+                //    }
+                //}
             }).Schedule();
+
+        //删除完成的动画
         using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
         {
             Entities
                 .WithoutBurst()
                 .ForEach((Entity entity, in TweenHDRColorComponent tween) =>
                 {
-                    RemoveTwenn(commandBuffer, entity, tween);
+                    RemoveTwenn<TweenHDRColorComponent>(commandBuffer, entity, tween.Value);
                 }).Run();
 
             Entities
                 .WithoutBurst()
                 .ForEach((Entity entity, in TweenPositionComponent tween) =>
                 {
-                    RemoveTwenn(commandBuffer, entity, tween);
+                    RemoveTwenn<TweenPositionComponent>(commandBuffer, entity, tween.Value);
                 }).Run();
             commandBuffer.Playback(EntityManager);
         }
@@ -366,7 +422,7 @@ public partial class TweenSystem : SystemBase
         //};
     }
 
-    static void RemoveTwenn<T>(EntityCommandBuffer commandBuffer, Entity entity, T tween) where T : ITweenComponent
+    static void RemoveTwenn<T>(EntityCommandBuffer commandBuffer, Entity entity, TweenData tween)
     {
         if (tween.AutoKill && tween.IsComplete)
         {

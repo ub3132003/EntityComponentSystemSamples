@@ -1,10 +1,12 @@
 using DG.Tweening;
+using System.Net.Sockets;
 using Unity.Entities;
 using Unity.Mathematics;
 
 
 public struct TweenPositionComponent : IComponentData, ITweenComponent
 {
+    public TweenData Value;
     /// <summary>
     /// 已经过去的时间
     /// </summary>
@@ -47,11 +49,11 @@ public struct TweenPositionComponent : IComponentData, ITweenComponent
 
 class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEntity
 {
-    public float  Lifetime;
+    public float  Lifetime = 1f;
     public Ease   ease;
     public bool   isReset;
     public bool   isRelative;
-    public bool   AutoKill;
+    public bool   AutoKill = true;
     public bool   isLoop;
     public LoopMode loopMode;
     public float3 From;
@@ -59,19 +61,23 @@ class TweenPositionAuthoring : UnityEngine.MonoBehaviour, IConvertGameObjectToEn
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new TweenPositionComponent
+        var data = new TweenData
         {
-            Start = new float4(transform.position.x, transform.position.y, transform.position.z, 0),
+            Start = new float4(transform.position, 0),
 
-            Lifetime = Lifetime,
+            Duration = Lifetime,
             ease = ease,
             isReset = isReset,
             isRelative = isRelative,
             AutoKill = AutoKill,
             isLoop = isLoop,
             loopMode = loopMode,
-            From = From,
-            To = To,
+            From = new float4(From, 0f),
+            To = new float4(To, 0f),
+        };
+        dstManager.AddComponentData(entity, new TweenPositionComponent
+        {
+            Value = data
         });
     }
 }

@@ -8,14 +8,14 @@ namespace Tween
         public static void DOMove(this Translation target, Entity entity, EntityCommandBuffer ecb, float3 endValue, float duration, bool isRelative = false)
         {
             //var tween = ITweenComponent.CreateMoveTween(entity, endValue, duration);
-            var tween = ITweenComponent.CreateTween<TweenPositionComponent>(entity, endValue, duration);
+            var tween = new TweenData(entity, new float4(endValue, 0f), duration);
 
             tween.Start = new float4(target.Value, 0);
 
             tween.isRelative = isRelative;
 
 
-            ecb.AddComponent(entity, tween);
+            ecb.AddComponent(entity, new TweenPositionComponent { Value = tween});
         }
     }
 }

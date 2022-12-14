@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 public struct TweenHDRColorComponent : IComponentData, ITweenComponent
 {
+    public TweenData Value;
     /// <summary>
     /// 已经过去的时间
     /// </summary>
