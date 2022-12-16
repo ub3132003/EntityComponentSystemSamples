@@ -5,17 +5,12 @@ namespace Tween
 {
     public static class TweenExtensions
     {
-        public static void DOMove(this Translation target, Entity entity, EntityCommandBuffer ecb, float3 endValue, float duration, bool isRelative = false)
+        //无法burst
+
+        public static TweenData DOMove(this Translation target, Entity entity, float3 endValue, float duration)
         {
-            //var tween = ITweenComponent.CreateMoveTween(entity, endValue, duration);
-            var tween = new TweenData(entity, new float4(endValue, 0f), duration);
-
-            tween.Start = new float4(target.Value, 0);
-
-            tween.isRelative = isRelative;
-
-
-            ecb.AddComponent(entity, new TweenPositionComponent { Value = tween});
+            var tween = new TweenData(TypeOfTween.Position, entity, new float4(endValue, 0), duration);
+            return tween;
         }
     }
 }

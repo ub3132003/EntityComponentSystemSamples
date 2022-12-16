@@ -259,10 +259,11 @@ public partial class TriggerKillBulletSystem : SystemBase
                             pos.Value.x = math.floor(pos.Value.x);
                             pos.Value.z = math.floor((pos.Value.z + 1));
                             fallPosition.Add(pos.Value);
-                            //EntityManager.DestroyEntity(deadBricks[i]);
                             //向前移動
-                            //ITweenComponent.CreateMoveTween(e, pos.Value, 2f, DG.Tweening.Ease.InCubic, isRelative: true);
-                            translation.DOMove(e, ecb, pos.Value, 2f);
+                            //translation.DOMove(e, ecb, pos.Value, 2f);
+                            var tween = new TweenData(TypeOfTween.Position, e, new float4(math.forward(), 0), 2f)
+                                .SetIsRelative(true);
+                            TweenCreateSystem.AddTweenComponent<TweenPositionComponent>(ecb , tween);
                             Debug.Log($"死方块 {pos.Value}");
                         }
                     }
@@ -278,13 +279,21 @@ public partial class TriggerKillBulletSystem : SystemBase
             Entities
                 .WithoutBurst()
                 .WithStructuralChanges()
-                .ForEach((Entity e, in Translation translation, in BrickFloorComponent floor) =>
+                .WithAll<BrickFloorComponent>()
+                .ForEach((Entity e, in Translation translation) =>
                 {
                     for (int i = 0; i < fallPosition.Length; i++)
                     {
                         if ((translation.Value.xz == fallPosition[i].xz).IsTure())
                         {
-                            ITweenComponent.CreateMoveTween(e, new float3(0, -10, 0), fallTime, DG.Tweening.Ease.InCubic, isRelative: true).SetDelay(e, random.NextFloat() * 5);
+                            //TweenCreateSystem.CreateTween<TweenPositionComponent>(e, new float4(0, -10, 0, 0), fallTime);
+                            var tween = new TweenData(TypeOfTween.Position, e, new float4(0, -10, 0, 0), fallTime)
+                                .SetIsRelative(true)
+                                .SetDelay(random.NextFloat() * 5)
+                                .SetEase(DG.Tweening.Ease.InCubic);
+                            TweenCreateSystem.AddTweenComponent<TweenPositionComponent>(ecb, tween);
+                            //ITweenComponent.CreateMoveTween(e, new float3(0, -10, 0), fallTime, DG.Tweening.Ease.InCubic, isRelative: true).SetDelay(random.NextFloat() * 5);
+
                             EntityManager.RemoveComponent<BrickFloorComponent>(e);
                             EntityManager.AddComponentData(e, new LifeTime { Value = 300 });
                         }

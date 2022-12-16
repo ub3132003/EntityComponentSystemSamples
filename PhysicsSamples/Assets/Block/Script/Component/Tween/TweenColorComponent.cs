@@ -3,8 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[GenerateAuthoringComponent]
-public struct TweenColorComponent : IComponentData
+public struct TweenColorComponent : IComponentData, ITweenComponent
 {
-    public TweenData Vaule;
+    public TweenData Value { get; set; }
 }

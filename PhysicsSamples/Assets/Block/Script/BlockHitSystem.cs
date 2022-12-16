@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Physics.Stateful;
 using Unity.Physics.Extensions;
-
+using System;
 
 [UpdateAfter(typeof(HealthSystem))]
 public partial class BlockHitSystem : SystemBase
@@ -85,14 +85,20 @@ public partial class BlockHitSystem : SystemBase
         }.Schedule(m_StepPhysicsWorldSystem.Simulation, Dependency);
         Dependency.Complete();
 
-
+        EntityCommandBufferSystem sys =
+            this.World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+        EntityCommandBuffer ecb = sys.CreateCommandBuffer();
         //加入 变色动画
         var length = tweenTarget.Length;
         for (int i = 0; i < length; i++)
         {
             //从全白渐变到无hdr
             //问题，从原色改变时，短时间多次改变会累加值无法记录原始值，  对于原本已经有hdr颜色，无法做到闪白恢复效果。
-            ITweenComponent.CreateTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
+            var tween = new TweenData(TypeOfTween.HdrColor, tweenTarget[i], Color.white.ToFloat4(), 0.1f)
+                .SetEase(DG.Tweening.Ease.Linear)
+                .FromValue(Color.black.ToFloat4());
+            TweenCreateSystem.AddTweenComponent<TweenHDRColorComponent>(ecb, tween);
+            //ITweenComponent.CreateHdrColorTween(tweenTarget[i],  new float4(1, 1, 1, 1), float4.zero, 0.1f, DG.Tweening.Ease.Linear);
         }
 
         //命中效果

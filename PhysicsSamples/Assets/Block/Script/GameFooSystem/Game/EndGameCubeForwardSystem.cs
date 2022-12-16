@@ -12,12 +12,15 @@ public partial class EndGameCubeForwardSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        EntityCommandBufferSystem sys = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+        EntityCommandBufferSystem sys = this.World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
         EntityCommandBuffer ecb = sys.CreateCommandBuffer();
+
         if (GameEventsContext.Instance.TriggleWaveStart)
         {
             Entities.ForEach((Entity entity, in BrickOutBoundsArea brickEndGame, in Translation translation) => {
-                translation.DOMove(entity, ecb, math.forward(), 1f, isRelative: true);
+                var tween = new TweenData(TypeOfTween.Position, entity, new float4(math.forward(), 0), 1f)
+                    .SetIsRelative(true);
+                TweenCreateSystem.AddTweenComponent<TweenPositionComponent>(ecb, tween);
             }).Schedule();
             GameEventsContext.Instance.TriggleWaveStart = false;
         }

@@ -98,8 +98,11 @@ public partial class HealthEventSystem : SystemBase
                         var intensity = 4f;
                         var hdrColor = GetComponent<EmissionVector4Override>(e);
                         float factor = Mathf.Pow(2, intensity);
-
-                        ITweenComponent.CreateTween(e, hdrColor.Value, hdrColor.Value * factor, 1, DG.Tweening.Ease.OutSine);
+                        var tween = new TweenData(TypeOfTween.HdrColor, e, hdrColor.Value * factor, 1)
+                            .FromValue(hdrColor.Value)
+                            .SetEase(DG.Tweening.Ease.OutSine);
+                        TweenCreateSystem.AddTweenComponent<TweenHDRColorComponent>(commandBuffer, tween);
+                        //ITweenComponent.CreateHdrColorTween(e, hdrColor.Value, hdrColor.Value * factor, 1, DG.Tweening.Ease.OutSine);
                     }
                 }
             }).Run();

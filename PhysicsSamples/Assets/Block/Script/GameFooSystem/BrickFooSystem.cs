@@ -28,6 +28,8 @@ partial class BrickMoveSytem : SystemBase
     protected override void OnUpdate()
     {
         ref PhysicsWorld world = ref World.DefaultGameObjectInjectionWorld.GetExistingSystem<BuildPhysicsWorld>().PhysicsWorld;
+        EntityCommandBufferSystem sys = this.World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+        EntityCommandBuffer ecb = sys.CreateCommandBuffer();
 
         NativeList<Entity> fallDownEntites = new NativeList<Entity>(100, Allocator.TempJob);
         NativeList<RaycastHit> raycastHits = new NativeList<RaycastHit>(100, Allocator.TempJob);
@@ -45,7 +47,11 @@ partial class BrickMoveSytem : SystemBase
         {
             //var hitPosition = raycastHits[i].Position
             var moveLen = raycastHits[i].Fraction * 5f;
-            ITweenComponent.CreateMoveTween(fallDownEntites[i], new float3(0, -moveLen, 0), 0.5f, DG.Tweening.Ease.InCubic, isRelative: true, autoKill: true);
+            var tween = new TweenData(TypeOfTween.Position, fallDownEntites[i], new float4(0, -moveLen, 0, 0), .5f)
+                .SetEase(DG.Tweening.Ease.InCubic)
+                .SetIsRelative(true);
+            TweenCreateSystem.AddTweenComponent<TweenPositionComponent>(ecb, tween);
+            //ITweenComponent.CreateMoveTween(fallDownEntites[i], new float3(0, -moveLen, 0), 0.5f, DG.Tweening.Ease.InCubic, isRelative: true, autoKill: true);
             //EntityManager.RemoveComponent<FallDownComponent>(fallDownEntites[i]); 需要一直检测.
         }
         fallDownEntites.Dispose();
