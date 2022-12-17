@@ -14653,7 +14653,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 870e0f5e8552fdd4faf001c15de169b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectSO: {fileID: 0}
+  rank: 0
   Damage: 1
+  Type: 0
+  SpeedRange:
+    x: 0
+    y: 0
+  LockAixs:
+    x: 0
+    y: 0
+    z: 0
 --- !u!1 &5505157973448375820
 GameObject:
   m_ObjectHideFlags: 0

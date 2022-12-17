@@ -9,6 +9,7 @@ using Unity.Transforms;
 using DG.Tweening.Core.Easing;
 using DG.Tweening;
 using System;
+using UnityEngine;
 
 public interface ITweenComponent
 {
@@ -70,44 +71,6 @@ public interface ITweenComponent
 
 
     //public void SetDelay(Entity tweenTarget, float delay);
-}
-class TweenerFactorty<T> where T : struct, IComponentData
-{
-    protected T tween;
-    protected Entity tweenTarget;
-
-    public TweenerFactorty()
-    {
-    }
-
-    public TweenerFactorty(Entity tweenTarget, EntityCommandBuffer tweenEcb)
-    {
-        this.tweenTarget = tweenTarget;
-        TweenEcb = tweenEcb;
-    }
-
-    public EntityCommandBuffer TweenEcb { get; set; }
-
-    public void To(TweenPositionComponent tweenPosition)
-    {
-        TweenEcb.AddComponent(tweenTarget, tweenPosition);
-    }
-
-    public void CreateTween<T1, T2>()
-    {
-        //DOTween.Do
-
-        TweenEcb.AddComponent(tweenTarget , tween);
-    }
-}
-class MoveTweenerFactorty : TweenerFactorty<TweenPositionComponent>
-{
-    public MoveTweenerFactorty(Entity tweenTarget, EntityCommandBuffer tweenEcb) : base(tweenTarget, tweenEcb)
-    {
-    }
-}
-class HdrColorTweenerFactorty : TweenerFactorty<TweenHDRColorComponent>
-{
 }
 
 #region 动画组件对象
@@ -293,9 +256,12 @@ public partial class TweenRemoveSystem : SystemBase
 [UpdateBefore(typeof(TweenCreateSystem))]
 public partial class TweenSystem : SystemBase
 {
-    static float4 TweenValueTo(ref TweenData value, float datleTime)
+    static float4 TweenValueTo(ref TweenData value, float4 start, float datleTime)
     {
         float4 output = float4.zero;
+        //设置初始值
+        if (value.PassTime == -1) { value.Start = start; value.PassTime = 0; }
+
         value.PassTime += datleTime;
         if (value.Duration > 0 && value.PassTime >= 0)// 校验条件不应该放在这里 TOdo
         {
@@ -310,7 +276,9 @@ public partial class TweenSystem : SystemBase
                     value.PassTime = 0;
                     if (value.loopMode == LoopMode.Yoyo)
                     {
+                        var t = value.To;
                         value.To = value.Start;
+                        value.Start = t;
                     }
                 }
             }
@@ -342,7 +310,7 @@ public partial class TweenSystem : SystemBase
                     hdrColor = GetComponent<EmissionVector4Override>(e).Value;
                 }
                 var value = tweenHdr.Value;
-                hdrColor = TweenValueTo(ref value, datleTime);
+                hdrColor = TweenValueTo(ref value, hdrColor, datleTime);
                 tweenHdr.Value = value;
 
                 if (HasComponent<URPMaterialPropertyEmissionColor>(e))
@@ -353,7 +321,7 @@ public partial class TweenSystem : SystemBase
                 {
                     SetComponent(e, new EmissionVector4Override { Value = hdrColor });
                 }
-            }).Schedule();
+            }).Run();
 
         //位置
         Entities
@@ -364,31 +332,8 @@ public partial class TweenSystem : SystemBase
                 return;
             }
             var tweenData = tweenPosition.Value;
-            translation.Value = TweenValueTo(ref tweenData, datleTime).xyz;
+            translation.Value = TweenValueTo(ref tweenData, new float4(translation.Value, 0), datleTime).xyz;
             tweenPosition.Value = tweenData;
-            //tweenPosition.PassTime += datleTime;
-            //if (tweenPosition.Lifetime > 0 && tweenPosition.PassTime >= 0)
-            //{
-            //    var v = EaseManager.Evaluate(tweenPosition.ease, null, tweenPosition.PassTime, tweenPosition.Lifetime, 0, 0);
-            //    var from = tweenPosition.From.IsZero() ? tweenPosition.Start.xyz : tweenPosition.From;
-            //    var to = tweenPosition.isRelative ? tweenPosition.Start.xyz + tweenPosition.To : tweenPosition.To;
-            //    translation.Value = math.lerp(from, to, v);
-            //    if (tweenPosition.PassTime >= tweenPosition.Lifetime)
-            //    {
-            //        if (tweenPosition.isLoop)
-            //        {
-            //            tweenPosition.PassTime = 0;
-            //            if (tweenPosition.loopMode == LoopMode.Yoyo)
-            //            {
-            //                tweenPosition.To = -tweenPosition.To;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            tweenPosition.Lifetime = 0;
-            //        }
-            //    }
-            //}
         }).Schedule();
     }
 

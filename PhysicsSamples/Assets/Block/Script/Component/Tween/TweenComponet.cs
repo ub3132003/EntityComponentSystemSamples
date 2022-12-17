@@ -20,7 +20,7 @@ public struct TweenData
         TweenEntity = target;
         To = to;
         Duration = lifetime;
-        PassTime = 0;
+        PassTime = -1;
         ease = Ease.OutQuad;
         isReset = false;
         Start = new float4();
@@ -39,7 +39,7 @@ public struct TweenData
         TweenEntity = target;
         To = to;
         Duration = lifetime;
-        PassTime = 0;
+        PassTime = -1;
         ease = Ease.OutQuad;
         isReset = false;
         Start = new float4();
@@ -61,22 +61,22 @@ public struct TweenData
     /// </summary>
     public TypeOfTween TypeOfTween { get; }
     /// <summary>
-    /// 已经过去的时间
+    /// 已经过去的时间 创建时为-1 以此设定start 的初值
     /// </summary>
-    public float PassTime { get; set; }
-    public Entity TweenEntity { get; set; }
+    public float PassTime;
+    public Entity TweenEntity;
 
-    public float4 Start { get; set; }
-    public float4 End { get; set; }
-    public float Duration { get; set; }
-    public Ease ease { get; set; }
-    public bool isReset { get; set; }//完成时重置到for
-    public bool isRelative { get; set; }
-    public bool AutoKill { get; set; }
-    public bool isLoop { get; set; }
-    public LoopMode loopMode { get; set; }
-    public float4 From { get; set; }
-    public float4 To { get; set; }
+    public float4 Start;
+    public float4 End;
+    public float Duration;
+    public Ease ease;
+    public bool isReset;//完成时重置到for
+    public bool isRelative;
+    public bool AutoKill;
+    public bool isLoop;
+    public LoopMode loopMode;
+    public float4 From;
+    public float4 To;
 
     public bool IsComplete => PassTime > Duration;
 

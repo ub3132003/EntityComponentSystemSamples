@@ -34,7 +34,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Module
-  m_Shader: {fileID: -6465566751694194690, guid: 610fc71e5b2cd3d4c91ded4a75de46c5, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 610fc71e5b2cd3d4c91ded4a75de46c5,
+    type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
@@ -56,6 +57,10 @@ Material:
     m_TexEnvs:
     - Texture2D_506b01f1a7ed4a8588a3983dcdf33582:
         m_Texture: {fileID: 2800000, guid: 577a039b74c08be41a2ced71732afe93, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_687df71905e0430bb0807db9bbea26c6:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_976AB22B:
@@ -160,6 +165,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_23dff08a16564cd89e11dc7f9dca7b21: 1
     - Vector1_69C4A194: 0
     - Vector1_6d54b598e9994cd9bbb38d4082de3c8c: 0.2
     - Vector1_89EC888: 1
@@ -246,6 +252,8 @@ Material:
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _QueueControl: 1
+    - _QueueOffset: 0
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
@@ -295,7 +303,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_30027a741ff34b7182684a04730ffa23: {r: 0.4528302, g: 0, b: 0.34737137, a: 1}
+    - Color_30027a741ff34b7182684a04730ffa23: {r: 0.4528302, g: 0, b: 0.34737137,
+        a: 1}
     - Color_E7672F38: {r: 1, g: 0.47457033, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}

@@ -21,7 +21,7 @@ public abstract class TweenAuthoring<T> : MonoBehaviour, IConvertGameObjectToEnt
         var data = new TweenData
         {
             Start = new float4(transform.position, 0),
-
+            PassTime = -1,
             Duration = Lifetime,
             ease = ease,
             isReset = isReset,
