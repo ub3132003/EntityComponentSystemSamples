@@ -5535,26 +5535,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828027486}
   m_CullTransparentMesh: 1
---- !u!1 &832879226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5196292651650828221, guid: 87326ec769fd18a41a36c0ce36552446,
-    type: 3}
-  m_PrefabInstance: {fileID: 5196292650855726535}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &832879230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832879226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d651c52a6d6914c81b1d43b355440e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _barUpdateEvent: {fileID: 11400000, guid: 1d9201b9f9d9437469b430383349a676, type: 2}
-  OneMinus: 1
 --- !u!1001 &838597304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16252,6 +16232,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8090242259176145422, guid: 87326ec769fd18a41a36c0ce36552446,
+        type: 3}
+      propertyPath: OneMinus
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090242259176145422, guid: 87326ec769fd18a41a36c0ce36552446,
+        type: 3}
+      propertyPath: _barUpdateEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d9201b9f9d9437469b430383349a676,
+        type: 2}
     m_RemovedComponents:
     - {fileID: -8986301440051396342, guid: 87326ec769fd18a41a36c0ce36552446, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 87326ec769fd18a41a36c0ce36552446, type: 3}
