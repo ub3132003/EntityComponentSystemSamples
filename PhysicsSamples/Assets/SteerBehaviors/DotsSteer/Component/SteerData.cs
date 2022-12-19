@@ -11,5 +11,10 @@ namespace Steer
         /// CalculateForce
         /// </summary>
         public float3 Force;
+
+        /// <summary>
+        /// sum of pass-steer force
+        /// </summary>
+        public float3 passForce;
     }
 }

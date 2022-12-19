@@ -1,3 +1,4 @@
+using Codice.CM.Common;
 using System;
 using Unity.Collections;
 using Unity.Entities;
@@ -7,6 +8,7 @@ using UnityEngine;
 namespace Steer
 {
     [GenerateAuthoringComponent]
+
     public struct SteerForPoint : IComponentData, ISteering
     {
         /// <summary>
@@ -30,9 +32,9 @@ namespace Steer
         public float3 TargetPoint;
 
         public float Weight;
-        public float3 Force { get; set; }
- 
-        public float3 WeightForce { get; set; }
+
+        public float3 weightForce;
+        public float3 WeightForce { get { return weightForce; } set { weightForce = value; } }
 
         public float3 CalculateForce()
         {

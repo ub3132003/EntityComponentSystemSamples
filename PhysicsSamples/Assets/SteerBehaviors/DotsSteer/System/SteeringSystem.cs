@@ -5,6 +5,8 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Collections;
+using System.Diagnostics;
+
 namespace Steer
 {
     /// <summary>
@@ -20,7 +22,11 @@ namespace Steer
             // 创建一个组件过滤器
             m_Query = GetEntityQuery(new EntityQueryDesc
             {
-                All = new[] { ComponentType.ReadOnly<VehicleSharedData>() }
+                All = new[]
+                {
+                    ComponentType.ReadOnly<VehicleSharedData>(),
+                    ComponentType.ReadWrite<T>(),
+                }
             });
 
             RequireForUpdate(m_Query);
@@ -34,12 +40,19 @@ namespace Steer
             for (int boidVariantIndex = 0; boidVariantIndex < uniqueTypes.Count; boidVariantIndex++)
             {
                 var setting = uniqueTypes[boidVariantIndex];
-
+                m_Query.SetSharedComponentFilter(setting);
+                //计算 steer 行为的force
                 var steerForceJob = CalculateForce(setting);
-                var sumforceJob = new SumForceJob();
-                sumforceJob.steerTypeHandle = this.GetComponentTypeHandle<T>(false);
-                sumforceJob.forceTypeHandle = this.GetComponentTypeHandle<SteerData>(false);
-                sumforceJob.Schedule(m_Query, Dependency);
+                steerForceJob.Complete();
+
+                //累加force 到总体data中
+                var sumforceJob = new SumForceJob()
+                {
+                    steerTypeHandle = GetComponentTypeHandle<T>(false),
+                    forceTypeHandle = GetComponentTypeHandle<SteerData>(false),
+                };
+
+                Dependency = sumforceJob.ScheduleParallel(m_Query, Dependency);
             }
         }
 
@@ -49,7 +62,8 @@ namespace Steer
         /// <summary>
         ///         Adds one to every translation component
         /// </summary>
-        protected partial struct SumForceJob : IJobEntityBatch
+        [BurstCompile]
+        public struct SumForceJob : IJobEntityBatch
         {
             public ComponentTypeHandle<T> steerTypeHandle;
             public ComponentTypeHandle<SteerData> forceTypeHandle;

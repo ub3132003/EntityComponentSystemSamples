@@ -61,9 +61,9 @@ namespace Steer
                 var orientationVelocityArray = CollectionHelper.CreateNativeArray<float3, RewindableAllocator>(boidCount, ref world.UpdateAllocator);
 
                 var accelerationArray = CollectionHelper.CreateNativeArray<float3, RewindableAllocator>(boidCount, ref world.UpdateAllocator);
-
+                //写入目标方向
                 Entities
-                    .ForEach((int entityInQueryIndex, Entity entity, ref VehicleData vehicleData) =>
+                    .ForEach((int entityInQueryIndex, Entity entity, ref VehicleData vehicleData, ref SteerData steerData) =>
                 {
                     var CanMove = true;
                     float Mass = 1;
@@ -73,8 +73,8 @@ namespace Steer
                     }
                     //LastRawForce = force;
 
-                    var force = vehicleData.Force;
-
+                    var force = steerData.Force;
+                    steerData.Force = 0;
                     float3 newVelocity = MathExtension.ClampMagnitude(force / Mass, setting.MaxForce);
 
                     if (math.lengthsq(newVelocity) == 0)
@@ -87,7 +87,8 @@ namespace Steer
                         vehicleData.DesiredVelocity = newVelocity;
                     }
 
-                    var adjustedVelocity = vehicleData.passForce;
+                    var adjustedVelocity = steerData.passForce;
+                    steerData.passForce = 0;
 
                     if (!adjustedVelocity.Equals(float3.zero))
                     {
@@ -96,7 +97,8 @@ namespace Steer
                         newVelocity = adjustedVelocity;
                     }
                     vehicleData.NewVelocity = newVelocity;
-                }).Schedule(Dependency);
+                }).Schedule();
+                Dependency.Complete();
 
                 Entities
                     .WithName("ApplySteeringForce")
@@ -107,7 +109,7 @@ namespace Steer
                         acceleration = acceleration * setting.AllowedMovementAxes;
                         translation.Value += acceleration;
                         //TODO 刚体
-                    }).Schedule(Dependency);
+                    }).Schedule();
                 Entities
                     .WithName("AdjustOrientation")
                     .WithSharedComponentFilter(setting)
@@ -123,7 +125,7 @@ namespace Steer
                             }
                             rotation.Value = quaternion.LookRotationSafe(newForward, math.up());
                         }
-                    }).Schedule(Dependency);
+                    }).Schedule();
 
                 //Entities
                 //    .WithSharedComponentFilter(setting)

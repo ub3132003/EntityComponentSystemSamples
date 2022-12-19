@@ -56,14 +56,6 @@ public struct VehicleData : IComponentData
     /// </summary>
     public float3 NewVelocity;
 
-    /// <summary>
-    /// sum of steer force
-    /// </summary>
-    public float3 Force;
-    /// <summary>
-    /// sum of pass-steer force
-    /// </summary>
-    public float3 passForce;
 
     //moveData
     public float3 GetSeekVector(VehicleSharedData type, float3 target, float3 selfPosition, bool considerVelocity = false)

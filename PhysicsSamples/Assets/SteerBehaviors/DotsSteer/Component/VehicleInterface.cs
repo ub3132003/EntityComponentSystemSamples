@@ -16,6 +16,10 @@ namespace Steer
     /// to whatever is doing the moving, like a CharacterMotor.</remarks>
     public struct VehicleSharedData : ISharedComponentData
     {
+        public float _accelerationRate;//5
+
+        public float _decelerationRate;//8
+
         public float _minSpeedForTurning { get; set; }//= 0.1f;
 
         /// <summary>
@@ -65,9 +69,9 @@ namespace Steer
         public float _arrivalRadius { get; set; }// = 0.25f;
 
 
-        public float _maxSpeed { get; set; }//= 1;
+        private float _maxSpeed { get; set; }//= 1;
 
-        public float _maxForce { get; set; }//= 10;
+        private float _maxForce { get; set; }//= 10;
 
         #endregion
 
@@ -147,9 +151,6 @@ namespace Steer
             get { return _turnTime; }
             set { _turnTime = math.max(0, value); }
         }
-
-
-        public float MaxFroce() { return 0; }
     }
     public interface IVehicle
     {

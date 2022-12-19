@@ -32,8 +32,8 @@ namespace Steer
                         var newVelocity = vehicle.NewVelocity;
                         vehicle.TargetSpeed = math.length(newVelocity);
                         vehicle.OrientationVelocity = Approximately(speed, 0) ? localToWorld.Forward : newVelocity / vehicle.TargetSpeed;
-                    }).Schedule(Dependency);
-
+                    }).Schedule();
+                Dependency.Complete();
                 Entities
                     .WithName("CalculatePositionDelta")
                     .WithSharedComponentFilter(setting)
@@ -53,7 +53,7 @@ namespace Steer
                         }
                         else
                         {
-                            var rate = targetSpeed > _speed ? autonomousVehicle._accelerationRate : autonomousVehicle._decelerationRate;
+                            var rate = targetSpeed > _speed ? setting._accelerationRate : setting._decelerationRate;
                             _speed = math.lerp(_speed, targetSpeed, deltaTime * rate);
                         }
 
@@ -62,7 +62,7 @@ namespace Steer
                         //Cannot set the velocity directly on AutonomousVehicle
                         vehicle.Velocity = localToWorld.Forward * _speed;
                         vehicle.Acceleration = localToWorld.Forward * _speed * deltaTime;
-                    }).Schedule(Dependency);
+                    }).Schedule();
             }
         }
 

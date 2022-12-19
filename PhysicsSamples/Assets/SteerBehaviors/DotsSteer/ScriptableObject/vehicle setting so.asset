@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8599768060347432980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5c0180760c7a42903f51c99e9ed96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foldout: 0
+  IsActive: 0
+  Weight: 1
+  ConsiderVelocity: 0
+  _defaultToCurrentPosition: 0
+  TargetPoint:
+    x: 0
+    y: 0
+    z: 0
+--- !u!114 &-6780290976156363013
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5c0180760c7a42903f51c99e9ed96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foldout: 1
+  IsActive: 1
+  Weight: 1
+  ConsiderVelocity: 1
+  _defaultToCurrentPosition: 0
+  TargetPoint:
+    x: 0
+    y: 0
+    z: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64341004366339f4090ef365e714fdc6, type: 3}
+  m_Name: vehicle setting so
+  m_EditorClassIdentifier: 
+  behaviors:
+  - {fileID: -6780290976156363013}
+--- !u!114 &4853915497830602252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5c0180760c7a42903f51c99e9ed96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foldout: 1
+  IsActive: 0
+  Weight: 1
+  ConsiderVelocity: 0
+  _defaultToCurrentPosition: 0
+  TargetPoint:
+    x: 0
+    y: 0
+    z: 0
+--- !u!114 &9095880086103604077
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be5c0180760c7a42903f51c99e9ed96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foldout: 1
+  IsActive: 1
+  Weight: 1
+  ConsiderVelocity: 1
+  _defaultToCurrentPosition: 0
+  TargetPoint:
+    x: 0
+    y: 0
+    z: 0
