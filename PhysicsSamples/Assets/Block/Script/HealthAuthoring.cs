@@ -7,6 +7,7 @@ using System;
 using Unity.Physics;
 using Unity.Transforms;
 using Unity.Physics.Systems;
+using Unity.Rendering;
 
 public struct Health : IComponentData, IComparable<Health>
 {
@@ -136,13 +137,26 @@ partial class HealthSystem : SystemBase
                 }
             }
         }).Schedule();
-
-
+        ////TODO 改为从子弹上扣除伤害
+        //Entities
+        //    .ForEach((Entity e, in Damage damage, in DynamicBuffer<StatefulCollisionEvent> collisonEvents) =>
+        //    {
+        //    var length = collisonEvents.Length;
+        //        for (int i = 0; i < length; i++)
+        //        {
+        //            var collisonEvent = collisonEvents[i];
+        //            var damageEntity = collisonEvent.GetOtherEntity(e);
+        //            if (collisonEvent.State != StatefulEventState.Enter || !HasComponent<Health>(e))
+        //            {
+        //                continue;
+        //            }
+        //        }
+        //    }).Schedule();
         var physicsWorld = m_BuildPhysicsWorld.PhysicsWorld;
         //主动触发的伤害Aoe ,通过overlay
         Entities
             .WithAll<Abillity>()
-            .ForEach((Entity e, in ExplodeComponent explode, in Damage damage, in Translation t, in Rotation r) =>
+            .ForEach((Entity e, in ExplodeComponent explode, in Damage damage, in Translation t) =>
             {
                 var distanceHits = new NativeList<DistanceHit>(8, Allocator.Temp);
 
@@ -179,16 +193,11 @@ partial class HealthSystem : SystemBase
             }
         }).Schedule();
 
-
         Entities
             .ForEach((Entity e, in Health health) =>
         {
             //死亡
-            if (health.Value == 0)
-            {
-                ecb.DestroyEntity(e);
-            }
-            else if (health.Value < 0)
+            if (health.Value <= 0)
             {
                 ecb.DestroyEntity(e);
             }

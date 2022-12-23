@@ -21,7 +21,7 @@
         "Havok.Physics.Hybrid",
         "Unity.TextMeshPro",
         "Unity.Localization",
-        "DOTSCommon"
+        "CommonDOTS"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -6,10 +6,13 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using Unity.Physics.Stateful;
+using Unity.Rendering;
 
 partial class BrickMoveSytem : SystemBase
 {
     EntityQuery filldownTaget;
+
     protected override void OnCreate()
     {
         // Query that contains all of Execute params found in `QueryJob` - as well as additional user specified component `BoidTarget`.
@@ -108,7 +111,27 @@ partial class BrickMoveSytem : SystemBase
 [UpdateBefore(typeof(HealthEventSystem))]
 partial class SpecialBrickSystem : SystemBase
 {
-    //private NativeParallelMultiHashMap<int, Entity> ChainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8,Allocator.Persistent);
+    EntityQueryMask elementBoxMask;
+    EntityCommandBufferSystem sysEnd;
+    protected override void OnCreate()
+    {
+        base.OnCreate();
+
+        elementBoxMask = EntityManager.GetEntityQueryMask(
+            GetEntityQuery(new EntityQueryDesc
+            {
+                None = new ComponentType[]
+                {
+                    typeof(StatefulTriggerEvent)
+                },
+                All = new ComponentType[]
+                {
+                    typeof(Health), typeof(HealthElementData), typeof(BrickComponent)
+                }
+            })
+        );
+        sysEnd = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+    }
 
     //最后一行砖块z位置
     //int lastBrickZ = -9;
@@ -116,8 +139,8 @@ partial class SpecialBrickSystem : SystemBase
     protected override void OnUpdate()
     {
         EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+        EntityCommandBuffer ecbSysEnd = sysEnd.CreateCommandBuffer();
         //连锁方块1
         NativeParallelMultiHashMap<int, Entity> chainBrickMap = new NativeParallelMultiHashMap<int, Entity>(8, Allocator.TempJob);
         Entities
@@ -188,5 +211,135 @@ partial class SpecialBrickSystem : SystemBase
 
 
         frameIdx++;
+
+        //元素方块
+        var _elementBoxMask = this.elementBoxMask;
+        //命中时添加元素buff
+        Entities
+            .ForEach((Entity e, in Damage damage, in DynamicBuffer<StatefulCollisionEvent> collisionEvents) =>
+        {
+            var length = collisionEvents.Length;
+            for (int i = 0; i < length; i++)
+            {
+                var collisonEvent = collisionEvents[i];
+                var otherEntity = collisonEvent.GetOtherEntity(e);
+                if (collisonEvent.State != StatefulEventState.Enter || !_elementBoxMask.Matches(otherEntity))
+                {
+                    continue;
+                }
+                var health = GetComponent<Health>(otherEntity);
+                if (health.Value <= 0) continue;
+                var healthElement = GetBuffer<HealthElementData>(otherEntity);
+                if (damage.DamageElementType != ElementType.NONE && damage.DamageElementType != ElementType.EARTH)
+                {
+                    healthElement.Add(new HealthElementData { elementType = damage.DamageElementType });
+                }
+            }
+        }).Schedule();
+        //元素buff 反应 处理
+        NativeList<Entity> changeMatColorList = new NativeList<Entity>(Allocator.TempJob);
+        NativeList<int> colorList = new NativeList<int>(Allocator.TempJob);
+        Entities
+            .ForEach((Entity e, ref DynamicBuffer<HealthElementData> healthElementDatas , in DynamicBuffer<Child> childs) =>
+        {
+            var length = healthElementDatas.Length;
+            if (length < 2) return;
+            var firstElement = healthElementDatas[0];
+            var secondElement = healthElementDatas[1];
+            switch (firstElement.elementType)
+            {
+                case ElementType.NONE:
+                    break;
+                case ElementType.EARTH:
+
+                    firstElement.elementType = secondElement.elementType;
+                    changeMatColorList.Add(e);
+                    //changeMatColorList.Add(childs[0].Value);
+                    colorList.Add((int)firstElement.elementType);
+                    break;
+                case ElementType.WATER:
+                    break;
+                case ElementType.ICE:
+                    break;
+                case ElementType.ELECTRIC:
+                    break;
+                case ElementType.FIRE:
+                    break;
+            }
+            healthElementDatas[0] = firstElement;
+            healthElementDatas.RemoveAt(1);
+        }).Schedule();
+        Dependency.Complete();
+        //改颜色
+        var length = changeMatColorList.Length;
+        //for (int i = 0; i < length; i++)
+        //{
+        //    var e = changeMatColorList[i];
+        //    if (HasComponent<URPMaterialPropertyBaseColor>(e))
+        //    {
+        //        SetComponent(e, new URPMaterialPropertyBaseColor
+        //        {
+        //            Value = colorList[i]
+        //        });
+        //    }
+        //}
+        //改实体
+        ComponentDataFromEntity<Parent> parentFromEntity = GetComponentDataFromEntity<Parent>(true);
+        ComponentDataFromEntity<LocalToParent> localToParentFromEntity = GetComponentDataFromEntity<LocalToParent>(true);
+        BufferFromEntity<Child> linkedEntityBufferFromEntity = GetBufferFromEntity<Child>(false);
+        Job.WithCode(() =>
+        {
+            for (int i = 0; i < length; i++)
+            {
+                var e = changeMatColorList[i];
+                if (HasComponent<ViewChangeAble>(e))
+                {
+                    var viewData = GetComponent<ViewChangeAble>(e);
+                    var viewPrefab = viewData.ViewPrefabBlob.Value.PrefabArray[colorList[i]];
+                    var newEntity = ecb.Instantiate(e);
+                    var newView = ecb.Instantiate(viewPrefab);
+                    EntityHelp.SetParent(ecb, newEntity, newView, float3.zero, quaternion.identity);
+                    ecbSysEnd.DestroyEntity(e);
+                    //childs.Add(new Child { Value = newView });
+                }
+            }
+        }).Run();
+        Dependency.Complete();//? 为什么要等待这个任务?
+        ecb.Playback(this.EntityManager);
+        ecb.Dispose();
+        //sysEnd.AddJobHandleForProducer(Dependency);
+        changeMatColorList.Dispose();
+        colorList.Dispose();
+    }
+
+    public void DealElement(HealthElementData element1, HealthElementData element2)
+    {
+    }
+
+    public static float4 ChangeElementColor(ElementType elementType)
+    {
+        var outColor = float4.zero;
+        switch (elementType)
+        {
+            case ElementType.NONE:
+                break;
+            case ElementType.EARTH:
+                break;
+            case ElementType.WATER:
+                outColor = UnityEngine.Color.blue.ToFloat4();
+                break;
+            case ElementType.ICE:
+                outColor = UnityEngine.Color.cyan.ToFloat4();
+                break;
+            case ElementType.ELECTRIC:
+                outColor = new float4(148, 0, 211, 255) / 255f;
+                break;
+            case ElementType.FIRE:
+                outColor = UnityEngine.Color.red.ToFloat4();
+                break;
+            default:
+                break;
+        }
+        return outColor;
     }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,6 +11,8 @@ public struct Damage : IComponentData, IDamage
 {
     public int DamageValue { get; set; }
     public COST_TYPES Type { get; set; }
+
+    public ElementType DamageElementType;
     public Health DealHealth(Health health)
     {
         switch (Type)

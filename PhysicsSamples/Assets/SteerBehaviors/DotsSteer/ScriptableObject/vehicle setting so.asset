@@ -36,7 +36,7 @@ MonoBehaviour:
   foldout: 1
   IsActive: 1
   Weight: 1
-  ConsiderVelocity: 1
+  ConsiderVelocity: 0
   _defaultToCurrentPosition: 0
   TargetPoint:
     x: 0

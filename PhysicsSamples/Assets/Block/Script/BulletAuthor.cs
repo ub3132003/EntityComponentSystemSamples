@@ -23,6 +23,7 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
     [Min(0)]
     public int Damage;
     public COST_TYPES Type;
+    public ElementType DamageElementType;
     public float2 SpeedRange;
     public float3 LockAixs;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
@@ -33,11 +34,12 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
             SpeedRange = SpeedRange,
             LockAixs = LockAixs
         });
-
+        dstManager.AddBuffer<StatefulCollisionEvent>(entity);
         dstManager.AddComponentData(entity, new Damage
         {
             DamageValue = Damage,
             Type = Type,
+            DamageElementType = DamageElementType,
         });
     }
 }

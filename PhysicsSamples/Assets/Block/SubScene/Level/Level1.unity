@@ -7915,7 +7915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &621350637
 Transform:
   m_ObjectHideFlags: 0
@@ -8657,6 +8657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube_4x4x2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 437458098809613133, guid: e33102199a116d14da2a10f1e50d60bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 437458098809712096, guid: e33102199a116d14da2a10f1e50d60bf,
         type: 3}
@@ -14386,6 +14391,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 437458098807420301, guid: e33102199a116d14da2a10f1e50d60bf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d54f3851bb789544c81c4a5f15bdfa4e, type: 2}
     - target: {fileID: 437458098808551245, guid: e33102199a116d14da2a10f1e50d60bf,
         type: 3}
       propertyPath: m_Mesh
@@ -14475,6 +14485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 437458098809845613, guid: e33102199a116d14da2a10f1e50d60bf,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 437458098809845613, guid: e33102199a116d14da2a10f1e50d60bf,
         type: 3}
@@ -21109,6 +21124,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 437458098807420301, guid: e33102199a116d14da2a10f1e50d60bf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d54f3851bb789544c81c4a5f15bdfa4e, type: 2}
     - target: {fileID: 437458098808551245, guid: e33102199a116d14da2a10f1e50d60bf,
         type: 3}
       propertyPath: m_Mesh
@@ -21198,6 +21218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 437458098809845613, guid: e33102199a116d14da2a10f1e50d60bf,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 437458098809845613, guid: e33102199a116d14da2a10f1e50d60bf,
         type: 3}

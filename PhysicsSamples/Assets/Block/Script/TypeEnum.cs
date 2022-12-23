@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
-
+/// <summary>
+/// 伤害数值类型
+/// </summary>
 public enum COST_TYPES
 {
     FLAT,
@@ -30,4 +32,13 @@ public enum ACTION_TYPE
     CASTED,
     CHANNELED,
     CHARGED,
+}
+public enum ElementType
+{
+    NONE,
+    EARTH,
+    WATER,
+    ICE,
+    ELECTRIC,
+    FIRE
 }

@@ -260,6 +260,7 @@ MonoBehaviour:
   rank: 0
   Damage: 1
   Type: 0
+  DamageElementType: 0
   SpeedRange:
     x: 5
     y: 20

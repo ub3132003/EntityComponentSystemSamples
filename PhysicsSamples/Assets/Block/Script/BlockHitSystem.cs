@@ -87,7 +87,7 @@ public partial class BlockHitSystem : SystemBase
         //Dependency.Complete();
 
         EntityCommandBufferSystem sys =
-            this.World.GetExistingSystem<BeginSimulationEntityCommandBufferSystem>();
+            this.World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
         EntityCommandBuffer ecb = sys.CreateCommandBuffer();
 
         //不死亡的添加碰撞闪烁
