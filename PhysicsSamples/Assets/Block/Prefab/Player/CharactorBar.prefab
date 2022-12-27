@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8386364534349627560}
   - component: {fileID: 1321141207880979208}
   - component: {fileID: 8146874607841537590}
+  - component: {fileID: -4645811768059344654}
   m_Layer: 0
   m_Name: CharactorBar
   m_TagString: Untagged
@@ -261,6 +262,25 @@ MonoBehaviour:
   AffectsPhysicsBodies: 1
   RaiseCollisionEvents: 0
   RaiseTriggerEvents: 0
+--- !u!114 &-4645811768059344654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145806698497563342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75f20032d91e2b47844ae1a70abe921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 5505157973118836275, guid: 529b3a833ff0aaf4fab9ddf7802ce0c7, type: 3}
+  Strength: 10
+  Rate: 1
+  SensitivityYAxis: 0
+  Price: 1
+  Capacity: 10
+  MaxCapcity: 10
 --- !u!1 &8146874607346283266
 GameObject:
   m_ObjectHideFlags: 0

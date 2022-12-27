@@ -9,7 +9,6 @@ using Unity.Physics.Systems;
 
 public struct BulletComponent : IComponentData
 {
-    public int Damage;
     public float2 SpeedRange;
     public float3 LockAixs;
 }
@@ -30,7 +29,6 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
     {
         dstManager.AddComponentData(entity, new BulletComponent
         {
-            Damage = Damage,
             SpeedRange = SpeedRange,
             LockAixs = LockAixs
         });

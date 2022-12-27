@@ -255,7 +255,7 @@ partial class SpecialBrickSystem : SystemBase
                     firstElement.elementType = secondElement.elementType;
                     changeMatColorList.Add(e);
                     //changeMatColorList.Add(childs[0].Value);
-                    colorList.Add((int)firstElement.elementType);
+                    colorList.Add((int)firstElement.elementType - 1);
                     break;
                 case ElementType.WATER:
                     break;
@@ -295,12 +295,17 @@ partial class SpecialBrickSystem : SystemBase
                 if (HasComponent<ViewChangeAble>(e))
                 {
                     var viewData = GetComponent<ViewChangeAble>(e);
-                    var viewPrefab = viewData.ViewPrefabBlob.Value.PrefabArray[colorList[i]];
-                    var newEntity = ecb.Instantiate(e);
-                    var newView = ecb.Instantiate(viewPrefab);
-                    EntityHelp.SetParent(ecb, newEntity, newView, float3.zero, quaternion.identity);
-                    ecbSysEnd.DestroyEntity(e);
-                    //childs.Add(new Child { Value = newView });
+                    var childs = GetBuffer<Child>(e);
+
+                    //var viewPrefab = viewData.ViewPrefabBlob.Value.PrefabArray[colorList[i]];
+                    ////var newEntity = ecb.Instantiate(e);
+
+                    //var newView = ecb.Instantiate(viewPrefab);
+                    //EntityHelp.SetParent(ecb, e, newView, float3.zero, quaternion.identity);
+                    //ecb.AppendToBuffer(e, new Child { Value = newView });
+                    //ecb.DestroyEntity(childs[0].Value);
+
+                    ViewChangeAble.ReplaceChild0(ecb, viewData, colorList[i], e, childs);
                 }
             }
         }).Run();
@@ -310,10 +315,6 @@ partial class SpecialBrickSystem : SystemBase
         //sysEnd.AddJobHandleForProducer(Dependency);
         changeMatColorList.Dispose();
         colorList.Dispose();
-    }
-
-    public void DealElement(HealthElementData element1, HealthElementData element2)
-    {
     }
 
     public static float4 ChangeElementColor(ElementType elementType)

@@ -344,6 +344,7 @@ MonoBehaviour:
   rank: 0
   Damage: 3
   Type: 0
+  DamageElementType: 0
   SpeedRange:
     x: 1
     y: 5
@@ -363,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c940bdc4f196c8a458c380fab62fc375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 3000
+  Value: 30
 --- !u!114 &5300672406867743185
 MonoBehaviour:
   m_ObjectHideFlags: 0

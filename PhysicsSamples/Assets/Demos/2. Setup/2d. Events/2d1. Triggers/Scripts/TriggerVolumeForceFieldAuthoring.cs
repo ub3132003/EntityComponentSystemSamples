@@ -161,7 +161,7 @@ public partial class TriggerVolumeForceFieldSystem : SystemBase
                 }
             }).Schedule();
 
-        //变向加速器
+        //变向加速器, TODO 放到子弹上
         Entities
             .WithName("VelocityChangeJob")
             .WithBurst()
