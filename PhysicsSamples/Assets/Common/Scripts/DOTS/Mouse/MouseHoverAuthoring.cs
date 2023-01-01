@@ -289,7 +289,9 @@ namespace Unity.Physics.Extensions
                 hit = raycastHitRef.Value;
                 mouseHover.HitData = hit;
             }
-
+#if UNITY_EDITOR
+            Debug.DrawLine(rayInput.Start, rayInput.End, Color.green);
+#endif
             var graphicsEntity = FindGraphicsEntityFromPhysics(hit.Entity, hit.ColliderKey);
 
             // If still hovering over the same entity then do nothing.

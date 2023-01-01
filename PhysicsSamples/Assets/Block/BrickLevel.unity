@@ -661,7 +661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &104149457
 Transform:
   m_ObjectHideFlags: 0
@@ -1055,6 +1055,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8199644391369669834, guid: c0ce7b3c74021e840a5995cf136ee0fe,
+        type: 3}
+      propertyPath: IgnoreStatic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8199644391369669834, guid: c0ce7b3c74021e840a5995cf136ee0fe,
+        type: 3}
+      propertyPath: IgnoreTriggers
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8666090344260274590, guid: c0ce7b3c74021e840a5995cf136ee0fe,
         type: 3}
@@ -4219,6 +4229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BulletSnowBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505157973118836275, guid: 2dbc7dfd2833efa4b9a84f34c7388701,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505157973118836425, guid: 2dbc7dfd2833efa4b9a84f34c7388701,
         type: 3}

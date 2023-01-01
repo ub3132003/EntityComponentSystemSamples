@@ -59,20 +59,34 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(
-            entity,
+        var gun =
             new CharacterGun
-            {
-                ID = Bullet.GetInstanceID(),
-                Bullet = conversionSystem.GetPrimaryEntity(Bullet),
-                Strength = Strength,
-                Rate = Rate,
-                WasFiring = 0,
-                IsFiring = 0,
-                SensitivityYAxis = SensitivityYAxis,
-                Capacity = Capacity,
-                MaxCapcity = MaxCapcity,
-            });
+        {
+            ID = Bullet.GetInstanceID(),
+            Bullet = conversionSystem.GetPrimaryEntity(Bullet),
+            Strength = Strength,
+            Rate = Rate,
+            WasFiring = 0,
+            IsFiring = 0,
+            SensitivityYAxis = SensitivityYAxis,
+            Capacity = Capacity,
+            MaxCapcity = MaxCapcity,
+        };
+        dstManager.AddComponentData(entity, gun);
+        //if (!dstManager.HasComponent<BulletComponent>(gun.Bullet))
+        //{
+        //    var bullet = new BulletComponent
+        //    {
+        //        BulletPerfab = gun.Bullet.Index,
+        //    };
+        //    dstManager.AddComponentData(gun.Bullet, bullet);
+        //}
+        //else
+        //{
+        //    var bullet = dstManager.GetComponentData<BulletComponent>(gun.Bullet);
+        //    bullet.BulletPerfab = gun.Bullet.Index;
+        //    dstManager.SetComponentData(gun.Bullet, bullet);
+        //}
     }
 }
 
@@ -126,6 +140,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                     if (gun.Bullet != null)
                     {
                         var bullet = commandBuffer.Instantiate(entityInQueryIndex, gun.Bullet);
+
                         gun.Capacity--;
                         comsumeSunCoin += gun.Price;
                         Translation position = new Translation { Value = gunTransform.Position + gunTransform.Forward };
@@ -135,10 +150,12 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                             Linear = gunTransform.Forward * gun.Strength,
                             Angular = float3.zero
                         };
-
-                        var compositeScale = GetComponent<CompositeScale>(gun.Bullet);
-                        Debug.Log($"bullet spwan {position.Value.y } {compositeScale.Value.c1.y}");
-                        position.Value.y += (compositeScale.Value.c1.y - 0.5f) * 0.5f;//防止发射高度碰到地板,默认值是0.5，超过0.5的需要缩放
+                        if (HasComponent<CompositeScale>(gun.Bullet))
+                        {
+                            var compositeScale = GetComponent<CompositeScale>(gun.Bullet);
+                            //Debug.Log($"bullet spwan {position.Value.y } {compositeScale.Value.c1.y}");
+                            position.Value.y += (compositeScale.Value.c1.y - 0.5f) * 0.5f;//防止发射高度碰到地板,默认值是0.5，超过0.5的需要缩放
+                        }
 
                         commandBuffer.SetComponent(entityInQueryIndex, bullet, position);
                         commandBuffer.SetComponent(entityInQueryIndex, bullet, rotation);

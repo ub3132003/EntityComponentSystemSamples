@@ -13,7 +13,6 @@ public class GamePlayerInit : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
     [Header("Prefabs")]
     public GameObject MainCharacterPrefab;
 
-
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponentData(entity, new GamePlayerInitialization

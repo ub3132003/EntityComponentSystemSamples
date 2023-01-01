@@ -28,6 +28,7 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
     public IntEventChannelSO ExpDisplayEvent;
     public IntEventChannelSO LevelDisplayEvent;
 
+    [SerializeField] InputReader input;
 
     public void AddEXP(int exp)
     {
@@ -63,6 +64,7 @@ public class PlayerEcsConnect : Singleton<PlayerEcsConnect>, IReceiveEntity
     {
         //TOdo 等待player 生成
 
+        input.EnableGameplayInput();
         playerNode.InitStats(rpgStatSOs);
         while (player == Entity.Null)
         {

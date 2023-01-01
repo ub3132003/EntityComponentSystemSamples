@@ -18,6 +18,7 @@ public class LauncherTower : MonoBehaviour, IReceiveEntity
     //[SerializeField] GameObjectEventChannelSO cilckEvent;
     private Entity followEntity;
 
+    public GameObject EntityPerfab;
     public void SetLaunchDirction(Vector3 endPosition)
     {
         var playPosition = this.transform.position;

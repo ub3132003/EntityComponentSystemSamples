@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.InputSystem.Interactions;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
 public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActions, GameInput.IUIActions
@@ -26,7 +28,10 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
     public event UnityAction DisableMouseControlCameraEvent = delegate {};
     public event UnityAction StartedRunning = delegate {};
     public event UnityAction StoppedRunning = delegate {};
-
+    /// <summary>
+    /// 按下鼠标左键时调用一次
+    /// </summary>
+    public event UnityAction MouseLeftPress = delegate {};
     // Shared between menus and dialogues
     public event UnityAction MoveSelectionEvent = delegate {};
 
@@ -61,6 +66,7 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
         }
 
 #if UNITY_EDITOR
+        EnableGameplayInput();
         //_gameInput.Cheats.Enable();
 #endif
     }
@@ -268,21 +274,30 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+
+                break;
+            case InputActionPhase.Performed:
+                Debug.Log("Press Left mouse");
+                MouseLeftPress.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                Debug.Log("Release Left mouse");
+                break;
+        }
     }
 
     public void OnScrollWheel(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnMiddleClick(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
     }
 }

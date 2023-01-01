@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Physics.Stateful;
 using Unity.Transforms;
 
@@ -42,8 +43,9 @@ public partial class BulletFooSystem : SystemBase
             {
                 for (int i = 0; i < triggerEvents.Length; i++)
                 {
-                    var otherEntity = triggerEvents[i].GetOtherEntity(e);
-                    if (HasComponent<BrickRemake>(otherEntity))
+                    var triggerEvent = triggerEvents[i];
+                    var otherEntity = triggerEvent.GetOtherEntity(e);
+                    if (triggerEvent.State == StatefulEventState.Enter && HasComponent<BrickRemake>(otherEntity))
                     {
                         lifetime.Value = 30;
                     }
@@ -76,5 +78,35 @@ public partial class BulletFooSystem : SystemBase
         }
         changeElementBallList.Dispose();
         changeViewIndexList.Dispose();
+
+
+        //子弹命中合成方块,进入合成方块后停在内部
+        Entities
+            .ForEach((Entity e, in BulletComponent bullet , in DynamicBuffer<StatefulTriggerEvent> triggerEvents) =>
+        {
+            for (int i = 0; i < triggerEvents.Length; i++)
+            {
+                var triggerEvent = triggerEvents[i];
+                var otherEntity = triggerEvent.GetOtherEntity(e);
+
+                if (triggerEvent.State == StatefulEventState.Enter
+                    && HasComponent<BrickProduct>(otherEntity) && HasComponent<BrickCacheBullet>(otherEntity))
+                {
+                    var brickProduct = GetComponent<BrickProduct>(otherEntity);
+                    if (brickProduct.RecipeBlob.Value.InA.Index == bullet.BulletPerfab
+                        || brickProduct.RecipeBlob.Value.InB.Index == bullet.BulletPerfab)
+                    {
+                        //ecb.Instantiate(brickProduct.RecipeBlob.Value.OutA);
+                        ecb.SetComponent(e, GetComponent<Translation>(otherEntity));
+                        ecb.RemoveComponent<LifeTime>(e);
+                        ecb.SetComponent<PhysicsVelocity>(e, new PhysicsVelocity());
+                    }
+                    else
+                    {
+                        ecb.DestroyEntity(e);
+                    }
+                }
+            }
+        }).Schedule();
     }
 }

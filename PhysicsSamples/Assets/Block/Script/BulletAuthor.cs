@@ -6,9 +6,14 @@ using Unity.Physics;
 using Unity.Transforms;
 using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
+using System;
 
 public struct BulletComponent : IComponentData
 {
+    /// <summary>
+    /// 预制体的id
+    /// </summary>
+    public int BulletPerfab;
     public float2 SpeedRange;
     public float3 LockAixs;
 }
@@ -27,11 +32,16 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
     public float3 LockAixs;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new BulletComponent
+        //不由gun 实例化的子弹
+        if (!dstManager.HasComponent<BulletComponent>(entity))
         {
-            SpeedRange = SpeedRange,
-            LockAixs = LockAixs
-        });
+            dstManager.AddComponentData(entity, new BulletComponent());
+        }
+        var bullet = dstManager.GetComponentData<BulletComponent>(entity);
+        bullet.SpeedRange = SpeedRange;
+        bullet.LockAixs = LockAixs;
+        dstManager.SetComponentData(entity, bullet);
+
         dstManager.AddBuffer<StatefulCollisionEvent>(entity);
         dstManager.AddComponentData(entity, new Damage
         {

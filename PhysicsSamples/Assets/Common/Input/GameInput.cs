@@ -232,6 +232,17 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""21a27b3d-b05b-4bb2-9e23-dd90a1bd3359"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""39c1bb66-45e8-4cf0-9965-8ff02b571a1f"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",

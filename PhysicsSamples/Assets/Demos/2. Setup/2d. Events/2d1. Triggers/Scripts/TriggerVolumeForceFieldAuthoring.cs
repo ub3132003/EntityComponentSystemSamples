@@ -174,7 +174,7 @@ public partial class TriggerVolumeForceFieldSystem : SystemBase
                     var otherEntity = triggerEvent.GetOtherEntity(e);
 
                     // exclude static bodies, other triggers and enter/exit events
-                    if (triggerEvent.State != StatefulEventState.Stay || !nonTriggerDynamicBodyMask.Matches(otherEntity))
+                    if (triggerEvent.State != StatefulEventState.Stay)
                     {
                         continue;
                     }
