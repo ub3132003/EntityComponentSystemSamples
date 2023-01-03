@@ -9,8 +9,8 @@ using Unity.Mathematics;
 public struct BrickProductRecipe
 {
     //todo blob 数组
-    public Entity InA;
-    public Entity InB;
+    public int InA;
+    public int InB;
     //Entity InC;
     public Entity OutA;
     //Entity OutB;
@@ -22,4 +22,7 @@ public struct BrickProductRecipe
 public struct BrickProduct : IComponentData
 {
     public BlobAssetReference<BrickProductRecipe> RecipeBlob;
+    //记录存储数量
+    public int InACount;
+    public int InBCount;
 }

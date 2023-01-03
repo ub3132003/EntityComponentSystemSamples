@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.EventSystems;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
 public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActions, GameInput.IUIActions
@@ -32,6 +33,18 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
     /// 按下鼠标左键时调用一次
     /// </summary>
     public event UnityAction MouseLeftPress = delegate {};
+    /// <summary>
+    /// 按下鼠标右键时调用一次
+    /// </summary>
+    public event UnityAction MouseRightPress = delegate {};
+    /// <summary>
+    /// 按住鼠标
+    /// </summary>
+    public event UnityAction MouseLeftHoldEnter = delegate {};
+    public event UnityAction MouseRightHoldEnter = delegate {};
+    public event UnityAction MouseLeftHoldQuit = delegate {};
+    public event UnityAction MouseRightHoldQuit = delegate {};
+
     // Shared between menus and dialogues
     public event UnityAction MoveSelectionEvent = delegate {};
 
@@ -278,6 +291,7 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (IsMouseOverGui()) return;
         switch (context.phase)
         {
             case InputActionPhase.Started:
@@ -299,5 +313,87 @@ public class InputReader : DescriptionBaseSO, GameInput.ICharacterControllerActi
 
     public void OnMiddleClick(InputAction.CallbackContext context)
     {
+    }
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (IsMouseOverGui()) return;
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+
+                break;
+            case InputActionPhase.Performed:
+                Debug.Log("Press Right mouse");
+                MouseRightPress.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                Debug.Log("Release Rigth mouse");
+                break;
+        }
+    }
+
+    public void OnHoldFire(InputAction.CallbackContext context)
+    {
+        if (IsMouseOverGui()) return;
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+
+                break;
+            case InputActionPhase.Performed:
+                Debug.Log("Hold Left mouse");
+                MouseLeftHoldEnter.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                MouseLeftHoldQuit.Invoke();
+                Debug.Log("End Hold Left mouse");
+                break;
+        }
+    }
+
+    public void OnHoldAim(InputAction.CallbackContext context)
+    {
+        if (IsMouseOverGui()) return;
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+
+                break;
+            case InputActionPhase.Performed:
+                Debug.Log("Hold Right mouse");
+                MouseRightHoldEnter.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                MouseRightHoldQuit.Invoke();
+                Debug.Log("End Hold Right mouse");
+                break;
+        }
+    }
+
+    public bool IsMouseOverGui()
+    {
+        //判断是否点击UI
+
+        //移动端
+        if (Application.platform == RuntimePlatform.Android ||
+            Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            int fingerId = Input.GetTouch(0).fingerId;
+            if (EventSystem.current.IsPointerOverGameObject(fingerId))
+            {
+                return true;
+            }
+        }
+        //其它平台
+        else
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

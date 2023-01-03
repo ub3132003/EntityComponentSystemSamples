@@ -14,8 +14,8 @@ public class BrickProductAuthoring : MonoBehaviour, IConvertGameObjectToEntity, 
     {
         var recipe = new BrickProductRecipe
         {
-            InA = conversionSystem.GetPrimaryEntity(InBulletList[0]),
-            InB = conversionSystem.GetPrimaryEntity(InBulletList[1]),
+            InA = InBulletList[0].GetInstanceID(),
+            InB = InBulletList[1].GetInstanceID(),
             OutA = conversionSystem.GetPrimaryEntity(OutBulletList[0])
         };
         var recipeData = BlobAssetHelp.CreateReference(recipe, Unity.Collections.Allocator.Persistent);
@@ -23,17 +23,11 @@ public class BrickProductAuthoring : MonoBehaviour, IConvertGameObjectToEntity, 
         {
             RecipeBlob = recipeData
         });
+        dstManager.AddComponentData(entity, new BrickCacheBullet());
     }
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
-        foreach (var item in InBulletList)
-        {
-            referencedPrefabs.Add(item);
-        }
-        foreach (var item in OutBulletList)
-        {
-            referencedPrefabs.Add(item);
-        }
+        referencedPrefabs.AddRange(OutBulletList);
     }
 }

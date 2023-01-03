@@ -133,7 +133,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                 //    gun.WasFiring = 0;
                 //    return;
                 //}
-                //if (gun.Capacity <= 0) { gun.IsFiring = 0; return; }
+                if (gun.Capacity <= 0) { gun.IsFiring = 0; return; }
                 gun.Duration += dt;
                 if ((gun.Duration > gun.Rate) || (gun.WasFiring == 0))
                 {

@@ -38,6 +38,7 @@ public class BulletAuthor : MonoBehaviour, IConvertGameObjectToEntity
             dstManager.AddComponentData(entity, new BulletComponent());
         }
         var bullet = dstManager.GetComponentData<BulletComponent>(entity);
+        bullet.BulletPerfab = gameObject.GetInstanceID();
         bullet.SpeedRange = SpeedRange;
         bullet.LockAixs = LockAixs;
         dstManager.SetComponentData(entity, bullet);

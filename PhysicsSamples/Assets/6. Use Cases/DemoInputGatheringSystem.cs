@@ -61,6 +61,10 @@ partial class DemoInputGatheringSystem : SystemBase
     void GameInput.IVehicleActions.OnThrottle(InputAction.CallbackContext context) => m_VehicleThrottle = context.ReadValue<float>();
     void GameInput.IVehicleActions.OnPrevious(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = -1; }
     void GameInput.IVehicleActions.OnNext(InputAction.CallbackContext context) { if (context.started) m_VehicleChanged = 1; }
+
+    void GameInput.ICharacterControllerActions.OnAim(InputAction.CallbackContext context) {}
+    void GameInput.ICharacterControllerActions.OnHoldFire(UnityEngine.InputSystem.InputAction.CallbackContext context) {}
+    void GameInput.ICharacterControllerActions.OnHoldAim(UnityEngine.InputSystem.InputAction.CallbackContext context) {}
 #endif
 
     protected override void OnUpdate()

@@ -6,14 +6,17 @@ public class ShowFpsInfo : MonoBehaviour
 {
     public float showTime = 1f;
     public Text tvFpsInfo;
+    public Text TotolFrameInfo;
 
     private int count = 0;
     private float deltaTime = 0f;
-
+    private int totolCount = 0;
     // Update is called once per frame
     void Update()
     {
         count++;
+        totolCount++;
+        TotolFrameInfo.text = totolCount.ToString();
         deltaTime += Time.deltaTime;
         if (deltaTime >= showTime)
         {

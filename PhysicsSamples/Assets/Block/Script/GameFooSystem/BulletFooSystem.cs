@@ -80,7 +80,7 @@ public partial class BulletFooSystem : SystemBase
         changeViewIndexList.Dispose();
 
 
-        //子弹命中合成方块,进入合成方块后停在内部
+        //子弹命中合成方块,进入合成方块后 , 若符合條件，停在内部
         Entities
             .ForEach((Entity e, in BulletComponent bullet , in DynamicBuffer<StatefulTriggerEvent> triggerEvents) =>
         {
@@ -93,18 +93,28 @@ public partial class BulletFooSystem : SystemBase
                     && HasComponent<BrickProduct>(otherEntity) && HasComponent<BrickCacheBullet>(otherEntity))
                 {
                     var brickProduct = GetComponent<BrickProduct>(otherEntity);
-                    if (brickProduct.RecipeBlob.Value.InA.Index == bullet.BulletPerfab
-                        || brickProduct.RecipeBlob.Value.InB.Index == bullet.BulletPerfab)
+                    if (brickProduct.RecipeBlob.Value.InA == bullet.BulletPerfab)
+                    {
+                        //ecb.SetComponent(e, GetComponent<Translation>(otherEntity));
+                        //ecb.RemoveComponent<LifeTime>(e);
+                        //ecb.SetComponent<PhysicsVelocity>(e, new PhysicsVelocity());
+                        brickProduct.InACount++;
+                    }
+                    else if (brickProduct.RecipeBlob.Value.InB == bullet.BulletPerfab)
+                    {
+                        brickProduct.InBCount++;
+                    }
+                    if (brickProduct.InACount > 0 && brickProduct.InBCount > 0)
                     {
                         //ecb.Instantiate(brickProduct.RecipeBlob.Value.OutA);
-                        ecb.SetComponent(e, GetComponent<Translation>(otherEntity));
-                        ecb.RemoveComponent<LifeTime>(e);
-                        ecb.SetComponent<PhysicsVelocity>(e, new PhysicsVelocity());
+                        var gun = GetComponent<CharacterGun>(otherEntity);
+                        gun.Capacity++;
+                        ecb.SetComponent(otherEntity, gun);
+                        brickProduct.InACount--;
+                        brickProduct.InBCount--;
                     }
-                    else
-                    {
-                        ecb.DestroyEntity(e);
-                    }
+                    ecb.SetComponent(otherEntity, brickProduct);
+                    ecb.DestroyEntity(e);
                 }
             }
         }).Schedule();

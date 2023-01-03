@@ -62,6 +62,33 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c945966-ef7d-4179-80b1-1d809a39c411"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""f17e90b1-b5cc-463b-a781-145093427d47"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldAim"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3cfbdf1-2dae-453c-b90c-37c2687f0e56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -221,17 +248,6 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3433dd64-4e10-4bd3-90ee-b56b53fe053d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""21a27b3d-b05b-4bb2-9e23-dd90a1bd3359"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -260,6 +276,50 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22fd038f-49c5-4180-80b2-e3fd83cc795f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a6f7000-0cb0-464a-b6dc-c77c2eaa3b95"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f828987f-d366-44a5-a117-77c59f799348"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7d1b627-b402-4fbd-8f06-0419209bccac"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -864,6 +924,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         m_CharacterController_Look = m_CharacterController.FindAction("Look", throwIfNotFound: true);
         m_CharacterController_Fire = m_CharacterController.FindAction("Fire", throwIfNotFound: true);
         m_CharacterController_Jump = m_CharacterController.FindAction("Jump", throwIfNotFound: true);
+        m_CharacterController_Aim = m_CharacterController.FindAction("Aim", throwIfNotFound: true);
+        m_CharacterController_HoldFire = m_CharacterController.FindAction("HoldFire", throwIfNotFound: true);
+        m_CharacterController_HoldAim = m_CharacterController.FindAction("HoldAim", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -944,6 +1007,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterController_Look;
     private readonly InputAction m_CharacterController_Fire;
     private readonly InputAction m_CharacterController_Jump;
+    private readonly InputAction m_CharacterController_Aim;
+    private readonly InputAction m_CharacterController_HoldFire;
+    private readonly InputAction m_CharacterController_HoldAim;
     public struct CharacterControllerActions
     {
         private @GameInput m_Wrapper;
@@ -952,6 +1018,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_CharacterController_Look;
         public InputAction @Fire => m_Wrapper.m_CharacterController_Fire;
         public InputAction @Jump => m_Wrapper.m_CharacterController_Jump;
+        public InputAction @Aim => m_Wrapper.m_CharacterController_Aim;
+        public InputAction @HoldFire => m_Wrapper.m_CharacterController_HoldFire;
+        public InputAction @HoldAim => m_Wrapper.m_CharacterController_HoldAim;
         public InputActionMap Get() { return m_Wrapper.m_CharacterController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -973,6 +1042,15 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnJump;
+                @Aim.started -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnAim;
+                @HoldFire.started -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldFire;
+                @HoldFire.performed -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldFire;
+                @HoldFire.canceled -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldFire;
+                @HoldAim.started -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldAim;
+                @HoldAim.performed -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldAim;
+                @HoldAim.canceled -= m_Wrapper.m_CharacterControllerActionsCallbackInterface.OnHoldAim;
             }
             m_Wrapper.m_CharacterControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -989,6 +1067,15 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
+                @HoldFire.started += instance.OnHoldFire;
+                @HoldFire.performed += instance.OnHoldFire;
+                @HoldFire.canceled += instance.OnHoldFire;
+                @HoldAim.started += instance.OnHoldAim;
+                @HoldAim.performed += instance.OnHoldAim;
+                @HoldAim.canceled += instance.OnHoldAim;
             }
         }
     }
@@ -1171,6 +1258,9 @@ public partial class @GameInput : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+        void OnHoldFire(InputAction.CallbackContext context);
+        void OnHoldAim(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

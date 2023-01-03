@@ -274,13 +274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75f20032d91e2b47844ae1a70abe921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 5505157973118836275, guid: 529b3a833ff0aaf4fab9ddf7802ce0c7, type: 3}
+  Bullet: {fileID: 5505157973118836275, guid: d811b06f33f12824ba4268413a1021e2, type: 3}
   Strength: 10
   Rate: 1
   SensitivityYAxis: 0
   Price: 1
-  Capacity: 10
-  MaxCapcity: 10
+  Capacity: 9999
+  MaxCapcity: 9999
 --- !u!1 &8146874607346283266
 GameObject:
   m_ObjectHideFlags: 0
