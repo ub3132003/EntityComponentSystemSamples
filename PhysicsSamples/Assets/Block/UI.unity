@@ -4023,7 +4023,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &586979197
 MonoBehaviour:
@@ -7101,6 +7101,7 @@ MonoBehaviour:
   placeEntity: {fileID: 6930092662640595586, guid: 70af9fdc05523e04b9c0a10d261a81b2,
     type: 3}
   ballTtye: {fileID: 11400000, guid: b71b40ea14604014a85efca4b723fdb9, type: 2}
+  placeObject: {fileID: 0}
 --- !u!114 &1013685014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12947,6 +12948,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSettings: {fileID: 11400000, guid: 5005170f18f8f784db2148bd306e8d76, type: 2}
+  <RuntimeGridRotation>k__BackingField: 0
+  <RuntimeGridPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <GridTransformGO>k__BackingField: {fileID: 0}
+  <IsSetup>k__BackingField: 0
+  _gridDisplayManager: {fileID: 0}
+  _gridObjectPlacementManager: {fileID: 0}
+  _gridObjectVisualManager: {fileID: 0}
+  _gridCellPlacementIndicator: {fileID: 0}
+  _unavailableGridCellDisplayManager: {fileID: 0}
+  _gridInputDetectorGO: {fileID: 0}
+  _paintMode: 0
+  _gridInputDetector: {fileID: 0}
+  _asyncHelpers: {fileID: 0}
+  _paintObjectPrefab: {fileID: 0}
 --- !u!114 &1717105167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12959,6 +12974,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8279db752ef3afe47b6704a5f92dfe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridImage: {fileID: 0}
+  _gridCellDisplayImageSize: 10
+  _gridCanvas: {fileID: 0}
+  _gridCanvasRectTransform: {fileID: 0}
+  <GridSettings>k__BackingField: {fileID: 0}
+  <GridDisplay>k__BackingField: {fileID: 0}
+  _gridManager: {fileID: 0}
 --- !u!4 &1717105168
 Transform:
   m_ObjectHideFlags: 0
@@ -12987,6 +13009,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8279db752ef3afe47b6704a5f92dfe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridImage: {fileID: 0}
+  _gridCellDisplayImageSize: 10
+  _gridCanvas: {fileID: 0}
+  _gridCanvasRectTransform: {fileID: 0}
+  <GridSettings>k__BackingField: {fileID: 0}
+  <GridDisplay>k__BackingField: {fileID: 0}
+  _gridManager: {fileID: 0}
 --- !u!114 &1717105170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14804,7 +14833,7 @@ PrefabInstance:
         type: 3}
       propertyPath: placePrefab
       value: 
-      objectReference: {fileID: 1251681182005992047, guid: 2e7f3f0fb55fd994697c991ba1a89bb8,
+      objectReference: {fileID: 4307818505550339515, guid: d3f0e5e0499020143b1010b70efd101d,
         type: 3}
     - target: {fileID: 3063392794394112325, guid: 4274183edf2293c40bf3d5af3fc14b9d,
         type: 3}
@@ -15042,6 +15071,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1818971317}
     m_Modifications:
+    - target: {fileID: 3063392794394112324, guid: 4274183edf2293c40bf3d5af3fc14b9d,
+        type: 3}
+      propertyPath: placePrefab
+      value: 
+      objectReference: {fileID: 7836536959815212246, guid: 87b308e95c95486478804107cb4420c9,
+        type: 3}
     - target: {fileID: 3063392794394112325, guid: 4274183edf2293c40bf3d5af3fc14b9d,
         type: 3}
       propertyPath: m_IsOn
@@ -17009,7 +17044,7 @@ PrefabInstance:
     - target: {fileID: 8445459516137105599, guid: f57cdc9ab129f3b46b717f92328f023d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8445459516137105599, guid: f57cdc9ab129f3b46b717f92328f023d,
         type: 3}

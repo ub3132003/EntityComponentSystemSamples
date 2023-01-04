@@ -161,7 +161,7 @@ public partial class CharacterGunOneToManyInputSystem : SystemBase
                         commandBuffer.SetComponent(entityInQueryIndex, bullet, rotation);
                         commandBuffer.SetComponent(entityInQueryIndex, bullet, velocity);
                     }
-                    gun.Duration = 0;
+                    gun.Duration -= gun.Rate;
                 }
                 gun.WasFiring = 1;
             }).ScheduleParallel();

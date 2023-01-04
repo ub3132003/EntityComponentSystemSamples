@@ -1,81 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7351125381640483355
+--- !u!1001 &3332463077001571981
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Capsule.Axis
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_SphereRadius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Cylinder.Axis
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Capsule.Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Capsule.Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Cylinder.Height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Cylinder.Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_PrimitiveSize.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_PrimitiveSize.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2423406907266464669, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_PrimitiveSize.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
@@ -90,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
@@ -130,55 +65,52 @@ PrefabInstance:
     - target: {fileID: 4827772331923993179, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
       propertyPath: m_Name
-      value: BrickTriggerVelocityChange Variant
+      value: BrickTrigger_Launcher
       objectReference: {fileID: 0}
     - target: {fileID: 5158402025035147325, guid: b81d142819022a741a1b9f6f9a0a42aa,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5f3b65e711b5c7b49a70ee0c89a78d64, type: 2}
-    - target: {fileID: 8417827774373880650, guid: b81d142819022a741a1b9f6f9a0a42aa,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: 63da592118a26c34495a41f995814b91, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b81d142819022a741a1b9f6f9a0a42aa, type: 3}
---- !u!4 &2661683830319764448 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 7351125381640483355}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2664935592374042688 stripped
+--- !u!1 &7836536959815212246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4827772331923993179, guid: b81d142819022a741a1b9f6f9a0a42aa,
     type: 3}
-  m_PrefabInstance: {fileID: 7351125381640483355}
+  m_PrefabInstance: {fileID: 3332463077001571981}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-6923167534160096389
+--- !u!114 &4750758241994838394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2664935592374042688}
+  m_GameObject: {fileID: 7836536959815212246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac123ca9458980648a72bed692ea09fd, type: 3}
+  m_Script: {fileID: 11500000, guid: f75f20032d91e2b47844ae1a70abe921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AppleVelocity:
-    x: 0
-    y: 0
-    z: 0
-  MaxSpeed: 25
---- !u!1001 &8521872504094954272
+  Bullet: {fileID: 5505157973118836275, guid: e2d8f6c3b0c496143b0522dc8348d1da, type: 3}
+  Strength: 10
+  Rate: 1
+  SensitivityYAxis: 0
+  Price: 1
+  Capacity: 10
+  MaxCapcity: 10
+--- !u!4 &7839371956366151542 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4824554499036520955, guid: b81d142819022a741a1b9f6f9a0a42aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 3332463077001571981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6971586925072836064
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2661683830319764448}
+    m_TransformParent: {fileID: 7839371956366151542}
     m_Modifications:
     - target: {fileID: 475620005635033845, guid: 003afc7898f88734d98df2feb4b00ac2,
         type: 3}

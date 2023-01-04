@@ -1,4 +1,3 @@
-using Hypertonic.GridPlacement;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
@@ -38,7 +37,7 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     {
         placeViewObjChangeEvent.OnEventRaised += OnPlaceViewObjectChange;
         placePerfabSetEvent.OnEventRaised += OnPlacePerfabSet;
-        confirmPlaceObjEvent.OnEventRaised += HandleConfirmButtonPressed;
+
 
         input.MouseLeftPress += OnPressMouseLeft;
         input.MouseRightPress += OnPressMouseRight;
@@ -52,7 +51,7 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     {
         placeViewObjChangeEvent.OnEventRaised -= OnPlaceViewObjectChange;
         placePerfabSetEvent.OnEventRaised -= OnPlacePerfabSet;
-        confirmPlaceObjEvent.OnEventRaised -= HandleConfirmButtonPressed;
+
 
         input.MouseLeftPress -= OnPressMouseLeft;
         input.MouseRightPress -= OnPressMouseRight;
@@ -91,6 +90,8 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
         }
         else
         {
+            //对物理系统需要blob store？
+            var _settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _conversionSystem.BlobAssetStore);
             readyPlaceEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(_readyPlacePerfab, _settings);
             _placePrefabDict.Add(_readyPlacePerfab, readyPlaceEntityPrefab);
         }
@@ -142,15 +143,14 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
         return mouseHover;
     }
 
-    GameObjectConversionSettings _settings;
+    ConvertToEntitySystem _conversionSystem;
     EntityManager _entityManager;
     MouseHoverSystem _mouseSys;
     Entity _currentEntity;
     EntityCommandBufferSystem _endEcbSys;
     private void Start()
     {
-        var conversionSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<ConvertToEntitySystem>();
-        _settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, conversionSystem.BlobAssetStore);//对物理系统需要blob store？
+        _conversionSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<ConvertToEntitySystem>();
         _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         _mouseSys = World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<MouseHoverSystem>();
         _endEcbSys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
@@ -205,6 +205,7 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
         var entityInstance = _entityManager.Instantiate(placeItemSetting.PlaceEntityPerfab);
         _entityManager.SetComponentData(entityInstance, placeItemSetting.Position);
         _entityManager.SetComponentData(entityInstance, placeItemSetting.Rotate);
+        _entityManager.AddComponentData(entityInstance, new PlayerCanDelEntity());
         _previousItemSetting = new PlaceItemSetting(placeItemSetting);
         Debug.Log(placeItemSetting);
     }
@@ -212,45 +213,9 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     void DeleteEntity()
     {
         if (_currentEntity == Entity.Null) return;
-        if (!_entityManager.HasComponent<BrickComponent>(_currentEntity)) return;
+        if (!_entityManager.HasComponent<PlayerCanDelEntity>(_currentEntity)) return;
         _entityManager.AddComponentData(_currentEntity, new LifeTime { Value = 1 });
         _currentEntity = Entity.Null;
-    }
-
-    private void HandleConfirmButtonPressed()
-    {
-        bool placed = GridManagerAccessor.GridManager.ConfirmPlacement();
-
-        if (placed)
-        {
-            _currentPlaceViewObject = null;
-        }
-    }
-
-    private void HandleCancelPlacementPressed()
-    {
-        GridManagerAccessor.GridManager.CancelPlacement();
-        _currentPlaceViewObject = null;
-    }
-
-    private void HandleDeleteObjectPressed()
-    {
-        GridManagerAccessor.GridManager.DeleteObject(_currentPlaceViewObject);
-        _currentPlaceViewObject = null;
-    }
-
-    private void HandleRotateLeftPressed()
-    {
-        //_selectedGridObject.transform.Rotate(new Vector3(0, -90, 0));
-
-        GridManagerAccessor.GridManager.HandleGridObjectRotated();
-    }
-
-    private void HandleRotateRightPressed()
-    {
-        //_selectedGridObject.transform.Rotate(new Vector3(0, 90, 0));
-
-        GridManagerAccessor.GridManager.HandleGridObjectRotated();
     }
 
     class PlaceItemSetting
@@ -260,6 +225,9 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
         public Translation Position;
         public PlaceItemSetting()
         {
+            PlaceEntityPerfab = Entity.Null;
+            Rotate.Value = quaternion.identity;
+            Position.Value = float3.zero;
         }
 
         public PlaceItemSetting(PlaceItemSetting placeItemSetting)

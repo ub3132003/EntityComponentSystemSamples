@@ -172,11 +172,10 @@ public partial class TriggerKillBulletSystem : SystemBase
                 for (int i = 0; i < triggerEventBuffer.Length; i++)
                 {
                     var triggerEvent = triggerEventBuffer[i];
-
-                    var bulletEntity = triggerEvent.GetOtherEntity(e);
                     //  进去 且是 bullet
                     if (triggerEvent.State == StatefulEventState.Enter)
                     {
+                        var bulletEntity = triggerEvent.GetOtherEntity(e);
                         if (bulletMask.Matches(bulletEntity))
                         {
                             triggerKillBullet.Count++;

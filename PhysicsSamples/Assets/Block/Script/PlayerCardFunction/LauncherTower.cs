@@ -31,7 +31,7 @@ public class LauncherTower : MonoBehaviour, IReceiveEntity
     public void ApplyDiraction()
     {
         //设置实体方向
-        quaternion rotation = quaternion.LookRotation(launchDir, math.up());
+        quaternion rotation = quaternion.LookRotationSafe(launchDir, math.up());
         PlayerEcsConnect.Instance.EntityManager.SetComponentData<Rotation>(followEntity, new Rotation
         {
             Value = rotation

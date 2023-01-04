@@ -191,12 +191,13 @@ partial class SpecialBrickSystem : SystemBase
         //看向挡板
         var playerEntity = PlayerEcsConnect.Instance.Player;
         Entities
-            .ForEach((ref Rotation r, in Translation t, in EyeBrickTag eye) =>
-        {
-            var playTrans = GetComponent<Translation>(playerEntity);
-            var dir = t.Value - playTrans.Value;
-            r.Value = quaternion.LookRotation(dir, math.up());
-        }).Schedule();
+            .WithAll<EyeBrickTag>()
+            .ForEach((ref Rotation r, in Translation t) =>
+            {
+                var playTrans = GetComponent<Translation>(playerEntity);
+                var dir = t.Value - playTrans.Value;
+                r.Value = quaternion.LookRotation(dir, math.up());
+            }).Schedule();
 
         //第一层方块移动允许移动
         var delteTime = Time.DeltaTime;
