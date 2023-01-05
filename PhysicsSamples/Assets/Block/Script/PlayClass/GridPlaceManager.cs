@@ -7,7 +7,9 @@ using UnityEngine;
 using Unity.Physics.Extensions;
 using Unity.Mathematics;
 using Unity.Transforms;
-
+/// <summary>
+/// 建造操作，与玩家互动
+/// </summary>
 public class GridPlaceManager : Singleton<GridPlaceManager>
 {
     //外观
@@ -73,6 +75,7 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     void OnPlaceViewObjectChange(GameObject obj)
     {
         _currentPlaceViewObject = obj;
+        if (_currentPlaceViewObject == null) return;
         var diractionview = Instantiate(_perviewObject, _currentPlaceViewObject.transform);
         diractionview.transform.localPosition = Vector3.zero;
     }
@@ -82,19 +85,32 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     /// </summary>
     void OnPressMouseLeft()
     {
-        if (_readyPlacePerfab == null) return;
+        //没有选择要放置的物体
+        if (_readyPlacePerfab == null)
+        {
+            if (_currentEntity != Entity.Null)
+            {
+                if (_entityManager.HasComponent<EntityEventComponent>(_currentEntity))
+                {
+                    var entityEvent = _entityManager.GetSharedComponentData<EntityEventComponent>(_currentEntity);
+                    entityEvent.entityEvent?.RaiseEvent(_currentEntity);
+                }
+            }
+            return;
+        }
         Entity readyPlaceEntityPrefab;
+        readyPlaceEntityPrefab = GameEntityAssetManager.Instance.GetPrimaryEntity(_readyPlacePerfab);
         //避免重复转换实体
-        if (_placePrefabDict.TryGetValue(_readyPlacePerfab, out readyPlaceEntityPrefab))
-        {
-        }
-        else
-        {
-            //对物理系统需要blob store？
-            var _settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _conversionSystem.BlobAssetStore);
-            readyPlaceEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(_readyPlacePerfab, _settings);
-            _placePrefabDict.Add(_readyPlacePerfab, readyPlaceEntityPrefab);
-        }
+        //if (_placePrefabDict.TryGetValue(_readyPlacePerfab, out readyPlaceEntityPrefab))
+        //{
+        //}
+        //else
+        //{
+        //    //对物理系统需要blob store？
+        //    var _settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _conversionSystem.BlobAssetStore);
+        //    readyPlaceEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(_readyPlacePerfab, _settings);
+        //     _placePrefabDict.Add(_readyPlacePerfab, readyPlaceEntityPrefab);
+        //}
 
         _placeItemSetting.PlaceEntityPerfab = readyPlaceEntityPrefab;
 
@@ -159,15 +175,14 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
     //[SerializeField] Vector3 debugValue;
     void Update()
     {
-        if (_currentPlaceViewObject == null) return;
-
         //预览当前操作对象
         var mouseHover =  GetMouseHitInfo();
-        //要放到的位置方向
-        var nextOffset = math.round(mouseHover.HitData.SurfaceNormal);
         _currentEntity = mouseHover.CurrentEntity;
         if (_currentEntity == Entity.Null) return;
+        if (_currentPlaceViewObject == null) return;
 
+        //要放到的位置方向
+        var nextOffset = math.round(mouseHover.HitData.SurfaceNormal);
         //要放到的单元格位置
         var currentPosition = _entityManager.GetComponentData<LocalToWorld>(_currentEntity).Position;
         _readyPlacePosition = currentPosition + nextOffset;

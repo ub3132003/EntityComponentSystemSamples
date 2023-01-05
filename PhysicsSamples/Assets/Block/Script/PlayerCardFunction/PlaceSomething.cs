@@ -48,6 +48,8 @@ public class PlaceSomething : MonoBehaviour
         else
         {
             // 取消之前的状态。
+            placeViewChangeEvent.RaiseEvent(null);
+            placeObjEvent.RaiseEvent(null);
             Destroy(placeViewInstance);
         }
     }

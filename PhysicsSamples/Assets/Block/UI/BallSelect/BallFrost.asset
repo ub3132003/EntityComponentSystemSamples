@@ -15,9 +15,9 @@ MonoBehaviour:
   _guid: 808e115e86453c24bbb3474e80937679
   _name:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:1ae0c2cca0d446a4faf3ebad78525059
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 51368032925327360
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _prefab: {fileID: 5505157973118836275, guid: e2d8f6c3b0c496143b0522dc8348d1da, type: 3}
+  _prefab: {fileID: 5505157973118836275, guid: 2dbc7dfd2833efa4b9a84f34c7388701, type: 3}
   references:
     version: 2
     RefIds: []

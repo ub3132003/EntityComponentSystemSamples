@@ -18,6 +18,23 @@ namespace RectTransformExtensions
             return new Vector2();
         }
 
+        /// <summary>
+        /// 给定rect 和坐标, 给出ui在世界坐标的映射位置
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <param name="worldPosition"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static Vector2 ConverToWorldPoint(RectTransform canvas, Vector3 worldPosition, Vector2 offset)
+        {
+            var screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPosition);
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas, screenPoint, null, out var vector2))
+            {
+                return vector2 + offset;
+            }
+            return new Vector2();
+        }
+
         public static bool Contains(this RectTransform self, PointerEventData eventData)
         {
             var selfBounds = GetBounds(self);

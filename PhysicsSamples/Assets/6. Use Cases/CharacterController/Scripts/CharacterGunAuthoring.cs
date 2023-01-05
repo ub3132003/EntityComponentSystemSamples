@@ -35,7 +35,7 @@ public struct CharacterGunInput : IComponentData
     public float Firing;
 }
 
-public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
+public class CharacterGunAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     public GameObject Bullet;
 
@@ -52,10 +52,10 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
     public int Capacity = 10;
     public int MaxCapcity = 10;
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
-    public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
-    {
-        gameObjects.Add(Bullet);
-    }
+    //public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
+    //{
+    //    gameObjects.Add(Bullet);
+    //}
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -63,7 +63,8 @@ public class CharacterGunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, I
             new CharacterGun
         {
             ID = Bullet.GetInstanceID(),
-            Bullet = conversionSystem.GetPrimaryEntity(Bullet),
+            //Bullet = conversionSystem.GetPrimaryEntity(Bullet),
+            Bullet = GameEntityAssetManager.Instance.GetPrimaryEntity(Bullet),
             Strength = Strength,
             Rate = Rate,
             WasFiring = 0,

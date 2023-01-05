@@ -1,10 +1,23 @@
+using System;
 using System.Collections;
 using Unity.Entities;
 using UnityEngine;
-
-public sealed class EntityEventComponent : IComponentData
+/// <summary>
+/// 实体事件，用于和mono 通讯
+/// </summary>
+public struct EntityEventComponent : ISharedComponentData, IEquatable<EntityEventComponent>
 {
     public EntityChannelSO entityEvent;
+
+    public bool Equals(EntityEventComponent other)
+    {
+        return other.entityEvent == entityEvent;
+    }
+
+    public override int GetHashCode()
+    {
+        return entityEvent.GetHashCode();
+    }
 }
 
 public class EntityEventSend : MonoBehaviour, IConvertGameObjectToEntity
@@ -12,40 +25,9 @@ public class EntityEventSend : MonoBehaviour, IConvertGameObjectToEntity
     [SerializeField] EntityChannelSO createEvent;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        dstManager.AddComponentData(entity, new EntityEventComponent
+        dstManager.AddSharedComponentData(entity, new EntityEventComponent
         {
             entityEvent = createEvent
         });
-    }
-}
-partial class EntityEventSystem : SystemBase
-{
-    EntityQuery m_Query;
-
-    protected override void OnCreate()
-    {
-        var queryDesc = new EntityQueryDesc
-        {
-            All = new ComponentType[] { typeof(EntityEventComponent)}
-        };
-
-        m_Query = GetEntityQuery(queryDesc);
-    }
-
-    protected override void OnUpdate()
-    {
-        if (m_Query.CalculateEntityCount() == 0)
-        {
-            return;
-        }
-        var em = World.DefaultGameObjectInjectionWorld.EntityManager;
-        Entities
-            .WithStructuralChanges()
-            .WithoutBurst()
-            .ForEach((Entity e, EntityEventComponent entityEvent) =>
-            {
-                entityEvent.entityEvent.RaiseEvent(e);
-                em.RemoveComponent<EntityEventComponent>(e);
-            }).Run();
     }
 }
