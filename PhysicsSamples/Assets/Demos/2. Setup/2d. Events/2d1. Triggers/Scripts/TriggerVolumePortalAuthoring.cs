@@ -9,6 +9,8 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
 using Unity.Collections;
+using Codice.CM.Common;
+
 public struct TriggerVolumePortal : IComponentData
 {
     public Entity Companion;
@@ -74,6 +76,9 @@ public partial class TriggerVolumePortalSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        var query = GetEntityQuery(typeof(TriggerVolumePortal));
+        if (query.CalculateEntityCount() == 0) return;
+
         var deltaTime = Time.DeltaTime;
 
         // Need extra variables here so that they can be
