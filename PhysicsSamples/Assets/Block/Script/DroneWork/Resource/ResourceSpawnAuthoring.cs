@@ -42,6 +42,7 @@ partial class ResourceSpawnSystem : SpawnRandomObjectsSystemBase<SpawnResourceSe
         EntityManager.AddSharedComponentData(instance, new ResourceItemSetting
         {
             resourceSize = spawnSettings.resourceSize,
+            snapStiffness = spawnSettings.snapStiffness,
             carryStiffness = spawnSettings.carryStiffness,
         });
     }

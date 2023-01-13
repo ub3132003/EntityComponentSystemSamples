@@ -41,10 +41,10 @@ public class DroneSpawnAuthoring : SpawnRandomObjectsAuthoringBase<SpawnDroneSet
     public Mesh beeMesh;
     public Material beeMaterial;
     public Color[] teamColors;
-    public float minBeeSize;
-    public float maxBeeSize;
-    public float speedStretch;
-    public float rotationStiffness;
+    public float minBeeSize = 0.5f;
+    public float maxBeeSize = 1f;
+    public float speedStretch = 0.2f;
+    public float rotationStiffness = 5;
     [Space(10)]
     [Range(0f, 1f)]
     public float aggression;

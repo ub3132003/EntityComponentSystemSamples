@@ -24,6 +24,12 @@ public struct ResourceItem : IComponentData
 
     public void ClearHolder() { holder = Entity.Null; holderTeam = -1; }
 
+    public void GrabResource(Entity bee)
+    {
+        holder = bee;
+        stacked = false;
+    }
+
     public ResourceItem(float3 myPosition)
     {
         position = myPosition;

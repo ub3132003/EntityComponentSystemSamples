@@ -11,6 +11,11 @@ using Unity.Collections;
 [UpdateBefore(typeof(ResourceItemSystem))]
 partial class DroneSystem : SystemBase
 {
+    public struct Field
+    {
+        public float3 size;
+        public float gravity;
+    }
     Rng m_rng;
     EntityQuery resourceQuery;
     protected override void OnCreate()
@@ -40,6 +45,12 @@ partial class DroneSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        Field field = new Field
+        {
+            size = new float3(100f, 20f, 30f),
+            gravity = -9.8f
+        };
+
         float deltaTime = Time.fixedDeltaTime;
         var rng = m_rng;
         var gravity = -9.8f;
@@ -116,38 +127,42 @@ partial class DroneSystem : SystemBase
                     {
                         var resourceTarget = GetComponent<ResourceItem>(bee.resourceTarget);
                         //检查目标资源时候已经被其他蜜蜂抓走,重新选择目标
-                        if (resourceTarget.hasHolder)
+                        if (resourceTarget.hasHolder && resourceTarget.holder != e)//todu 敌对抢夺
                         {
                             bee.resourceTarget = Entity.Null;
-                            return;
                         }
-                        //向目标移动
-                        delta = resourceTarget.position - bee.position;
-                        float sqrDist = math.lengthsq(delta);
-                        if (sqrDist > grabDistance * grabDistance)
-                        {
-                            bee.velocity += delta * (chaseForce * deltaTime / math.sqrt(sqrDist));
-                        }
-                        else//进入抓取范围
-                        {
-                            ResourceItemSystem.GrabResource(e, ref resourceTarget);
-                            bee.SetReource();
-                            ecb.SetComponent(bee.resourceTarget, resourceTarget);
-                        }
-                        if (resourceTarget.holder == e)
+                        else if (resourceTarget.holder == e)
                         {
                             //搬运放到目标home区域
                             float3 targetPos = float3.zero;
                             delta = targetPos - bee.position;
-                            dist = math.lengthsq(delta);
+                            dist = math.length(delta);
                             bee.velocity += (targetPos - bee.position) * (carryForce * deltaTime / dist);
                             if (dist < 1f)
                             {
                                 resourceTarget.ClearHolder();
-                                bee.ClearResource();
                                 ecb.SetComponent(bee.resourceTarget, resourceTarget);
+                                bee.ClearResource();
                             }
                         }
+                        else
+                        {
+                            //向目标移动
+                            delta = resourceTarget.position - bee.position;
+                            float sqrDist = math.lengthsq(delta);
+                            if (sqrDist > grabDistance * grabDistance)
+                            {
+                                bee.velocity += delta * (chaseForce * deltaTime / math.sqrt(sqrDist));
+                            }
+                            else//进入抓取范围
+                            {
+                                resourceTarget.GrabResource(e);
+                                ecb.SetComponent(bee.resourceTarget, resourceTarget);
+                                bee.SetReource();
+                            }
+                        }
+
+
                         //抢夺资源
                         //else if (resource.holder.team != bee.team)
                         //{
@@ -161,6 +176,33 @@ partial class DroneSystem : SystemBase
 
                     bee.position += deltaTime * bee.velocity;
 
+                    //防止偏离中心区域
+                    if (System.Math.Abs(bee.position.x) > field.size.x * .5f)
+                    {
+                        bee.position.x = (field.size.x * .5f) * math.sign(bee.position.x);
+                        bee.velocity.x *= -.5f;
+                        bee.velocity.y *= .8f;
+                        bee.velocity.z *= .8f;
+                    }
+                    if (System.Math.Abs(bee.position.z) > field.size.z * .5f)
+                    {
+                        bee.position.z = (field.size.z * .5f) * math.sign(bee.position.z);
+                        bee.velocity.z *= -.5f;
+                        bee.velocity.x *= .8f;
+                        bee.velocity.y *= .8f;
+                    }
+                    float resourceModifier = 0f;
+                    if (bee.isHoldingResource)
+                    {
+                        resourceModifier = 0.75f;//source size
+                    }
+                    if (System.Math.Abs(bee.position.y) > field.size.y * .5f - resourceModifier)
+                    {
+                        bee.position.y = (field.size.y * .5f - resourceModifier) * math.sign(bee.position.y);
+                        bee.velocity.y *= -.5f;
+                        bee.velocity.z *= .8f;
+                        bee.velocity.x *= .8f;
+                    }
                     // only used for smooth rotation:
                     float3 oldSmoothPos = bee.smoothPosition;
                     if (bee.isAttacking == false)

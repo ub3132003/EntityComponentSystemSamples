@@ -222,14 +222,14 @@ MonoBehaviour:
   minBeeSize: 0.5
   maxBeeSize: 1
   speedStretch: 0.2
-  rotationStiffness: 0
+  rotationStiffness: 5
   aggression: 0
   flightJitter: 200
   teamAttraction: 0
   teamRepulsion: 0
   damping: 0.107
   chaseForce: 50
-  carryForce: 25
+  carryForce: 50
   grabDistance: 0.5
 --- !u!4 &1339065576
 Transform:
