@@ -113,7 +113,7 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
     protected virtual void OnBeforeInstantiatePrefab(ref T spawnSettings) {}
 
     protected virtual void ConfigureInstance(Entity instance, ref T spawnSettings) {}
-
+    protected virtual void ConfigureInstance(Entity instance, ref T spawnSettings , float3 position, quaternion rotation) {}
     protected override void OnUpdate()
     {
         // Entities.ForEach in generic system types are not supported
@@ -163,7 +163,7 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
                     if (spawnSettings.randomType == RandomType.RandomInRange)
                         EntityManager.SetComponentData(instance, new Rotation { Value = rotations[i] });
 
-                    ConfigureInstance(instance, ref spawnSettings);
+                    ConfigureInstance(instance, ref spawnSettings, positions[i], rotations[i]);
                 }
 
                 EntityManager.RemoveComponent<T>(entity);
