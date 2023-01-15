@@ -2,6 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using UnityEngine;
+using Unity.Transforms;
 public struct SpawnDroneSettings : IComponentData, ISpawnSettings
 {
     public Entity Prefab { get; set; }
@@ -104,5 +105,7 @@ partial class DroneSpawnSystem : SpawnRandomObjectsSystemBase<SpawnDroneSettings
                 grabDistance = spawnSettings.grabDistance,
             });;
         EntityManager.SetComponentData(instance, new URPMaterialPropertyBaseColor { Value = spawnSettings.Color });
+        EntityManager.RemoveComponent<Rotation>(instance);
+        EntityManager.RemoveComponent<Translation>(instance);
     }
 }

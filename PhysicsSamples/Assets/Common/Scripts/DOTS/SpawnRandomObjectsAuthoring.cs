@@ -159,9 +159,9 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
                 for (int i = 0; i < count; i++)
                 {
                     var instance = instances[i];
-                    EntityManager.SetComponentData(instance, new Translation { Value = positions[i] });
-                    if (spawnSettings.randomType == RandomType.RandomInRange)
-                        EntityManager.SetComponentData(instance, new Rotation { Value = rotations[i] });
+                    var localToWorld = float4x4.TRS(positions[i], rotations[i], new float3(1, 1, 1));
+
+                    EntityManager.SetComponentData(instance, new LocalToWorld { Value = localToWorld});
 
                     ConfigureInstance(instance, ref spawnSettings, positions[i], rotations[i]);
                 }

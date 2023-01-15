@@ -1,5 +1,6 @@
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 public struct SpawnResourceSettings : IComponentData, ISpawnSettings
 {
@@ -32,7 +33,7 @@ public class ResourceSpawnAuthoring : SpawnRandomObjectsAuthoringBase<SpawnResou
         spawnSettings.carryStiffness = carryStiffness;
     }
 }
-
+//TODO 再自定义转化系统中处理组件添加和删除。
 partial class ResourceSpawnSystem : SpawnRandomObjectsSystemBase<SpawnResourceSettings>
 {
     protected override void ConfigureInstance(Entity instance, ref SpawnResourceSettings spawnSettings, float3 position, quaternion rotation)
@@ -45,5 +46,7 @@ partial class ResourceSpawnSystem : SpawnRandomObjectsSystemBase<SpawnResourceSe
             snapStiffness = spawnSettings.snapStiffness,
             carryStiffness = spawnSettings.carryStiffness,
         });
+        EntityManager.RemoveComponent<Rotation>(instance);
+        EntityManager.RemoveComponent<Translation>(instance);
     }
 }
