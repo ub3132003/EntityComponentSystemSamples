@@ -33,6 +33,8 @@ public struct SpawnDroneSettings : IComponentData, ISpawnSettings
     public float attackForce;
     public float hitDistance;
     public float maxSpawnSpeed;
+
+    public float3 resourceDestination;
 }
 
 [DisallowMultipleComponent]
@@ -56,7 +58,8 @@ public class DroneSpawnAuthoring : SpawnRandomObjectsAuthoringBase<SpawnDroneSet
     public float chaseForce = 50f;
     public float carryForce = 25f;
     public float grabDistance = 0.5f;
-
+    //大本营默认位置
+    public float3 resourceDestination;
     protected override void Configure(ref SpawnDroneSettings spawnSettings)
     {
         spawnSettings.MinBeeSize = minBeeSize;
@@ -69,6 +72,7 @@ public class DroneSpawnAuthoring : SpawnRandomObjectsAuthoringBase<SpawnDroneSet
         spawnSettings.chaseForce = chaseForce;
         spawnSettings.carryForce = carryForce;
         spawnSettings.grabDistance = grabDistance;
+        spawnSettings.resourceDestination = resourceDestination;
     }
 }
 
@@ -86,6 +90,7 @@ partial class DroneSpawnSystem : SpawnRandomObjectsSystemBase<SpawnDroneSettings
 
         drone.Init(position, 0, _random.NextFloat(spawnSettings.MinBeeSize, spawnSettings.MaxBeeSize));
         drone.index = instance.Index;
+        drone.resourceDestination = spawnSettings.resourceDestination;
         EntityManager.AddComponentData(instance, drone);
         EntityManager.AddSharedComponentData(instance,
             new DroneSettings

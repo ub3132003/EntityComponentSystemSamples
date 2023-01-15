@@ -58,8 +58,9 @@ partial class DroneSystem : SystemBase
         List<DroneSettings> uniques = new List<DroneSettings>();
         EntityManager.GetAllUniqueSharedComponentData(uniques);
         EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
-        for (int i = 0; i < uniques.Count; i++)
+        for (int i = 1; i < uniques.Count; i++)
         {
+            if (resourceQuery.CalculateEntityCount() == 0) continue;
             var droneSetting = uniques[i];
             var speedStretch = droneSetting.speedStretch;
             var flightJitter = droneSetting.flightJitter;
@@ -70,7 +71,6 @@ partial class DroneSystem : SystemBase
             var grabDistance = droneSetting.grabDistance;
 
             var resourceItems = resourceQuery.ToEntityArray(Unity.Collections.Allocator.TempJob);
-            if (resourceItems.Length == 0) continue;
             var teamsOfBees = GetComponentDataFromEntity<Drone>(true);
             var world = World.Unmanaged;
             var resourceHolderTeam = CollectionHelper.CreateNativeArray<int, RewindableAllocator>(resourceItems.Length, ref world.UpdateAllocator);
@@ -93,6 +93,7 @@ partial class DroneSystem : SystemBase
                 .WithoutBurst()
                 .WithName("DroneWork")
                 .WithReadOnly(freeResourcesEntity)
+                .WithSharedComponentFilter(droneSetting)
                 .ForEach((int entityInQueryIndex, Entity e,  ref Drone bee) =>
                 {
                     var random = rng.GetSequence(entityInQueryIndex);
@@ -134,7 +135,7 @@ partial class DroneSystem : SystemBase
                         else if (resourceTarget.holder == e)
                         {
                             //搬运放到目标home区域
-                            float3 targetPos = float3.zero;
+                            float3 targetPos = bee.resourceDestination;
                             delta = targetPos - bee.position;
                             dist = math.length(delta);
                             bee.velocity += (targetPos - bee.position) * (carryForce * deltaTime / dist);
@@ -147,18 +148,25 @@ partial class DroneSystem : SystemBase
                         }
                         else
                         {
-                            //向目标移动
-                            delta = resourceTarget.position - bee.position;
-                            float sqrDist = math.lengthsq(delta);
-                            if (sqrDist > grabDistance * grabDistance)
+                            if (resourceTarget.dead)
                             {
-                                bee.velocity += delta * (chaseForce * deltaTime / math.sqrt(sqrDist));
+                                bee.resourceTarget = Entity.Null;
                             }
-                            else//进入抓取范围
+                            else
                             {
-                                resourceTarget.GrabResource(e);
-                                ecb.SetComponent(bee.resourceTarget, resourceTarget);
-                                bee.SetReource();
+                                //向目标移动
+                                delta = resourceTarget.position - bee.position;
+                                float sqrDist = math.lengthsq(delta);
+                                if (sqrDist > grabDistance * grabDistance)
+                                {
+                                    bee.velocity += delta * (chaseForce * deltaTime / math.sqrt(sqrDist));
+                                }
+                                else//进入抓取范围
+                                {
+                                    resourceTarget.GrabResource(e);
+                                    ecb.SetComponent(bee.resourceTarget, resourceTarget);
+                                    bee.SetReource();
+                                }
                             }
                         }
 
@@ -219,28 +227,29 @@ partial class DroneSystem : SystemBase
 
             //output 最终结果输出到画面
             var finalDroneJobHandle = Entities
+                .WithSharedComponentFilter(droneSetting)
                 .ForEach((ref LocalToWorld localToWorld, in Drone bee) =>
-            {
-                float size = bee.size;
-                float3 scale = new float3(size, size, size);
-                if (bee.dead == false)
                 {
-                    float stretch = math.max(1f, math.length(bee.velocity) * speedStretch);
-                    scale.z *= stretch;
-                    scale.x /= (stretch - 1f) / 5f + 1f;
-                    scale.y /= (stretch - 1f) / 5f + 1f;
-                }
-                quaternion rotation = quaternion.identity;
-                if (!bee.smoothDirection.IsZero())
-                {
-                    rotation = quaternion.LookRotation(bee.smoothDirection, math.up());
-                }
+                    float size = bee.size;
+                    float3 scale = new float3(size, size, size);
+                    if (bee.dead == false)
+                    {
+                        float stretch = math.max(1f, math.length(bee.velocity) * speedStretch);
+                        scale.z *= stretch;
+                        scale.x /= (stretch - 1f) / 5f + 1f;
+                        scale.y /= (stretch - 1f) / 5f + 1f;
+                    }
+                    quaternion rotation = quaternion.identity;
+                    if (!bee.smoothDirection.IsZero())
+                    {
+                        rotation = quaternion.LookRotation(bee.smoothDirection, math.up());
+                    }
 
-                localToWorld = new LocalToWorld
-                {
-                    Value = float4x4.TRS(bee.position, rotation, scale)
-                };
-            }).Schedule(droneWorkJobHandle);
+                    localToWorld = new LocalToWorld
+                    {
+                        Value = float4x4.TRS(bee.position, rotation, scale)
+                    };
+                }).Schedule(droneWorkJobHandle);
             Dependency = finalDroneJobHandle;
             //死蜜蜂过度动画
             Entities

@@ -4,6 +4,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics.Stateful;
+using Unity.Rendering;
 using Unity.Transforms;
 
 public partial class ResourceItemSystem : SystemBase
@@ -24,64 +26,111 @@ public partial class ResourceItemSystem : SystemBase
         var deltaTime = Time.DeltaTime;
         List<ResourceItemSetting> uniques = new List<ResourceItemSetting>();
         EntityManager.GetAllUniqueSharedComponentData(uniques);
-
-        for (int i = 0; i < uniques.Count; i++)
+        var ecb = new EntityCommandBuffer(Allocator.TempJob);
+        for (int i = 1; i < uniques.Count; i++)
         {
+            var setting = uniques[i];
             var resourceSize = uniques[i].resourceSize;
             var carryStiffness = uniques[i].carryStiffness;
 
             Entities
-                .ForEach((ref ResourceItem resource) =>
-            {
-                if (resource.holder != Entity.Null)
+                .WithoutBurst()
+                .WithSharedComponentFilter(setting)
+                .ForEach((Entity e, ref ResourceItem resource) =>
                 {
-                    var holder = GetComponent<Drone>(resource.holder);
-                    if (holder.dead)
+                    //接受资源处理的地方
+
+                    if (resource.holder != Entity.Null)
                     {
-                        resource.holder = Entity.Null;
-                    }
-                    else
-                    {
-                        float3 targetPos = holder.position - math.up() * (resourceSize + holder.size) * .5f;
-                        resource.position = math.lerp(resource.position, targetPos, carryStiffness * deltaTime);
-                        resource.velocity = holder.velocity;
-                    }
-                }
-                else if (resource.stacked == false)
-                {
-                    //resource.position = math.lerp(resource.position, NearestSnappedPos(resource.position), snapStiffness * Time.deltaTime);
-                    resource.velocity.y += field.gravity * deltaTime;
-                    resource.position += resource.velocity * deltaTime;
-                    //GetGridIndex(resource.position, out resource.gridX, out resource.gridY);
-                    //float floorY = GetStackPos(resource.gridX, resource.gridY, stackHeights[resource.gridX, resource.gridY]).y;
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (System.Math.Abs(resource.position[j]) > field.size[j] * .5f)
+                        var holder = GetComponent<Drone>(resource.holder);
+                        if (holder.dead)
                         {
-                            resource.position[j] = field.size[j] * .5f * math.sign(resource.position[j]);
-                            resource.velocity[j] *= -.5f;
-                            resource.velocity[(j + 1) % 3] *= .8f;
-                            resource.velocity[(j + 2) % 3] *= .8f;
+                            resource.holder = Entity.Null;
+                        }
+                        else
+                        {
+                            float3 targetPos = holder.position - math.up() * (resourceSize + holder.size) * .5f;
+                            resource.position = math.lerp(resource.position, targetPos, carryStiffness * deltaTime);
+                            resource.velocity = holder.velocity;
+                        }
+                    }
+                    else if (resource.stacked == false)
+                    {
+                        //resource.position = math.lerp(resource.position, NearestSnappedPos(resource.position), snapStiffness * Time.deltaTime);
+                        resource.velocity.y += field.gravity * deltaTime;
+                        resource.position += resource.velocity * deltaTime;
+                        //GetGridIndex(resource.position, out resource.gridX, out resource.gridY);
+                        //float floorY = GetStackPos(resource.gridX, resource.gridY, stackHeights[resource.gridX, resource.gridY]).y;
+                        for (int j = 0; j < 3; j++)
+                        {
+                            if (System.Math.Abs(resource.position[j]) > field.size[j] * .5f)
+                            {
+                                resource.position[j] = field.size[j] * .5f * math.sign(resource.position[j]);
+                                resource.velocity[j] *= -.5f;
+                                resource.velocity[(j + 1) % 3] *= .8f;
+                                resource.velocity[(j + 2) % 3] *= .8f;
+                            }
+                        }
+                    }
+                }).Schedule();
+
+            Entities
+                .WithSharedComponentFilter(setting)
+                .ForEach((ref LocalToWorld localToWorld, in ResourceItem resource) =>
+                {
+                    float3 scale = new float3(resourceSize, resourceSize * .5f, resourceSize);
+                    localToWorld = new LocalToWorld
+                    {
+                        Value = float4x4.TRS(resource.position, quaternion.identity, scale)
+                    };
+                }).Schedule();
+        }
+
+
+        Dependency.Complete();
+        ecb.Playback(this.EntityManager);
+        ecb.Dispose();
+    }
+}
+[UpdateAfter(typeof(ResourceItemSystem))]
+partial class CollectResourceSystem : SystemBase
+{
+    EntityQuery _collecterQuery;
+    EntityCommandBufferSystem _endEcbSys;
+    protected override void OnCreate()
+    {
+        _collecterQuery = GetEntityQuery(ComponentType.ReadOnly<ResourceCollection>());
+        _endEcbSys = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+    }
+
+    protected override void OnUpdate()
+    {
+        var ecb = _endEcbSys.CreateCommandBuffer();
+        var allResourceCollecter = _collecterQuery.ToEntityArray(Allocator.TempJob);
+        Entities
+            .WithoutBurst()
+            .ForEach((Entity e, in ResourceItem resource) =>
+            {
+                if (resource.holder == Entity.Null)//等待释放
+                {
+                    //判断是否落入目标 TODO 值判断chunck中的减少计算
+                    for (int i = 0; i < allResourceCollecter.Length; i++)
+                    {
+                        var collecterEntity = allResourceCollecter[i];
+                        var colecterPosition = GetComponent<LocalToWorld>(collecterEntity).Position;
+                        var collecterRange = 1 * 1;
+                        if (math.distancesq(resource.position, colecterPosition) < collecterRange)
+                        {
+                            ecb.RemoveComponent<ResourceItem>(e);
+                            ecb.AddComponent(e, new LifeTime { Value = 30 });
+                            //debug
+                            ecb.SetComponent(e, new URPMaterialPropertyBaseColor { Value = new float4(0.5f) });
                         }
                     }
                 }
             }).Schedule();
 
-            Entities
-                .ForEach((ref LocalToWorld localToWorld, in ResourceItem resource) =>
-            {
-                float3 scale = new float3(resourceSize, resourceSize * .5f, resourceSize);
-                localToWorld = new LocalToWorld
-                {
-                    Value = float4x4.TRS(resource.position, quaternion.identity, scale)
-                };
-            }).Schedule();
-        }
-    }
-
-    public static void GrabResource(Entity bee, ref ResourceItem resource)
-    {
-        resource.holder = bee;
-        resource.stacked = false;
+        Dependency = allResourceCollecter.Dispose(Dependency);
+        _endEcbSys.AddJobHandleForProducer(Dependency);
     }
 }

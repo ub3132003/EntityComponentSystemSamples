@@ -14,7 +14,10 @@ public struct Drone : IComponentData
     public float size;
     //public Entity enemyTarget;
     public Entity resourceTarget;
-
+    /// <summary>
+    /// 目的地
+    /// </summary>
+    public float3 resourceDestination;
 
     public bool dead;
     public float deathTimer;
