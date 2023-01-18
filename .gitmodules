@@ -1,0 +1,3 @@
+[submodule "PhysicsSamples/Assets/submod/particleNumber"]
+	path = PhysicsSamples/Assets/submod/particleNumber
+	url = https://gitee.com/iceRabbit/unity-particle-number.git
