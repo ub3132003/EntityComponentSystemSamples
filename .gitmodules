@@ -1,3 +1,6 @@
 [submodule "PhysicsSamples/Assets/submod/particleNumber"]
 	path = PhysicsSamples/Assets/submod/particleNumber
 	url = https://gitee.com/iceRabbit/unity-particle-number.git
+[submodule "inventory-sytem"]
+	path = inventory-sytem
+	url = https://gitee.com/iceRabbit/inventory-sytem.git
