@@ -13,9 +13,7 @@ public struct SunCoinComponent : IComponentData
 [DisallowMultipleComponent]
 public class SunCoinComponentAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
-    public float scale;
     public int Val = 50;
-
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
