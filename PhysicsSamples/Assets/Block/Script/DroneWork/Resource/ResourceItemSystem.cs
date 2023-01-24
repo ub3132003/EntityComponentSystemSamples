@@ -107,11 +107,12 @@ partial class CollectResourceSystem : SystemBase
     {
         var ecb = _endEcbSys.CreateCommandBuffer();
         var allResourceCollecter = _collecterQuery.ToEntityArray(Allocator.TempJob);
+        NativeList<FixedString128Bytes> itemIds = new NativeList<FixedString128Bytes>(Allocator.TempJob);
         Entities
             .WithoutBurst()
-            .ForEach((Entity e, in ResourceItem resource) =>
+            .ForEach((Entity e, ref ResourceItem resource) =>
             {
-                if (resource.holder == Entity.Null)//等待释放
+                if (resource.holder == Entity.Null && !resource.dead)//等待释放
                 {
                     //判断是否落入目标 TODO 值判断chunck中的减少计算
                     for (int i = 0; i < allResourceCollecter.Length; i++)
@@ -121,16 +122,30 @@ partial class CollectResourceSystem : SystemBase
                         var collecterRange = 1 * 1;
                         if (math.distancesq(resource.position, colecterPosition) < collecterRange)
                         {
-                            ecb.RemoveComponent<ResourceItem>(e);
-                            ecb.AddComponent(e, new LifeTime { Value = 30 });
+                            //ecb.RemoveComponent<ResourceItem>(e);bug多线程不同步 dronetarget 中出现找不到组件
+                            resource.dead = true;
+                            ecb.AddComponent(e, new LifeTime { Value = 1 });
                             //debug
-                            ecb.SetComponent(e, new URPMaterialPropertyBaseColor { Value = new float4(0.5f) });
+                            var viewChild = GetBuffer<Child>(collecterEntity)[0].Value;
+                            var tween = new TweenData(TypeOfTween.HdrColor, viewChild, UnityEngine.Color.black.ToFloat4(), 0.1f)
+                                .SetEase(DG.Tweening.Ease.Linear)
+                                .FromValue(UnityEngine.Color.white.ToFloat4());
+                            TweenCreateSystem.AddTweenComponent<TweenHDRColorComponent>(ecb, tween);
+                            itemIds.Add(GetComponent<WorldItem>(e).itemGuid);
                         }
                     }
                 }
             }).Schedule();
-
+        Dependency.Complete();
         Dependency = allResourceCollecter.Dispose(Dependency);
+
         _endEcbSys.AddJobHandleForProducer(Dependency);
+
+        for (int i = 0; i < itemIds.Length; i++)
+        {
+            var guid = itemIds[i];
+            InventoryManager.Instance.AddItem(guid.ToString());
+        }
+        Dependency = itemIds.Dispose(Dependency);
     }
 }

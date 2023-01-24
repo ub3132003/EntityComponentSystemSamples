@@ -37,11 +37,12 @@ public class GameEntityAssetManager : Singleton<GameEntityAssetManager>
     /// <returns></returns>
     public Entity GetPrimaryEntity(GameObject obj)
     {
-        var type = PrefabUtility.GetPrefabAssetType(obj);
-        var status = PrefabUtility.GetPrefabInstanceStatus(obj);
-        // 是否为预制体实例判断
-        Assert.IsTrue(type == PrefabAssetType.NotAPrefab || status == PrefabInstanceStatus.NotAPrefab, "obj must be an asset prefab");
-
+//#if UNITY_EDITOR
+//        var type = PrefabUtility.GetPrefabAssetType(obj);
+//        var status = PrefabUtility.GetPrefabInstanceStatus(obj);
+//        // 是否为预制体实例判断
+//        Assert.IsTrue(type == PrefabAssetType.NotAPrefab || status == PrefabInstanceStatus.NotAPrefab, "obj must be an asset prefab");
+//#endif
         Entity readyPlaceEntityPrefab;
         //避免重复转换实体
         if (PerfabEntityDict.TryGetValue(obj, out readyPlaceEntityPrefab))

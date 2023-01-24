@@ -4306,6 +4306,7 @@ GameObject:
   - component: {fileID: 579678573}
   - component: {fileID: 579678575}
   - component: {fileID: 579678576}
+  - component: {fileID: 579678577}
   m_Layer: 0
   m_Name: GameFooManager
   m_TagString: Untagged
@@ -4375,6 +4376,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7bb4587405b5e2c44aa01fba0a3651d8, type: 2}
   - {fileID: 11400000, guid: 808e115e86453c24bbb3474e80937679, type: 2}
   - {fileID: 11400000, guid: c7cd56af805b7284d94e9758f1c66cf6, type: 2}
+--- !u!114 &579678577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579678572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4503c5f531135864abbc7ebdf7190190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentInventory: {fileID: 11400000, guid: 9e27f863735f4a64994330fb50e871ab, type: 2}
+  _useItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
+  _equipItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
+  _giveItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
+  _addItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
+  _removeItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
+  database:
+  - {fileID: 11400000, guid: 4083ae4cd806ef349a6f88c1c257fd1e, type: 2}
+  - {fileID: 11400000, guid: 2755629e9c0814d4695542bf091124d9, type: 2}
 --- !u!1 &586979194
 GameObject:
   m_ObjectHideFlags: 0
@@ -12309,7 +12331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1538101513
 MonoBehaviour:
   m_ObjectHideFlags: 0

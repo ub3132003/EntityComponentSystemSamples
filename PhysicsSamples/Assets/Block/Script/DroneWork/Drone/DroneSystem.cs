@@ -81,7 +81,7 @@ partial class DroneSystem : SystemBase
                 .WithName("FindFreeResource")
                 .ForEach((Entity e, in ResourceItem resource) =>
                 {
-                    if (resource.holder == Entity.Null)
+                    if (resource.holder == Entity.Null && resource.dead == false)
                     {
                         freeResourcesEntity.Add(e);
                     }

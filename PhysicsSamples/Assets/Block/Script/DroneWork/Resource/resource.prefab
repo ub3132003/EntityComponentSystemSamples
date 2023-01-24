@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7877741127919988370}
   - component: {fileID: 4932753395368605420}
   - component: {fileID: 8103779062209596413}
-  - component: {fileID: 5639013251325433447}
+  - component: {fileID: -3601384378181029804}
   - component: {fileID: 1437420102552996498}
   m_Layer: 0
   m_Name: resource
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5639013251325433447
+--- !u!114 &-3601384378181029804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,14 +94,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2452097035912735946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b6467bcd530cd4d809fae70ea0ca9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1638a91b95dfec24cad396ebfaaf094f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value:
-    x: 1
-    y: 1
-    z: 1
-    w: 1
+  ResouceItem: {fileID: 11400000, guid: 747ff271140769b44a83aabd219e6d72, type: 2}
+  ItemMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  ItemMatrial: {fileID: 2100000, guid: 15f96491b9254924ab8ad3982e58557b, type: 2}
 --- !u!114 &1437420102552996498
 MonoBehaviour:
   m_ObjectHideFlags: 0

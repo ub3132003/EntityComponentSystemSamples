@@ -17,27 +17,24 @@ public class LifeTimeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new LifeTime { Value = Value });
 }
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-[UpdateBefore(typeof(BuildPhysicsWorld))]
 public partial class LifeTimeSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        using (var commandBuffer = new EntityCommandBuffer(Allocator.TempJob))
-        {
-            Entities
-                .WithName("DestroyExpiredLifeTime")
-                .ForEach((Entity entity, ref LifeTime timer) =>
+        var sys = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
+        var commandBuffer = sys.CreateCommandBuffer();
+
+        Entities
+            .WithName("DestroyExpiredLifeTime")
+            .ForEach((Entity entity, ref LifeTime timer) =>
+            {
+                timer.Value -= 1;
+
+                if (timer.Value < 0f)
                 {
-                    timer.Value -= 1;
-
-                    if (timer.Value < 0f)
-                    {
-                        commandBuffer.DestroyEntity(entity);
-                    }
-                }).Run();
-
-            commandBuffer.Playback(EntityManager);
-        }
+                    commandBuffer.DestroyEntity(entity);
+                }
+            }).Schedule();
+        sys.AddJobHandleForProducer(Dependency);
     }
 }
