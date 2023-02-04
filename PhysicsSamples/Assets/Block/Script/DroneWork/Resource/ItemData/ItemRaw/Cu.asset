@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cu
   m_EditorClassIdentifier: 
   _guid: b1008e94c227db64d8321221081739b9
-  _previewImage: {fileID: 714821173, guid: 0c1e734fa85636743af3bc22c6d99ba8, type: 3}
+  _previewImage: {fileID: -1902491857, guid: 0c1e734fa85636743af3bc22c6d99ba8, type: 3}
   _name:
     m_TableReference:
       m_TableCollectionName: GUID:9fe572be452cd2e488bfa531123106a5

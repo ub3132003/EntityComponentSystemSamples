@@ -4389,6 +4389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentInventory: {fileID: 11400000, guid: 9e27f863735f4a64994330fb50e871ab, type: 2}
+  inventoryUi: {fileID: 0}
   _useItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
   _equipItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
   _giveItemEvent: {fileID: 11400000, guid: 893dab628ef68b643bc676719e8e23aa, type: 2}
