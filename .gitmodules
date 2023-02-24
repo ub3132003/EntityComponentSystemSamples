@@ -4,3 +4,6 @@
 [submodule "PhysicsSamples/Assets/submod/inventorySytem"]
 	path = PhysicsSamples/Assets/submod/inventorySytem
 	url = https://gitee.com/iceRabbit/inventory-sytem.git
+[submodule "PhysicsSamples/Assets/submod/genTerrain"]
+	path = PhysicsSamples/Assets/submod/genTerrain
+	url = https://gitee.com/iceRabbit/gen-terrain-map.git

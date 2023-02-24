@@ -46,7 +46,7 @@ partial class ResourceSpawnSystem : SpawnRandomObjectsSystemBase<SpawnResourceSe
             snapStiffness = spawnSettings.snapStiffness,
             carryStiffness = spawnSettings.carryStiffness,
         });
-        EntityManager.RemoveComponent<Rotation>(instance);
-        EntityManager.RemoveComponent<Translation>(instance);
+        //EntityManager.RemoveComponent<Rotation>(instance);
+        //EntityManager.RemoveComponent<Translation>(instance);
     }
 }

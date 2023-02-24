@@ -2,8 +2,10 @@ using Unity.Assertions;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics.Authoring;
 using Unity.Transforms;
-
+using UnityEngine.Rendering;
+using static Codice.Client.BaseCommands.Import.Commit;
 
 namespace Unity.Physics.Extensions
 {
@@ -167,5 +169,34 @@ namespace Unity.Physics.Extensions
         }
 
         #endregion
+
+        public static void ChangeMotionType(EntityCommandBuffer commandBuffer, EntityManager em, Entity entity, BodyMotionType motionType , bool setVelocityToZero = false)
+        {
+            switch (motionType)
+            {
+                case BodyMotionType.Dynamic:
+                    // a dynamic body has PhysicsVelocity and PhysicsMassOverride is disabled if it exists
+                    if (!em.HasComponent<PhysicsVelocity>(entity))
+                        commandBuffer.AddComponent(entity, new PhysicsVelocity());
+                    if (em.HasComponent<PhysicsMassOverride>(entity))
+                        commandBuffer.SetComponent(entity, new PhysicsMassOverride { IsKinematic = 0, SetVelocityToZero = (byte)(setVelocityToZero ? 1 : 0) });
+
+                    break;
+                case BodyMotionType.Kinematic:
+                    // a static body has PhysicsVelocity and PhysicsMassOverride is enabled if it exists
+                    // note that a 'kinematic' body is really just a dynamic body with infinite mass properties
+                    // hence you can create a persistently kinematic body by setting properties via PhysicsMass.CreateKinematic()
+                    if (!em.HasComponent<PhysicsVelocity>(entity))
+                        commandBuffer.AddComponent(entity, new PhysicsVelocity());
+                    if (em.HasComponent<PhysicsMassOverride>(entity))
+                        commandBuffer.SetComponent(entity, new PhysicsMassOverride { IsKinematic = 1, SetVelocityToZero = (byte)(setVelocityToZero ? 1 : 0) });
+                    break;
+                case BodyMotionType.Static:
+                    // a static body is one with a PhysicsCollider but no PhysicsVelocity
+                    if (em.HasComponent<PhysicsVelocity>(entity))
+                        commandBuffer.RemoveComponent<PhysicsVelocity>(entity);
+                    break;
+            }
+        }
     }
 }

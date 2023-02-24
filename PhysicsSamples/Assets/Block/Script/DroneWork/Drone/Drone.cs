@@ -86,4 +86,7 @@ public struct DroneSettings : ISharedComponentData
     public float attackForce;
     public float hitDistance;
     public float maxSpawnSpeed;
+
+    //活动范围的起点，出声位置
+    public float3 SpawnPosition;
 }

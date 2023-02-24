@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics.Authoring;
 using Unity.Physics.Stateful;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -18,6 +19,7 @@ public partial class ResourceItemSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        var em = EntityManager;
         Field field = new Field
         {
             size = new float3(100f, 20f, 30f),
@@ -36,13 +38,16 @@ public partial class ResourceItemSystem : SystemBase
             Entities
                 .WithoutBurst()
                 .WithSharedComponentFilter(setting)
-                .ForEach((Entity e, ref ResourceItem resource) =>
+                .ForEach((Entity e, ref ResourceItem resource, in LocalToWorld localToWorld) =>
                 {
+                    if (resource.dead) return;
+                    //删除掉出去的东西
+                    if (localToWorld.Position.y < -10) { resource.dead = true; ecb.AddComponent(e, new LifeTime { Value = 1 }); }
                     //接受资源处理的地方
-
                     if (resource.holder != Entity.Null)
                     {
                         var holder = GetComponent<Drone>(resource.holder);
+                        Unity.Physics.Extensions.PhysicsSamplesExtensions.ChangeMotionType(ecb, em, e, BodyMotionType.Kinematic, true);
                         if (holder.dead)
                         {
                             resource.holder = Entity.Null;
@@ -54,35 +59,25 @@ public partial class ResourceItemSystem : SystemBase
                             resource.velocity = holder.velocity;
                         }
                     }
-                    else if (resource.stacked == false)
+                    else
                     {
-                        //resource.position = math.lerp(resource.position, NearestSnappedPos(resource.position), snapStiffness * Time.deltaTime);
-                        resource.velocity.y += field.gravity * deltaTime;
-                        resource.position += resource.velocity * deltaTime;
-                        //GetGridIndex(resource.position, out resource.gridX, out resource.gridY);
-                        //float floorY = GetStackPos(resource.gridX, resource.gridY, stackHeights[resource.gridX, resource.gridY]).y;
-                        for (int j = 0; j < 3; j++)
-                        {
-                            if (System.Math.Abs(resource.position[j]) > field.size[j] * .5f)
-                            {
-                                resource.position[j] = field.size[j] * .5f * math.sign(resource.position[j]);
-                                resource.velocity[j] *= -.5f;
-                                resource.velocity[(j + 1) % 3] *= .8f;
-                                resource.velocity[(j + 2) % 3] *= .8f;
-                            }
-                        }
+                        resource.position = localToWorld.Position;
                     }
                 }).Schedule();
 
             Entities
                 .WithSharedComponentFilter(setting)
-                .ForEach((ref LocalToWorld localToWorld, in ResourceItem resource) =>
+                .ForEach((ref Translation translation, ref Rotation rotation, in ResourceItem resource) =>
                 {
-                    float3 scale = new float3(resourceSize, resourceSize * .5f, resourceSize);
-                    localToWorld = new LocalToWorld
-                    {
-                        Value = float4x4.TRS(resource.position, quaternion.identity, scale)
-                    };
+                    if (resource.holder == Entity.Null)
+                    { return; }
+                    //float3 scale = new float3(resourceSize, resourceSize * .5f, resourceSize);
+                    //localToWorld = new LocalToWorld
+                    //{
+                    //    Value = float4x4.TRS(resource.position, quaternion.identity, scale)
+                    //};
+                    translation.Value = resource.position;
+                    rotation.Value = quaternion.identity;
                 }).Schedule();
         }
 

@@ -6,6 +6,7 @@ using Unity.Transforms;
 using System.Collections.Generic;
 using Latios;
 using Unity.Collections;
+using System.Diagnostics;
 
 [UpdateInGroup(typeof(SimulationSystemGroup))]
 [UpdateBefore(typeof(ResourceItemSystem))]
@@ -184,17 +185,17 @@ partial class DroneSystem : SystemBase
 
                     bee.position += deltaTime * bee.velocity;
 
-                    //防止偏离中心区域
-                    if (System.Math.Abs(bee.position.x) > field.size.x * .5f)
+                    //防止偏离中心区域,droneSetting.SpawnPosition必须是正值
+                    if (System.Math.Abs(bee.position.x) > field.size.x * .5f + droneSetting.SpawnPosition.x)
                     {
-                        bee.position.x = (field.size.x * .5f) * math.sign(bee.position.x);
+                        bee.position.x = (field.size.x * .5f + droneSetting.SpawnPosition.x) * math.sign(bee.position.x);
                         bee.velocity.x *= -.5f;
                         bee.velocity.y *= .8f;
                         bee.velocity.z *= .8f;
                     }
-                    if (System.Math.Abs(bee.position.z) > field.size.z * .5f)
+                    if (System.Math.Abs(bee.position.z) > field.size.z * .5f + droneSetting.SpawnPosition.z)
                     {
-                        bee.position.z = (field.size.z * .5f) * math.sign(bee.position.z);
+                        bee.position.z = (field.size.z * .5f + droneSetting.SpawnPosition.z) * math.sign(bee.position.z);
                         bee.velocity.z *= -.5f;
                         bee.velocity.x *= .8f;
                         bee.velocity.y *= .8f;
@@ -204,9 +205,9 @@ partial class DroneSystem : SystemBase
                     {
                         resourceModifier = 0.75f;//source size
                     }
-                    if (System.Math.Abs(bee.position.y) > field.size.y * .5f - resourceModifier)
+                    if (System.Math.Abs(bee.position.y) > field.size.y * .5f - resourceModifier + droneSetting.SpawnPosition.y)
                     {
-                        bee.position.y = (field.size.y * .5f - resourceModifier) * math.sign(bee.position.y);
+                        bee.position.y = (field.size.y * .5f - resourceModifier + droneSetting.SpawnPosition.y) * math.sign(bee.position.y);
                         bee.velocity.y *= -.5f;
                         bee.velocity.z *= .8f;
                         bee.velocity.x *= .8f;

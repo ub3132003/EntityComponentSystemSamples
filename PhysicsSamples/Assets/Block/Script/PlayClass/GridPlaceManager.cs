@@ -92,7 +92,7 @@ public class GridPlaceManager : Singleton<GridPlaceManager>
             {
                 if (_entityManager.HasComponent<EntityEventComponent>(_currentEntity))
                 {
-                    var entityEvent = _entityManager.GetSharedComponentData<EntityEventComponent>(_currentEntity);
+                    var entityEvent = _entityManager.GetSharedComponentManaged<EntityEventComponent>(_currentEntity);
                     entityEvent.entityEvent?.RaiseEvent(_currentEntity);
                 }
             }

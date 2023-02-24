@@ -159,10 +159,8 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
                 for (int i = 0; i < count; i++)
                 {
                     var instance = instances[i];
-                    var localToWorld = float4x4.TRS(positions[i], rotations[i], new float3(1, 1, 1));
-
-                    EntityManager.SetComponentData(instance, new LocalToWorld { Value = localToWorld});
-
+                    EntityManager.SetComponentData(instance, new Translation { Value = positions[i] });
+                    EntityManager.SetComponentData(instance, new Rotation { Value = rotations[i] });
                     ConfigureInstance(instance, ref spawnSettings, positions[i], rotations[i]);
                 }
 
@@ -227,13 +225,6 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
     protected static void RandomGrid(float3 center, float3 range,
         ref NativeArray<float3> positions,  int seed = 0)
     {
-        TerrainGeneration.NoiseSettings terrainNoise = new TerrainGeneration.NoiseSettings();
-        terrainNoise.seed = seed;
-        terrainNoise.numLayers = (int)range.y;
-
-        var numTilesPerLine = (int)math.max(range.x, range.z);
-        float[,] map = TerrainGeneration.HeightmapGenerator.GenerateHeightmap(terrainNoise, numTilesPerLine);
-
         var count = positions.Length;
 
         // 可能数量不足 count个 //bug l
@@ -245,7 +236,7 @@ public abstract partial class SpawnRandomObjectsSystemBase<T> : SystemBase where
             {
                 if (i >= count) return;
                 int y = 0;
-                y = (int)(map[x, z] * range.y);
+                y = (int)(Mathf.PerlinNoise(x, z) * range.y);
                 if (y == 0)
                 {
                     continue;
